@@ -4,16 +4,16 @@ from flask import Flask, current_app, jsonify, render_template
 
 app = Flask(__name__)
 
-with open(Path("../data/pokemons.json"), "r", encoding="utf-8") as f:
+with open(Path("data\pokemon.json"), "r", encoding="utf-8") as f:
     app.config["DATA"]=json.load(f)
     
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('pokemons')
+@app.route('/pokemons')
 def pokemons():
-    return jsonify(current_app.config["data"]) 
+    return jsonify(current_app.config["DATA"]) 
 
 if __name__=='__main__':
     app.run('0.0.0.0', 8080)
