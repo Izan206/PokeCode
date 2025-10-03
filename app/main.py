@@ -1,9 +1,19 @@
-from flask import Flask, render_template
+from pathlib import Path
+import json
+from flask import Flask, current_app, jsonify, render_template
+
 app = Flask(__name__)
 
+with open(Path("../data/pokemons.json"), "r", encoding="utf-8") as f:
+    app.config["DATA"]=json.load(f)
+    
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('pokemons')
+def pokemons():
+    return jsonify(current_app.config["data"]) 
 
 if __name__=='__main__':
     app.run('0.0.0.0', 8080)
