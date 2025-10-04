@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/css/style.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='/images/iconoPokeCode.png') }}">
     <title>PokeCode</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <header>
-      <div class="header-container">
-        <h1 class="title">POKECODE</h1>
-        <div class="welcome-message">
-          <p>
-            Welcome to <b>PokeCode</b>! We hope you enjoy battling your favorite
-            Pokémon one-on-one.
-          </p>
+        <div class="header-container">     
+            <div class="welcome-container">
+                <p id="text"></p>
+            </div>
+            <script>
+                const mensaje = "Welcome to PokeCode! We hope you enjoy battling your favorite Pokémon one-on-one. Get ready to fight, now!";
+                let index = 0;
+                const velocity = 30; // milliseconds between each letter
+
+                function write() {
+                    if (index < mensaje.length) {
+                        document.getElementById("text").innerHTML += mensaje[index];
+                        index++;
+                        setTimeout(write, velocity);
+                    }
+                }
+                write();
+            </script>
         </div>
-      </div>
     </header>
-    <main>
-      <div class="main-container">
-        <div class="button-start">
-          <a href="#">Press ENTER to start</a>
-        </div>
-      </div>
+    <main>     
+        <p class="start-text">Click to start</p>    
+        <form action="/pokemons" method="get">
+            <input type="submit" id="click-action" value="Start">
+        </form>
     </main>
     <footer>
-      <div class="footer-container">
-        <p>
-          &copy; 2025 PokeCode. All rights reserved by Izan Álvarez and Axel
-          Cartaya
-        </p>
-      </div>
+        <div class="footer-container">
+            <p>&copy; 2025 PokeCode. All rights reserved by Izan Álvarez and Axel Cartaya</p>
+        </div>
     </footer>
-  </body>
+</body>
+
 </html>
