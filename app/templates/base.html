@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Mi Sitio{%endblock%}</title>
-</head>
-<body>
-    <main>
-        {%block content%}
-        {%endblock%}
-    </main>
-    <footer>
-        {%block footer%}
-        <p>
-            &copy; 2025 PokeCode. All rights reserved by Izan Álvarez and Axel
-          Cartaya
-        </p>
-        {%endblock%}
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style.css')}}"
+    />
+  </head>
+  <body>
+    <main>{%block content%} {%endblock%}</main>
+
+    <button id="muteBtn">🔇</button>
+    <audio id="backgroundMusic" autoplay loop></audio>
+
+    <footer class="footer-container">
+      {%block footer%}
+      <p>
+        &copy; 2025 PokeCode. All rights reserved by Izan Álvarez and Axel
+        Cartaya
+      </p>
+      {%endblock%}
     </footer>
-</body>
+
+    <script>
+      const musicSrc = "{{ music }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/music.js') }}"></script>
+  </body>
 </html>

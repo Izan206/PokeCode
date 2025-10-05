@@ -84,3 +84,17 @@ body {
     padding: 10px 0;
     color: rgba(230, 230, 146, 0.496);
 }
+
+#muteBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+}

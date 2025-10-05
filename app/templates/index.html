@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='/images/iconoPokeCode.png') }}">
-    <title>PokeCode</title>
-</head>
-
-<body>
+{%extends "base.html"%}
+{%block title%}PokeCode{%endblock%}
+{%block content%}
     <header>
         <div class="header-container">     
             <div class="welcome-container">
@@ -31,17 +22,11 @@
             </script>
         </div>
     </header>
-    <main>     
+   
         <p class="start-text">Click to start</p>    
         <form action="/pokemons" method="get">
             <input type="submit" id="click-action" value="Start">
         </form>
-    </main>
-    <footer>
-        <div class="footer-container">
-            <p>&copy; 2025 PokeCode. All rights reserved by Izan Álvarez and Axel Cartaya</p>
-        </div>
-    </footer>
-</body>
 
-</html>
+    <script></script>
+{%endblock%}
