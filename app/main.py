@@ -9,11 +9,15 @@ with open(Path("data\pokemon.json"), "r", encoding="utf-8") as f:
     
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', music="../app/static/sounds/inicio.mp3")
 
 @app.route('/pokemons')
 def pokemons():
     return jsonify(current_app.config["DATA"]) 
+
+@app.route('/battle')
+def battle():
+    return render_template("battle.html", music="../app/static/sounds/battle.mp3")
 
 if __name__=='__main__':
     app.run('0.0.0.0', 8080)
