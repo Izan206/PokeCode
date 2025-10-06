@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: url("http://www.rw-designer.com/cursor-extern.php?id=143023"), auto;
+}
+
+@font-face {
+    font-family: 'Pokemon X and Y';
+    src: url('../fonts/Pokemon X and Y.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Pokemon X and Y';
+    letter-spacing: 1px;
+}
