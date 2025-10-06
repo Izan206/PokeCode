@@ -1,6 +1,9 @@
 {%extends "base.html"%}
 {%block title%}PokeCode{%endblock%}
+{%block styles%}<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />{%endblock%}
 {%block content%}
+
+
     <header>
         <div class="header-container">     
             <div class="welcome-container">
@@ -24,7 +27,7 @@
     </header>
    
         <p class="start-text">Click to start</p>    
-        <form action="/pokemons" method="get">
+        <form action="/pokedex" method="get">
             <input type="submit" id="click-action" value="Start">
         </form>
 

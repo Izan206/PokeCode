@@ -1,23 +1,28 @@
 from pathlib import Path
 import json
 from flask import Flask, current_app, jsonify, render_template
+from datetime import datetime
 
 app = Flask(__name__)
+app.debug = True   # Activate debug mode
+
+current_year = datetime.now().year
+
 
 with open(Path("data\pokemon.json"), "r", encoding="utf-8") as f:
-    app.config["DATA"]=json.load(f)
-    
+    app.config["DATA"] = json.load(f)
+
+
 @app.route('/')
 def index():
-    return render_template('index.html', music="static/sounds/inicio.mp3")
+    return render_template('index.html', music="static/sounds/inicio.mp3", current_year=current_year)
 
-@app.route('/pokemons')
-def pokemons():
-    return jsonify(current_app.config["DATA"]) 
 
-@app.route('/battle')
-def battle():
-    return render_template("battle.html", music="static/sounds/battle.mp3")
+@app.route('/pokedex')
+def pokedex():
+    pokemon_list = current_app.config["DATA"]
+    return render_template('pokedex.html', pokemon_list=pokemon_list, current_year=current_year)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     app.run('0.0.0.0', 8080)
