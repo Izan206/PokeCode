@@ -1,29 +1,9 @@
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    cursor: url("http://www.rw-designer.com/cursor-extern.php?id=143023"), auto;
-}
-
-/* Custom fonts */
-@font-face {
-    font-family: 'Pokemon X and Y';
-    src: url('../fonts/Pokemon X and Y.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /* Global body styles and background */
 body {
     background-image: url('../images/index-page/zapdos.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    min-height: 100vh;
-    font-family: 'Pokemon X and Y';
-    letter-spacing: 1px;
-    
 }
 
 .welcome-container {
@@ -45,7 +25,7 @@ body {
     border-radius: 4px;
 }
 
-.start-text{
+.start-text {
     color: rgb(230, 230, 146);
     text-align: center;
     font-size: 24px;
@@ -61,40 +41,23 @@ body {
 }
 
 /* Typing animation for welcome text */
-@keyframes blink{
-    0%  {opacity: 0;}
-    50% {opacity: 1;}
-    100%  {opacity: 0;}
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 /* Fullscreen action button */
-#click-action{
+#click-action {
     width: 100%;
     height: 650px;
-    opacity: 0;   
-}
-
-
-/* Footer style*/
-.footer-container {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-    color: rgba(230, 230, 146, 0.496);
-}
-
-#muteBtn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 30px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 15px;
-    cursor: pointer;
-    z-index: 10;
+    opacity: 0;
 }

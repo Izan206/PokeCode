@@ -3,4 +3,21 @@
 {%block styles%}
 <link rel="stylesheet" href="{{url_for('static', filename='css/pokedex.css')}}" />{%endblock%}
 {%block header%} {%endblock%}
-{%block main%} {%endblock%}
+{%block content%} 
+<div class="card_container">
+    {% for pokemon in pokemon_list %}
+        <div class="pokemon_container">
+            <div class="img_container">
+            <img src="{{pokemon.sprites.front_default}}">
+            </div>
+            <p class=name>{{pokemon.name}}</p>
+            <div class="types">
+            {% for tipo in pokemon.types%}
+                <p class="type">{{tipo}}</p> 
+            {%endfor%}    
+            </div>       
+        </div>
+    {% endfor %}
+    </div>
+
+{%endblock%}
