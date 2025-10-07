@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/favicon" href="{{url_for('static', filename='images/index-page/logo.png')}}" alt="Logo">
     <title>{% block title %}Mi Sitio{%endblock%}</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/base.css')}}"
+    />
     {%block styles%} {%endblock%}
-</head>
+  </head>
 
-<body>
+  <body>
     <header>{%block header%}{%endblock%}</header>
-    <main>{%block content%} {%endblock%}</main>
-
-    <button id="muteBtn">🔇</button>
-    <audio id="backgroundMusic" autoplay loop></audio>
+    <main>
+      <button id="muteBtn">🔇</button>
+      <audio id="backgroundMusic" autoplay loop></audio>
+      {%block content%} {%endblock%}
+    </main>
 
     <footer class="footer-container">
-        <p>
-            &copy; {{current_year}} PokeCode. All rights reserved by Izan Álvarez and Axel
-            Cartaya
-        </p>
+      <p>
+        &copy; {{current_year}} PokeCode. All rights reserved by Izan Álvarez
+        and Axel Cartaya
+      </p>
     </footer>
 
     <script>
-        const musicSrc = "{{ music }}";
+      const musicSrc = "{{ music }}";
     </script>
     <script src="{{ url_for('static', filename='js/music.js') }}"></script>
-</body>
-
+  </body>
 </html>
