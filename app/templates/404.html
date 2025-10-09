@@ -2,7 +2,7 @@
 {% block title%} Error 404 {%endblock%}
 {%block styles%}
 <link rel="stylesheet" href="{{url_for('static', filename='css/404.css')}}"/>{%endblock%}
-{%block main%} 
+{%block content%} 
     <p>Error 404 - Page Not Found</p>
-    <img src="..\images\error-page\pikachu.png" alt="Imagen de Pikachu triste">
+    <img src="{{url_for('static', filename='images/error-page/pikachu.png')}}" alt="Imagen de Pikachu triste">
 {%endblock%}

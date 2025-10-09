@@ -59,7 +59,7 @@ body {
 
 .pokemon_container:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px 0px rgb(255, 255, 2);
+    box-shadow: 0 0 10px 5px rgb(255, 255, 2);
 }
 
 .img_container {
@@ -81,6 +81,7 @@ hr {
     background-color: yellow;
 }
 
+
 main {
     padding: 5rem;
     margin: 0 auto;
@@ -90,6 +91,11 @@ main {
     border: 20px double #F8D030;
     border-radius: 1rem;
 }
+
+
+.id{
+    margin-top: 8px;
+} 
 
 .name {
     margin-top: 0.5rem;

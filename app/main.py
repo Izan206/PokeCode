@@ -28,17 +28,17 @@ def pokedex():
 def error404():
     return render_template('404.html')
 
-
-
-# @app.route("/pokedex/<int:id>")
-# def pokemon_detail(pokemon_id):
-#     pokemon_list=current_app.config('pokemon_list')
-#     pokemon=None
-#     for p in pokemon_list:
-#         if pokemon.id=pokemon_id:
-#             pokemon=p
+@app.route("/pokedex/<int:pokemon_id>")
+def pokemon_details(pokemon_id):
+    pokemon_list=current_app.config["DATA"]
+    pokemon=None
+    for p in pokemon_list:
+        if p['id']==pokemon_id:
+            pokemon=p
+        elif pokemon==None:
+            return render_template("404.html")
             
-#     return render_template("product_details.html", pokemon=pokemon)
+    return render_template("pokemon_details.html", pokemon=pokemon)
             
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080)

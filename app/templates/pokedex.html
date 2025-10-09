@@ -3,27 +3,34 @@
   rel="stylesheet"
   href="{{url_for('static', filename='css/pokedex.css')}}"
 />
-{%endblock%} 
-{%block header%}
+{%endblock%} {%block header%}
 <div class="header-container">
-        <a href="{{url_for('index')}}">
-            <img src="{{url_for('static', filename='images/index-page/logo1.png')}}" alt="Logo de PokeCode">
-        </a>
-    </div>
+  <a href="{{url_for('index')}}">
+    <img
+      src="{{url_for('static', filename='images/index-page/logo1.png')}}"
+      alt="Logo de PokeCode"
+    />
+  </a>
+</div>
 {%endblock%} {%block content%}
 <div class="card_container">
   {% for pokemon in pokemon_list %}
-  <div class="pokemon_container">
-    <div class="img_container">
-      <img src="{{pokemon.sprites.front_default}}" />
+  <a href="{{url_for('pokemon_details', pokemon_id=pokemon.id)}}">
+    <div class="pokemon_container">
+      <div class="img_container">
+        <img src="{{pokemon.sprites.front_default}}" />
+      </div>
+      <div class="id_name_container">
+        <p class="id">#{{pokemon.id}}</p>
+        <p class="name">{{pokemon.name}}</p>
+      </div>
+      <div class="types">
+        {% for tipo in pokemon.types%}
+        <p class="type {{ tipo }}">{{tipo}}</p>
+        {%endfor%}
+      </div>
     </div>
-    <p class="name">{{pokemon.name}}</p>
-    <div class="types">
-      {% for tipo in pokemon.types%}
-      <p class="type {{ tipo }}">{{tipo}}</p>
-      {%endfor%}
-    </div>
-  </div>
+  </a>
   {% endfor %}
 </div>
 
