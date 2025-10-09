@@ -1,9 +1,12 @@
-{% extends "base.html" %} {% block title%}Pokedex{%endblock%} {%block styles%}
+{% extends "base.html" %} 
+{% block title%}Pokedex{%endblock%} 
+{%block styles%}
 <link
   rel="stylesheet"
   href="{{url_for('static', filename='css/pokedex.css')}}"
 />
-{%endblock%} {%block header%}
+{%endblock%} 
+{%block header%}
 <div class="header-container">
   <a href="{{url_for('index')}}">
     <img
@@ -12,7 +15,8 @@
     />
   </a>
 </div>
-{%endblock%} {%block content%}
+{%endblock%} 
+{%block content%}
 <div class="card_container">
   {% for pokemon in pokemon_list %}
   <a href="{{url_for('pokemon_details', pokemon_id=pokemon.id)}}">

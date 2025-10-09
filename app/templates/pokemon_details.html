@@ -1,11 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>Hola mundo</p>
-</body>
-</html>
+{%extends "base.html"%}
+
+{% block title%}{{pokemon.name}}{%endblock%} 
+
+{%block styles%}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/pokemon_details.css')}}"
+/>
+{%endblock%}
+
+{%block header%}
+<div class="header-container">
+    <a href="{{url_for('index')}}">
+    <img src="{{url_for('static', filename='images/index-page/logo1.png')}}"
+      alt="Logo de PokeCode"/>
+    </a>
+    <div class="nav">
+        <a href="{{url_for('index')}}">Home</a>
+        <a href="{{url_for('pokedex')}}">Pokedex</a>
+
+    </div>
+</div>
+{%endblock%} 
+
+{%block content%}
+<div class="pokemon_container">
+    <div class="img_container">
+        <img src="{{pokemon.sprites.front_default}}" alt="">
+    </div>
+    <p class="id">{{pokemon.id}}</p>
+    <p class="name">{{pokemon.name}}</p>
+    <p class="types">
+        {% for tipo in pokemon.types%}
+    <p class="type {{ tipo }}">{{tipo}}</p>
+    {%endfor%}
+    </p>
+    <p class="height">Height: {{pokemon.height/10}} m</p>
+    <p class="weight">Weight: {{pokemon.weight/10}} kg</p>
+
+
+</div>
+{%endblock%} 

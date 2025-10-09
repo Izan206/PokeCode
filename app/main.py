@@ -35,9 +35,8 @@ def pokemon_details(pokemon_id):
     for p in pokemon_list:
         if p['id']==pokemon_id:
             pokemon=p
-        elif pokemon==None:
+    if pokemon==None:
             return render_template("404.html")
-            
     return render_template("pokemon_details.html", pokemon=pokemon)
             
 if __name__ == '__main__':
