@@ -14,6 +14,11 @@ body {
 
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .header-container {
     min-height: 120px;
 }
@@ -93,9 +98,9 @@ main {
 }
 
 
-.id{
+.id {
     margin-top: 8px;
-} 
+}
 
 .name {
     margin-top: 0.5rem;
@@ -127,10 +132,12 @@ main {
 
 .fighting {
     background-color: #C03028;
+
 }
 
 .fire {
     background-color: #F08030;
+    border-color: #C03028;
 }
 
 .flying {
