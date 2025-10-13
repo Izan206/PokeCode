@@ -11,14 +11,19 @@
         </div>
     </header>
     <main>
-        <div class="form-container">
-            <form action="POST">
-                <label for="trainer">Trainer: </label>
-                <input type="text" name="trainer" id="trainer">
+         <div class="form-container">
+            <form action="/trainer" method="POST">
+                <div class="trainer-container">
+                    <label for="trainer">TRAINER </label>
+                    <input type="text" name="trainer" id="trainer" placeholder="Introduce your nickname">
+                    
+                </div>
+                <p class="error">{{error}}</p>
                 <p class="start-text">Click to start</p>
                 <input type="submit" id="click-action" value="Start">
             </form>
         </div>
+        
         <!-- <p class="start-text">Click to start</p>    
         <form action="/pokedex" method="get">
         <input type="submit" id="click-action" value="Start">
