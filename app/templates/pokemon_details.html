@@ -1,81 +1,89 @@
-{%extends "base.html"%}
-
-{% block title%}{{pokemon.name}}{%endblock%}
-
+{%extends "base.html"%} 
+{% block title%}{{pokemon.name}}{%endblock%} 
 {%block styles%}
-<link rel="stylesheet" href="{{url_for('static', filename='css/pokemon_details.css')}}" />
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/pokemon_details.css')}}"
+/>
+{%endblock%} 
+{%block header%}
+
+    <div class="back-button-container">
+        <a href="{{url_for('pokedex')}}">
+            <img src="{{url_for('static', filename='images/pokemon_details-page/flecha.png')}}" alt="">
+        </a>
+    </div>
+
+    
 {%endblock%}
-
-
-
 {%block content%}
 <div class="pokemon-container">
-    <div class="img-container">
-        <img src="{{pokemon.sprites.front_default}}" alt="">
+  <div class="img-container">
+    <img src="{{pokemon.sprites.front_default}}" alt="">
+  </div>
+  <div class="name-container">
+    <p class="name-id">{{pokemon.name}} #{{pokemon.id}}</p>
+  </div>
+  <div class="data">
+    <h1 id="title">Pokemon Data</h1>
+    <div class="types">
+      <div>Type</div>
+      {% for tipo in pokemon.types%}
+      <h2 class="type {{ tipo }}">{{tipo}}</h2>
+      {%endfor%}
     </div>
-    <div class="name-container">
-        <p class="name-id">{{pokemon.name}} #{{pokemon.id}}</p>
+    <div class="height">
+      <div>Height</div>
+      <h2>{{pokemon.height/10}} m</h2>
     </div>
-    <div class="data">
-        <h1 id="title">Pokemon Data</h1>
-        <div class="types">
-            <div>Type</div>
-            {% for tipo in pokemon.types%}
-            <h2 class="type {{ tipo }}">{{tipo}}</h2>
-            {%endfor%}
-        </div>
-        <div class="height">
-            <div>Height</div>
-            <h2>{{pokemon.height/10}} m</h2>
-        </div>
-        <div class="weight">
-            <div>Weight</div>
+    <div class="weight">
+      <div>Weight</div>
 
-            <h2>{{pokemon.weight/10}} kg </h2>
-            {# weight < 10kg='lightweight' #} {# weight between 10kg and 100kg='normal' #} {# weight> 100kg = 'heavy' #}
-                {% if pokemon.weight < 100 %} <p>(lightweight)</p>
-                    {%elif pokemon.weight >= 100 and pokemon.weight < 1000%} <p>(normal)</p>
-                        {% elif pokemon.weight >= 1000%}
-                        <p>(heavy)</p>
-                        {% endif %}
-        </div>
+      <h2>{{pokemon.weight/10}} kg</h2>
+      {# weight < 10kg='lightweight' #} {# weight between 10kg and
+      100kg='normal' #} {# weight> 100kg = 'heavy' #} {% if pokemon.weight < 100
+      %}
+      <p>(lightweight)</p>
+      {%elif pokemon.weight >= 100 and pokemon.weight < 1000%}
+      <p>(normal)</p>
+      {% elif pokemon.weight >= 1000%}
+      <p>(heavy)</p>
+      {% endif %}
     </div>
-    <div class="stats-container">
-        <h1>Base Points</h1>
-        <div class="stats-grid">
-            {% for stat in pokemon.stats %}
-            <div class="stat-column">
-                <div class="stat-bars-container">
-                    {% set porcentaje = (stat.value / 150 * 100) | round(1) %}
-                    {% set barras_llenas = ((stat.value / 150) * 20) | int %}
-
-                    {% for i in range(20) %}
-                    {% if i < (20 - barras_llenas) %} <div class="bar">
-                </div>
-                {% else %}
-                <div class="bar">
-                    <div class="bar-fill"></div>
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-            <div class="stat-name">{{ stat.name | replace('-', ' ') | title }}</div>
-            <div class="stat-value">{{ stat.value }}</div>
+  </div>
+  <div class="stats-container">
+    <h1>Base Points</h1>
+    <div class="stats-grid">
+      {% for stat in pokemon.stats %}
+      <div class="stat-column">
+        <div class="stat-bars-container">
+          {% set porcentaje = (stat.value / 150 * 100) | round(1) %} {% set
+          barras_llenas = ((stat.value / 150) * 20) | int %} {% for i in
+          range(20) %} {% if i < (20 - barras_llenas) %}
+          <div class="bar"></div>
+          {% else %}
+          <div class="bar">
+            <div class="bar-fill"></div>
+          </div>
+          {% endif %} {% endfor %}
         </div>
-        {% endfor %}
+        <div class="stat-name">{{ stat.name | replace('-', ' ') | title }}</div>
+        <div class="stat-value">{{ stat.value }}</div>
+      </div>
+      {% endfor %}
     </div>
     <div class="moves-container">
-        <h2>Moves</h2>
-        {% for move in pokemon.moves %}
-        <div class="move-container {{ move.type }}">
-            <p class="name">{{move.name}}</p>
-            <p class="accuracy">accuracy: {{move.accuracy}}</p>
-            <p class="power">power: {{move.power}}</p>
-            <p class="type {{move.type}}">{{move.type}}</p>
-
-        </div>
-        {% endfor %}
+      <h2>Moves</h2>
+      {% for move in pokemon.moves %}
+      <div class="move-container {{ move.type }}">
+        <p class="name">{{move.name}}</p>
+        <p class="accuracy">accuracy: {{move.accuracy}}</p>
+        <p class="power">power: {{move.power}}</p>
+        <p class="type {{move.type}}">{{move.type}}</p>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </div>
-</div>
+
 {%endblock%}
