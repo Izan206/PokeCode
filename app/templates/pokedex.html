@@ -17,9 +17,17 @@
 </div>
 {%endblock%} 
 {%block content%}
+<p class="trainer">Trainer: {{trainer}}</p>
+<div class="browser">
+  <form action="{{url_for('pokemon_selected', trainer=trainer)}}" method="post">
+    <label for="search"> Choose your pokemon </label>
+    <input type="text" name="search" id="search" placeholder="Your favourite pokemon...">
+    <button type="submit" class="enter-button">Enter</button>
+  </form>
+</div>
 <div class="card_container">
   {% for pokemon in pokemon_list %}
-  <a href="{{url_for('pokemon_details', pokemon_id=pokemon.id)}}">
+  <a href="{{url_for('pokemon_details', pokemon_id=pokemon.id, trainer=trainer)}}">
     <div class="pokemon_container">
       <div class="img_container">
         <img src="{{pokemon.sprites.front_default}}" />

@@ -11,7 +11,7 @@ body {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 30px;
-
+    margin-top: 150px;
 }
 
 a {
@@ -193,4 +193,36 @@ main {
 
 #muteBtn {
     position: absolute;
+}
+
+.trainer {
+    background-color: yellow;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    position: absolute;
+    top: 170px;
+    padding: 5px;
+    border-radius: 0.6rem;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 0, 0.4);
+    text-transform: capitalize;
+}
+
+.browser {
+    height: 80px;
+    background-color: yellow;
+    color: black;
+    text-align: center;
+    position: absolute;
+    top: 260px;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 15px;
+    border-radius: 0.6rem;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 0, 0.4);
+    text-transform: capitalize;
+}
+
+.browser > form {
+    display: flex;
+    flex-direction: column;
 }
