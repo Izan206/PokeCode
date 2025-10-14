@@ -1,28 +1,22 @@
-{% extends "base.html" %} 
-{% block title%}Pokedex{%endblock%} 
+{% extends "base.html" %}
+{% block title%}Pokedex{%endblock%}
 {%block styles%}
-<link
-  rel="stylesheet"
-  href="{{url_for('static', filename='css/pokedex.css')}}"
-/>
-{%endblock%} 
+<link rel="stylesheet" href="{{url_for('static', filename='css/pokedex.css')}}" />
+{%endblock%}
 {%block header%}
 <div class="header-container">
   <a href="{{url_for('index')}}">
-    <img
-      src="{{url_for('static', filename='images/index-page/logo1.png')}}"
-      alt="Logo de PokeCode"
-    />
+    <img src="{{url_for('static', filename='images/index-page/logo1.png')}}" alt="Logo de PokeCode" />
   </a>
 </div>
-{%endblock%} 
+{%endblock%}
 {%block content%}
-<p class="trainer">Trainer: {{trainer}}</p>
-<div class="browser">
+<div class="flex">
+  <p class="trainer">Trainer: {{trainer}}</p>
   <form action="{{url_for('pokemon_selected', trainer=trainer)}}" method="post">
-    <label for="search"> Choose your pokemon </label>
-    <input type="text" name="search" id="search" placeholder="Your favourite pokemon...">
-    <button type="submit" class="enter-button">Enter</button>
+
+    <input type="text" name="search" id="search" placeholder="Pick your Pokémon">
+    <button type="submit" class="enter-button">Start</button>
   </form>
 </div>
 <div class="card_container">
