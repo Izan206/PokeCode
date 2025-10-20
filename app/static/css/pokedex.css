@@ -11,7 +11,7 @@ body {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 30px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 a {
@@ -256,4 +256,10 @@ form button {
     padding: 5px;
     background-color: #efdf9e;
     border: 1px solid #F8D030;
+}
+
+#error {
+    color: red;
+    text-align: right;
+    padding-top: 10px;
 }

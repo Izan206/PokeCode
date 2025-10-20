@@ -16,9 +16,12 @@
   <form action="{{url_for('pokemon_selected', trainer=trainer)}}" method="post">
 
     <input type="text" name="search" id="search" placeholder="Pick your Pokémon">
-    <button type="submit" class="enter-button">Start</button>
+    <button type="submit" class="enter-button">Start</button>  
   </form>
 </div>
+{% if mensaje_error is not none %}
+  <p id="error">{{mensaje_error}}</p>
+{% endif %} 
 <div class="card_container">
   {% for pokemon in pokemon_list %}
   <a href="{{url_for('pokemon_details', pokemon_id=pokemon.id, trainer=trainer)}}">

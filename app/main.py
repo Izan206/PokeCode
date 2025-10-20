@@ -32,7 +32,8 @@ def trainer():
 def pokedex():
     trainer = request.args.get('trainer')
     pokemon_list = current_app.config["DATA"]
-    return render_template('pokedex.html',  pokemon_list=pokemon_list, current_year=current_year, trainer=trainer)
+    mensaje_error = request.args.get("mensaje_error")
+    return render_template('pokedex.html',  pokemon_list=pokemon_list, current_year=current_year, trainer=trainer, mensaje_error=mensaje_error)
 
 
 @app.route('/404')
@@ -59,20 +60,20 @@ def pokemon_selected():
     pokemon_selected = request.form.get('search')
     pokemon_list = current_app.config["DATA"]
 
-    pokemon_found = None
     for p in pokemon_list:
         if p['name'] == pokemon_selected.lower():
-            return render_template('battles.html', pokemon_selected=pokemon_selected)
-        else:
-            pokemon_found = False
-    if pokemon_found == False:
-        return redirect(url_for("pokedex", trainer=trainer))
+            return redirect(url_for('battles', pokemon_selected=pokemon_selected))
+    
+    mensaje_error = "Pokémon not found, please enter the name correctly"
+    return redirect(url_for("pokedex", trainer=trainer, mensaje_error = mensaje_error))
 
 
 @app.route('/battles')
 def battles():
     pokemon_selected = request.args.get('pokemon_selected')
+    pokemon_list = current_app.config["DATA"]
     return render_template("battles.html", pokemon_selected=pokemon_selected)
+
 
 
 if __name__ == '__main__':
