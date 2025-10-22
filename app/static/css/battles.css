@@ -57,8 +57,47 @@ body {
 
 .pokemon2-container .img-container img {
     width: 230px;
-    margin-top: 310px;
+    margin-top: 330px;
     margin-left: 120px;
+}
+
+.name-hp-container {
+    background-color: rgba(240, 248, 255, 0.9);
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    width: 27%;
+    min-width: 200px;
+    border: 2px solid black;
+}
+
+.pokemon2-container .name-hp-container {
+    position: absolute;
+    right: 0px;
+
+}
+
+.pokemon1-container .name-hp-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.health {
+    display: flex;
+}
+
+.health-bar {
+    background-color: rgb(139, 199, 48);
+    height: 20px;
+    width: 100%;
+    border-radius: .5rem;
+    text-align: center;
+}
+
+.name {
+    text-transform: capitalize;
+    font-weight: bold;
+    padding: 5px 0 5px;
 }
 
 .moves-container {
