@@ -258,6 +258,10 @@ form button {
     border: 1px solid #F8D030;
 }
 
+form button:hover {
+    background-color: #fae20f;
+}
+
 #error {
     color: red;
     text-align: right;

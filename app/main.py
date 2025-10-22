@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 from flask import Flask, abort, current_app, render_template, request, redirect, url_for
 from datetime import datetime
+import random
 
 app = Flask(__name__)
 app.debug = True   # Activate debug mode
@@ -72,9 +73,20 @@ def pokemon_selected():
 def battles():
     pokemon_selected = request.args.get('pokemon_selected')
     pokemon_list = current_app.config["DATA"]
-    return render_template("battles.html", pokemon_selected=pokemon_selected)
+    pokemon = None
+    for p in pokemon_list:
+        if p['name'] == pokemon_selected:
+            pokemon = p
+    #get 4 randoms moves
+    all_moves = pokemon["moves"]
+    moves = random.sample(all_moves, 4)
 
+    #get a random pokemon to fight
+    random_pokemon = random.choice(pokemon_list)
 
+    return render_template("battles.html", pokemon = pokemon, moves = moves, random_pokemon = random_pokemon)
+
+    
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080)

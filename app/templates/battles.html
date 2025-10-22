@@ -1,11 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>hola mundo</p>
-</body>
-</html>
+{%extends "base.html" %}
+{%block title%}Battle{%endblock%}
+{%block styles%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/battles.css')}}">
+{%endblock%}
+{%block content%}
+<div class="screen-container">
+    <div class="grid-container">
+        <div class="moves-container">
+            {% for m in moves %}
+            <div class="move {{m.type}}">
+                <p class="m-name">{{m.name}}</p>
+                <p>Type: {{m.type}}</p>
+                <p>Power: {{m.power}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="pokemon1-container">
+            <p>{{pokemon.name}}</p>
+            <div class="img-container">
+                <img src="{{pokemon.sprites.back_default}}" alt="">
+            </div>
+        </div>
+        <div class="pokemon2-container">
+            <p>{{ random_pokemon.name }}</p>
+            <div class="img-container">
+                <img src="{{random_pokemon.sprites.front_default}}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
