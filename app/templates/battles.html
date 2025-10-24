@@ -15,7 +15,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="pokemon1-container">
+        <div class="pokemon1-container {% if pokemon.name=='pikachu' %} pikachu{% endif %}">
             <div class="name-hp-container">
                 <p class="name">{{pokemon.name}}</p>
                 <div class="health">
@@ -28,7 +28,7 @@
                 <img src="{{pokemon.sprites.back_default}}" alt="">
             </div>
         </div>
-        <div class="pokemon2-container">
+        <div class="pokemon2-container {% if random_pokemon.name=='pikachu' %} pikachu {% endif %}">
             <div class="name-hp-container">
                 <p class="name">{{ random_pokemon.name }}</p>
                 <div class="health">

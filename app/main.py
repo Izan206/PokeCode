@@ -3,6 +3,7 @@ import json
 from flask import Flask, abort, current_app, render_template, request, redirect, url_for
 from datetime import datetime
 import random
+import services.pokemon_services as pokemon_services
 
 app = Flask(__name__)
 app.debug = True   # Activate debug mode
@@ -36,23 +37,18 @@ def pokedex():
     mensaje_error = request.args.get("mensaje_error")
     return render_template('pokedex.html',  pokemon_list=pokemon_list, current_year=current_year, trainer=trainer, mensaje_error=mensaje_error)
 
-
 @app.route('/404')
 def error404():
-    return render_template('404.html')
-
+    return render_template('404.html'), 404 
 
 @app.route("/pokedex/<int:pokemon_id>")
 def pokemon_details(pokemon_id):
     trainer = request.args.get('trainer')
-    pokemon_list = current_app.config["DATA"]
-    pokemon = None
-    for p in pokemon_list:
-        if p['id'] == pokemon_id:
-            pokemon = p
-    if pokemon == None:
-        return render_template("404.html")
-    return render_template("pokemon_details.html", pokemon=pokemon, trainer=trainer)
+    pokemon=pokemon_services.obtener_pokemon_por_id(pokemon_id)
+    if pokemon is None:
+        return redirect(url_for("error404"))
+    else:
+        return render_template("pokemon_details.html", pokemon=pokemon, trainer=trainer)
 
 
 @app.route('/pokemon_selected', methods=["POST"])
