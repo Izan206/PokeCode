@@ -35,7 +35,7 @@ def pokedex():
     trainer = request.args.get('trainer')
     pokemon_list = current_app.config["DATA"]
     mensaje_error = request.args.get("mensaje_error")
-    return render_template('pokedex.html',  pokemon_list=pokemon_list, current_year=current_year, trainer=trainer, mensaje_error=mensaje_error)
+    return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, trainer=trainer, mensaje_error=mensaje_error)
 
 @app.route('/404')
 def error404():
@@ -48,7 +48,7 @@ def pokemon_details(pokemon_id):
     if pokemon is None:
         return redirect(url_for("error404"))
     else:
-        return render_template("pokemon_details.html", pokemon=pokemon, trainer=trainer)
+        return render_template("pokemon_details.html", music=url_for('static', filename='sounds/inicio.mp3'), pokemon=pokemon, trainer=trainer, current_year=current_year)
 
 
 @app.route('/pokemon_selected', methods=["POST"])
@@ -59,7 +59,7 @@ def pokemon_selected():
 
     for p in pokemon_list:
         if p['name'] == pokemon_selected.lower():
-            return redirect(url_for('battles', pokemon_selected=pokemon_selected))
+            return redirect(url_for('battles', pokemon_selected=pokemon_selected.lower()))
     
     mensaje_error = "Pokémon not found, please enter the name correctly"
     return redirect(url_for("pokedex", trainer=trainer, mensaje_error = mensaje_error))
@@ -80,7 +80,7 @@ def battles():
     #get a random pokemon to fight
     random_pokemon = random.choice(pokemon_list)
 
-    return render_template("battles.html", pokemon = pokemon, moves = moves, random_pokemon = random_pokemon)
+    return render_template("battles.html", pokemon = pokemon, moves = moves, random_pokemon = random_pokemon, music="static/sounds/inicio.mp3", current_year=current_year)
 
     
 
