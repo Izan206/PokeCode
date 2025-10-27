@@ -13,6 +13,7 @@
     </header>
     <main>
          <div class="form-container">
+            {{ form.hidden_tag() }}
             <form action="/trainer" method="POST">
                 <div class="trainer-container">
                     <label for="trainer">TRAINER NAME</label>

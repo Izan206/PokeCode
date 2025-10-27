@@ -1,88 +1,15 @@
-from pathlib import Path
-import json
-from flask import Flask, abort, current_app, render_template, request, redirect, url_for
-from datetime import datetime
-import random
-import services.pokemon_services as pokemon_services
+from flask import Flask
+from app.routes.home_routes import home_bp
+from app.routes.pokemon_routes import pokemon_bp
+from app.routes.battle_routes import battle_bp
 
 app = Flask(__name__)
 app.debug = True   # Activate debug mode
+app.secret_key="clave23"
 
-current_year = datetime.now().year
-
-
-with open(Path("data\pokemon.json"), "r", encoding="utf-8") as f:
-    app.config["DATA"] = json.load(f)
-
-
-@app.route('/')  # Welcome
-def index():
-    return render_template('index.html', music="static/sounds/inicio.mp3", current_year=current_year)
-
-
-@app.route('/trainer', methods=["POST"])
-def trainer():
-    trainer = request.form.get("trainer")
-
-    if (len(trainer) < 3 or len(trainer) > 15):
-        return render_template("index.html", error="The username must have a minimum of 3 characters and a maximum of 15.")
-    else:
-        return redirect(url_for("pokedex", trainer=trainer))
-
-
-@app.route('/pokedex')  # Pokemons list
-def pokedex():
-    trainer = request.args.get('trainer')
-    pokemon_list = current_app.config["DATA"]
-    mensaje_error = request.args.get("mensaje_error")
-    return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, trainer=trainer, mensaje_error=mensaje_error)
-
-@app.route('/404')
-def error404():
-    return render_template('404.html'), 404 
-
-@app.route("/pokedex/<int:pokemon_id>")
-def pokemon_details(pokemon_id):
-    trainer = request.args.get('trainer')
-    pokemon=pokemon_services.obtener_pokemon_por_id(pokemon_id)
-    if pokemon is None:
-        return redirect(url_for("error404"))
-    else:
-        return render_template("pokemon_details.html", music=url_for('static', filename='sounds/inicio.mp3'), pokemon=pokemon, trainer=trainer, current_year=current_year)
-
-
-@app.route('/pokemon_selected', methods=["POST"])
-def pokemon_selected():
-    trainer = request.args.get('trainer')
-    pokemon_selected = request.form.get('search')
-    pokemon_list = current_app.config["DATA"]
-
-    for p in pokemon_list:
-        if p['name'] == pokemon_selected.lower():
-            return redirect(url_for('battles', pokemon_selected=pokemon_selected.lower()))
-    
-    mensaje_error = "Pokémon not found, please enter the name correctly"
-    return redirect(url_for("pokedex", trainer=trainer, mensaje_error = mensaje_error))
-
-
-@app.route('/battles')
-def battles():
-    pokemon_selected = request.args.get('pokemon_selected')
-    pokemon_list = current_app.config["DATA"]
-    pokemon = None
-    for p in pokemon_list:
-        if p['name'] == pokemon_selected:
-            pokemon = p
-    #get 4 randoms moves
-    all_moves = pokemon["moves"]
-    moves = random.sample(all_moves, 4)
-
-    #get a random pokemon to fight
-    random_pokemon = random.choice(pokemon_list)
-
-    return render_template("battles.html", pokemon = pokemon, moves = moves, random_pokemon = random_pokemon, music="static/sounds/inicio.mp3", current_year=current_year)
-
-    
+app.register_blueprint(home_bp, url_prefix="/")
+app.register_blueprint(pokemon_bp, url_prefix="/pokedex")
+app.register_blueprint(battle_bp, url_prefix="/battles")
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080)

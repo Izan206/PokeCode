@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 from flask import render_template
-from models.pokemon import Pokemon
+from app.models.pokemon import Pokemon
 
 #id, name, height, weight, stats, sprints, moves, types
 with open(Path("data\pokemon.json"), "r", encoding="utf-8") as f:

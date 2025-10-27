@@ -1,5 +1,5 @@
 #capa intermedia que contiene la logica de negocio y hace llamada a funciones
-import repositories.pokemon_repo as pokemon_repo
+import app.repositories.pokemon_repo as pokemon_repo
 
 
 def listar_pokemons():
