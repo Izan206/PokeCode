@@ -7,7 +7,7 @@
 <div class="screen-container">
     <div class="grid-container">
         <div class="moves-container">
-            {% for m in moves %}
+            {% for m in session["pokemon_player_moves"] %}
             <div class="move {{m.type}}">
                 <p class="m-name">{{m.name}}</p>
                 <p>Type: {{m.type}}</p>
@@ -28,16 +28,16 @@
                 <img src="{{pokemon.sprites.back_default}}" alt="">
             </div>
         </div>
-        <div class="pokemon2-container {% if random_pokemon.name=='pikachu' %} pikachu {% endif %}">
+        <div class="pokemon2-container {% if session.pokemon_enemy.name=='pikachu' %} pikachu {% endif %}">
             <div class="name-hp-container">
-                <p class="name">{{ random_pokemon.name }}</p>
+                <p class="name">{{session.pokemon_enemy.name }}</p>
                 <div class="health">
                     <p class="hp">HP: </p>
-                    <p class="health-bar"> {{random_pokemon.stats[0].value}}/{{random_pokemon.stats[0].value}}</p>
+                    <p class="health-bar"> {{session.pokemon_enemy.stats[0].value}}/{{session.pokemon_enemy.stats[0].value}}</p>
                 </div>
             </div>
             <div class="img-container">
-                <img src="{{random_pokemon.sprites.front_default}}" alt="">
+                <img src="{{session.pokemon_enemy.sprites.front_default}}" alt="">
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, session, url_for
 
 home_bp = Blueprint('home', __name__, template_folder='templates')
 
@@ -18,8 +18,8 @@ def error404():
 
 @home_bp.route('/trainer', methods=["POST"])
 def trainer():
-    trainer = request.form['trainer']
-    if (len(trainer) < 3 or len(trainer) > 15):
+    session["trainer"] = request.form['trainer']
+    if (len(session["trainer"]) < 3 or len(session["trainer"]) > 15):
         return render_template("index.html", error="The username must have a minimum of 3 characters and a maximum of 15.")
     else:
-        return redirect(url_for("pokemon.pokedex", trainer=trainer))
+        return redirect(url_for("pokemon.pokedex"))

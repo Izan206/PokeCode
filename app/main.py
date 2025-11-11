@@ -8,6 +8,13 @@ app = Flask(__name__)
 app.debug = True   # Activate debug mode
 app.secret_key = "clave23"
 
+app.config["SESSION_TYPE"] = "filesystem" 
+app.config["SESSION_PERMANENT"] = False  
+app.config["SESSION_FILE_DIR"] = "./.flask_session" 
+
+
+
+Session(app)
 
 app.register_blueprint(home_bp, url_prefix="/")
 app.register_blueprint(pokemon_bp, url_prefix="/pokedex")

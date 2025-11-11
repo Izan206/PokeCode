@@ -12,19 +12,19 @@
 {%endblock%}
 {%block content%}
 <div class="flex">
-  <p class="trainer">Trainer: {{trainer}}</p>
-  <form action="{{url_for('pokemon.pokemon_selected', trainer=trainer)}}" method="post">
+  <p class="trainer">Trainer: {{session.trainer}}</p>
+  <form action="{{url_for('pokemon.pokemon_selected')}}" method="post">
 
     <input type="text" name="search" id="search" placeholder="Pick your Pokémon">
     <button type="submit" class="enter-button">Start</button>  
   </form>
 </div>
-{% if mensaje_error is not none %}
-  <p id="error">{{mensaje_error}}</p>
+{% if session.mensaje_error is not none %}
+  <p id="error">{{session.mensaje_error}}</p>
 {% endif %} 
 <div class="card_container">
   {% for pokemon in pokemon_list %}
-  <a href="{{url_for('pokemon.pokemon_details', pokemon_id=pokemon.id, trainer=trainer)}}">
+  <a href="{{url_for('pokemon.pokemon_details', pokemon_id=pokemon.id)}}">
     <div class="pokemon_container">
       <div class="img_container">
         <img src="{{pokemon.sprites.front_default}}" />
