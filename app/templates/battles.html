@@ -1,45 +1,59 @@
-{%extends "base.html" %}
-{%block title%}Battle{%endblock%}
-{%block styles%}
-<link rel="stylesheet" href="{{url_for('static', filename='css/battles.css')}}">
-{%endblock%}
+{%extends "base.html" %} {%block title%}Battle{%endblock%} {%block styles%}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/battles.css')}}"
+/>
+{%endblock%} 
+
 {%block content%}
 <div class="screen-container">
-    <div class="grid-container">
-        <div class="moves-container">
-            {% for m in session["pokemon_player_moves"] %}
-            <div class="move {{m.type}}">
-                <p class="m-name">{{m.name}}</p>
-                <p>Type: {{m.type}}</p>
-                <p>Power: {{m.power}}</p>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="pokemon1-container {% if pokemon.name=='pikachu' %} pikachu{% endif %}">
-            <div class="name-hp-container">
-                <p class="name">{{pokemon.name}}</p>
-                <div class="health">
-                    <p class="hp">HP: </p>
-                    <p class="health-bar"> {{pokemon.stats[0].value}}/{{pokemon.stats[0].value}}</p>
-                </div>
-
-            </div>
-            <div class="img-container">
-                <img src="{{pokemon.sprites.back_default}}" alt="">
-            </div>
-        </div>
-        <div class="pokemon2-container {% if session.pokemon_enemy.name=='pikachu' %} pikachu {% endif %}">
-            <div class="name-hp-container">
-                <p class="name">{{session.pokemon_enemy.name }}</p>
-                <div class="health">
-                    <p class="hp">HP: </p>
-                    <p class="health-bar"> {{session.pokemon_enemy.stats[0].value}}/{{session.pokemon_enemy.stats[0].value}}</p>
-                </div>
-            </div>
-            <div class="img-container">
-                <img src="{{session.pokemon_enemy.sprites.front_default}}" alt="">
-            </div>
-        </div>
+  <div class="grid-container">
+    <div class="moves-container">
+    <form method="POST" action="{{ url_for('battle.attack') }}">
+      {% for m in session.pokemon_player_moves %}
+      <div class="move {{m.type}}">
+        <button type="submit" name="move" value="{{ m['name'] }}">
+          {{ m['name'] }}
+        </button>
+        <p class="m-name">{{m.name}}</p>
+        <p>Type: {{m.type}}</p>
+        <p>Power: {{m.power}}</p>
+    </form>
+      </div>
+      {% endfor %}
     </div>
+    <div
+      class="pokemon1-container {% if pokemon.name=='pikachu' %} pikachu{% endif %}"
+    >
+      <div class="name-hp-container">
+        <p class="name">{{pokemon.name}}</p>
+        <div class="health">
+          <p class="hp">HP:</p>
+          <p class="health-bar">
+            {{pokemon.stats[0].value}}/{{pokemon.stats[0].value}}
+          </p>
+        </div>
+      </div>
+      <div class="img-container">
+        <img src="{{pokemon.sprites.back_default}}" alt="" />
+      </div>
+    </div>
+    <div
+      class="pokemon2-container {% if pokemon_enemy.name=='pikachu' %} pikachu {% endif %}"
+    >
+      <div class="name-hp-container">
+        <p class="name">{{pokemon_enemy.name }}</p>
+        <div class="health">
+          <p class="hp">HP:</p>
+          <p class="health-bar">
+            {{pokemon_enemy.stats[0].value}}/{{pokemon_enemy.stats[0].value}}
+          </p>
+        </div>
+      </div>
+      <div class="img-container">
+        <img src="{{pokemon_enemy.sprites.front_default}}" alt="" />
+      </div>
+    </div>
+  </div>
 </div>
 {%endblock%}

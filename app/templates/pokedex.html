@@ -6,7 +6,7 @@
 {%block header%}
 <div class="header-container">
   <a href="{{url_for('home.index')}}">
-    <img src="{{url_for('static', filename='images/index-page/logo1.png')}}" alt="Logo de PokeCode" />
+    <img src="{{url_for('static', filename='images/index-page/logo1.png')}}" alt="PokeCode logo" />
   </a>
 </div>
 {%endblock%}
@@ -19,8 +19,8 @@
     <button type="submit" class="enter-button">Start</button>  
   </form>
 </div>
-{% if session.mensaje_error is not none %}
-  <p id="error">{{session.mensaje_error}}</p>
+{% if session.error_message is not none %}
+  <p id="error">{{session.error_message}}</p>
 {% endif %} 
 <div class="card_container">
   {% for pokemon in pokemon_list %}

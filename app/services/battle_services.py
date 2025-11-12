@@ -1,37 +1,59 @@
 import random
-
 from flask import session
-import app.repositories.pokemon_repo
-from app.services.pokemon_services import listar_pokemons
+from app.services.pokemon_services import list_pokemons
 
-#Funciones de logica de la batalla entre pokemons
+# Funciones de logica de la batalla entre pokemons
 
-def obtenerDatosPokemonJugador():
-    pokemon_selected=session.get('pokemon_selected');
-    for pokemon in  listar_pokemons():
-        if pokemon_selected==pokemon.name:
+
+def obtainPokemonPlayer():
+    pokemon_selected = session.get('pokemon_selected')
+    for pokemon in list_pokemons():
+        if pokemon_selected == pokemon.name:
             return pokemon
-    
 
-def obtenerDatosPokemonEnemigo():
-    pokemon_enemy=session.get('pokemon_enemy');
-    for pokemon in  listar_pokemons():
-        if pokemon_enemy==pokemon.name:
+
+def obtainEnemyPokemon():
+    pokemon_enemy = session.get('pokemon_enemy')
+    for pokemon in list_pokemons():
+        if pokemon_enemy == pokemon.name:
             return pokemon
-    
 
-def obtenerVida(pokemon):
-    for p in listar_pokemons():
-        if p.name==pokemon.name:
-            for stat in p.stats:
-                if stat.name=="hp":
-                    return stat.value
-                
-def obtenerAtaqueJugador(moves):
-    moves=session.get('pokemon_player_moves')
+
+def getMove(pokemon, move_name):
+    for move in pokemon.moves:
+        if move["name"] == move_name:
+            return move
+    return
+
+
+def getLife(pokemon):
+    for stat in pokemon.stats:
+        if stat["name"] == "hp":
+            return stat["value"]
+
+
+def getPlayerAttacks(moves):
+    moves = session.get('pokemon_player_moves')
     return moves
 
-def obtenerAtaqueEnemigo(moves):
-    moves=session.get('pokemon_enemy_moves')
+
+def getEnemyAttacks(moves):
+    moves = session.get('pokemon_enemy_moves')
     return moves
-    
+
+
+# parametros (Objeto del pokemon atacante | Objeto del pokemon defensor | ataque del pokemon atacante)
+
+
+def simulateAttack(attacker, defender, move):
+    m_name = move["name"]
+    m_power = move["power"]
+    m_accuracy = move["accuracy"]
+
+    if random.randint(1, 100) <= m_accuracy:
+        daño = m_power // 3  # puedes ajustar la fórmula
+        defender["hp"] -= daño
+        defender["hp"] = max(defender["hp"], 0)
+        return f"{attacker['name']} usó {m_name}. {defender['name']} perdió {daño} PS. PS restantes: {defender['hp']}."
+    else:
+        return f"{attacker['name']} usó {m_name}. ¡Falló!"

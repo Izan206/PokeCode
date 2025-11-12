@@ -2,11 +2,11 @@
 import app.repositories.pokemon_repo as pokemon_repo
 
 
-def listar_pokemons():
-    return pokemon_repo.obtener_pokemons()
+def list_pokemons():
+    return pokemon_repo.obtainPokemons()
 
-def obtener_pokemon_por_id(id):
+def obtain_pokemon_by_id(id):
     if id<0 or id is None:
         return None
-    return pokemon_repo.buscar_por_id(id)
+    return pokemon_repo.search_by_id(id)
     
