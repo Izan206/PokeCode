@@ -19,8 +19,8 @@
     <button type="submit" class="enter-button">Start</button>  
   </form>
 </div>
-{% if session.error_message is not none %}
-  <p id="error">{{session.error_message}}</p>
+{% if error_message%}
+  <p id="error">{{error_message}}</p>
 {% endif %} 
 <div class="card_container">
   {% for pokemon in pokemon_list %}

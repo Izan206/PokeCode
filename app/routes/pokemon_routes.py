@@ -13,7 +13,8 @@ current_year = datetime.now().year
 @pokemon_bp.route('/')  # Pokemons list
 def pokedex():
     pokemon_list = obtainPokemons()
-    return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year)
+    error_message = session.pop("error_message", None)
+    return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, error_message=error_message)
 
 
 @pokemon_bp.route("/<int:pokemon_id>")
@@ -29,22 +30,24 @@ def pokemon_details(pokemon_id):
 def pokemon_selected():
     session["pokemon_selected"] = request.form.get('search').lower()
     pokemon_list = obtainPokemons()
-
+    pokemonEncontrado=None
     for p in pokemon_list:
         if p.name == session["pokemon_selected"]:
-            # Obtener 4 movimientos aleatorios del pokemon seleccionado
-            all_moves_player = p.moves
-            session["pokemon_player_moves"] = random.sample(
-                all_moves_player, 4)
-            # Pokemon enemigo
-            pokemon_enemy_object = random.choice(pokemon_list)
-            session["pokemon_enemy_name"] = pokemon_enemy_object.name
-            all_moves_enemy = pokemon_enemy_object.moves
-            session["pokemon_enemy_moves"] = random.sample(
-                all_moves_enemy, 4)
+            pokemonEncontrado = p
+            break
 
-            return redirect(url_for('battle.battles'))
-        else:
-            session["error_message"] = "Pokémon not found, please enter the name correctly"
-
-    return redirect(url_for("pokemon.pokedex"))
+    if pokemonEncontrado:
+        # Obtener 4 movimientos aleatorios del pokemon seleccionado
+        all_moves_player = p.moves
+        session["pokemon_player_moves"] = random.sample(
+            all_moves_player, 4)
+        # Pokemon enemigo
+        pokemon_enemy_object = random.choice(pokemon_list)
+        session["pokemon_enemy_name"] = pokemon_enemy_object.name
+        all_moves_enemy = pokemon_enemy_object.moves
+        session["pokemon_enemy_moves"] = random.sample(
+            all_moves_enemy, 4)
+        return redirect(url_for('battle.battles'))
+    else:
+        session["error_message"] = "Pokémon not found, please enter the name correctly"
+        return redirect(url_for("pokemon.pokedex"))

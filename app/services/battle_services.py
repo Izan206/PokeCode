@@ -54,6 +54,6 @@ def simulateAttack(attacker, defender, move):
         daño = m_power // 3  # puedes ajustar la fórmula
         defender["hp"] -= daño
         defender["hp"] = max(defender["hp"], 0)
-        return f"{attacker['name']} usó {m_name}. {defender['name']} perdió {daño} PS. PS restantes: {defender['hp']}."
+        return f"{attacker['name']} uses {m_name}. {defender['name']} lost {daño} PS. PS restantes: {defender['hp']}."
     else:
         return f"{attacker['name']} usó {m_name}. ¡Falló!"
