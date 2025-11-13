@@ -4,6 +4,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.models.battle import Battle
 from app.repositories.pokemon_repo import obtainPokemons
+from app.services.auth_services import required_login
 from app.services.battle_services import calculateDamage, getLife, getMove, obtainEnemyPokemon, obtainPokemonPlayer
 
 
@@ -13,6 +14,7 @@ current_year = datetime.now().year
 
 
 @battle_bp.route('/')
+@required_login
 def battles():
     pokemon_selected = session.get('pokemon_selected')
     pokemon_list = obtainPokemons()
@@ -39,6 +41,7 @@ def battles():
 
 
 @battle_bp.route('/attack', methods=['POST'])
+@required_login
 def attack():
     move_name = request.form.get("move")
     battle_data = session.get("battle")
@@ -83,6 +86,7 @@ def attack():
 
 
 @battle_bp.route('/result')
+@required_login
 def battleResult():
     battle_data = session.get("battle")
 

@@ -3,6 +3,7 @@ import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from app.services import pokemon_services
 from app.repositories.pokemon_repo import obtainPokemons
+from app.services.auth_services import required_login
 
 
 pokemon_bp = Blueprint('pokemon', __name__, template_folder='templates')
@@ -11,6 +12,7 @@ current_year = datetime.now().year
 
 
 @pokemon_bp.route('/')  # Pokemons list
+@required_login
 def pokedex():
     pokemon_list = obtainPokemons()
     error_message = session.pop("error_message", None)
@@ -18,6 +20,7 @@ def pokedex():
 
 
 @pokemon_bp.route("/<int:pokemon_id>")
+@required_login
 def pokemon_details(pokemon_id):
     pokemon = pokemon_services.obtain_pokemon_by_id(pokemon_id)
     if pokemon is None:
@@ -27,6 +30,7 @@ def pokemon_details(pokemon_id):
 
 
 @pokemon_bp.route('/pokemon_selected', methods=["POST"])
+@required_login
 def pokemon_selected():
     session["pokemon_selected"] = request.form.get('search').lower()
     pokemon_list = obtainPokemons()
