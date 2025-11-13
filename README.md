@@ -1,6 +1,6 @@
 # PokeCode 👾
 
-PokeCode is a project for the "Entorno Servidor" (Server Environment) signature where we built a small platform to simulate battles and display results of the combats of the Pokemons.
+PokeCode is a project that we made for the Server Environment signature where we built a small platform to simulate battles and display results of the combats of the Pokemons.
 
 ## Description
 This repository was created as an exercise to understand client/server architectures and turn-based battle logic using the Flask framework (Python). We used FlaskSession and Jinja templates to render the backend into the front-end.
