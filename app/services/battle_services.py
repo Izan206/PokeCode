@@ -53,13 +53,12 @@ def calculateDamage(attacker, defender, move):
     if random.randint(1, 100) > m_accuracy:
         return 0, f"{attacker.name} used {m_name}, but it missed!"
 
-    # Obtener vida del enemigo
     defender_hp = getLife(defender)
 
     # Daño en proporción a la vida del adversario
     base_damage = (m_power / 100) * defender_hp / 4
 
-    # Factor aleatorio para que el daño varíe un poco
+    # Factor aleatorio para que varie un poco el daño
     random_factor = random.uniform(0.85, 1.15)
 
     damage = int(max(5, base_damage * random_factor))

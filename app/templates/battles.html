@@ -1,36 +1,50 @@
-{%extends "base.html" %} {%block title%}Battle{%endblock%} {%block styles%}
+{%extends "base.html" %}
+{%block title%}Battle{%endblock%}
+{%block styles%}
 <link
   rel="stylesheet"
   href="{{url_for('static', filename='css/battles.css')}}"
 />
-{%endblock%} {%block content%}
+{%endblock%}
+{%block content%}
 <div class="screen-container">
   <div class="grid-container">
+    <div class="log-container">
+      {% if battle.log %}
+      <div class="battle-log">
+        <h3>Battle log:</h3>
+        <ul>
+          {% for entry in battle.log %}
+          <li>{{ entry }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+
     <div class="moves-container">
       <form method="POST" action="{{ url_for('battle.attack') }}">
         <div class="moves-grid">
           {% for move in session.pokemon_player_moves %}
-
           <button
             type="submit"
             name="move"
             value="{{ move['name'] }}"
-            class="move-button {{ move.type }}"
+            class="move-button {{ move['type'] }}"
           >
-            <span class="move-name">{{ move.name | title }}</span>
-
+            <span class="move-name">{{ move['name'] | title }}</span>
             <div class="move-details">
-              <span class="m-power">Power: {{ move.power }}</span>
-              <span class="m-type-tag {{ move.type }}"
-                >Type: {{ move.type }}</span
+              <span class="m-power">Power: {{ move['power'] }}</span>
+              <span class="m-type-tag {{ move['type'] }}"
+                >Type: {{ move['type'] }}</span
               >
             </div>
           </button>
-
           {% endfor %}
         </div>
       </form>
     </div>
+
     <div
       class="pokemon1-container {% if pokemon.name=='pikachu' %} pikachu{% endif %}"
     >
@@ -38,15 +52,31 @@
         <p class="name">{{pokemon.name}}</p>
         <div class="health">
           <p class="hp">HP:</p>
-          <p class="health-bar">
-            {{battle.player_health}}/{{pokemon.stats[0].value}}
-          </p>
+          {% set max_hp = pokemon.stats[0]['value'] %}
+          {% set cur_hp = battle.player_health %}
+          {% if max_hp > 0 %}
+            {% set pct = (cur_hp / max_hp) * 100 %}
+          {% else %}
+            {% set pct = 0 %}
+          {% endif %}
+          <div class="health-bar-wrapper">
+            <div
+              class="health-bar {% if pct >= 50 %}hp-high{% elif pct >= 20 %}hp-medium{% else %}hp-low{% endif %}"
+              role="progressbar"
+              aria-valuenow="{{ cur_hp }}"
+              aria-valuemax="{{ max_hp }}"
+              style="width: {{ pct|round(0, 'floor') }}%;"
+            >
+              <span class="hp-text">{{ cur_hp }}/{{ max_hp }}</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="img-container">
         <img src="{{pokemon.sprites.back_default}}" alt="" />
       </div>
     </div>
+
     <div
       class="pokemon2-container {% if pokemon_enemy.name=='pikachu' %} pikachu {% endif %}"
     >
@@ -54,26 +84,29 @@
         <p class="name">{{pokemon_enemy.name }}</p>
         <div class="health">
           <p class="hp">HP:</p>
-          <p class="health-bar">
-            {{battle.enemy_health}}/{{pokemon_enemy.stats[0].value}}
-          </p>
+          {% set max_hp_e = pokemon_enemy.stats[0]['value'] %}
+          {% set cur_hp_e = battle.enemy_health %}
+          {% if max_hp_e > 0 %}
+            {% set pct_e = (cur_hp_e / max_hp_e) * 100 %}
+          {% else %}
+            {% set pct_e = 0 %}
+          {% endif %}
+          <div class="health-bar-wrapper">
+            <div
+              class="health-bar {% if pct_e >= 50 %}hp-high{% elif pct_e >= 20 %}hp-medium{% else %}hp-low{% endif %}"
+              role="progressbar"
+              aria-valuenow="{{ cur_hp_e }}"
+              aria-valuemax="{{ max_hp_e }}"
+              style="width: {{ pct_e|round(0, 'floor') }}%;"
+            >
+              <span class="hp-text">{{ cur_hp_e }}/{{ max_hp_e }}</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="img-container">
         <img src="{{pokemon_enemy.sprites.front_default}}" alt="" />
       </div>
-    </div>
-    <div class="log-container">
-      {% if session.battle.log %}
-      <div class="battle-log">
-        <h3>Battle log:</h3>
-        <ul>
-          {% for entry in session.battle.log %}
-          <li>{{ entry }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
     </div>
   </div>
 </div>

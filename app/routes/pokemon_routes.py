@@ -37,7 +37,7 @@ def pokemon_selected():
             break
 
     if pokemonEncontrado:
-        # Obtener 4 movimientos aleatorios del pokemon seleccionado
+        # Obtner 4 movimientos aleatorios del pokemon seleccionado
         all_moves_player = p.moves
         session["pokemon_player_moves"] = random.sample(
             all_moves_player, 4)

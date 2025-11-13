@@ -1,13 +1,75 @@
-## Project name: PokeCode
+# PokeCode 👾
 
-PokeCode is a project created for the Web Server Development subject, based on Pokemon Showdown.
+PokeCode is a project for the "Entorno Servidor" (Server Environment) signature where we built a small platform to simulate battles and display results of the combats of the Pokemons.
 
-## Group members
+## Description
+This repository was created as an exercise to understand client/server architectures and turn-based battle logic using the Flask framework (Python). We used FlaskSession and Jinja templates to render the backend into the front-end.
+
+We also gave the project our own style, both visually with a retro Nintendo-like look and functionally (for example, background music similar to the original games).
+
+## Views 
+
+- Initial screen (Welcome)
+
+![Initial View](app/static/images/readme/image.png)
+
+- PokeDex (Pokemon selection)
+
+![PokeDex View](app/static/images/readme/image2.png)
+
+- Pokemon Details 
+
+![Pokemon Details View](app/static/images/readme/image4.png)
+- Main Battle screen
+
+![Battle View](app/static/images/readme/image3.png)
+
+- Logs and battle details
+
+![Battle details](app/static/images/readme/image6.png)
+
+- Final Page (Winner and loser)
+
+![Final Page](app/static/images/readme/image7.png)
+
+Others: 
+
+- Error page
+
+![Error Page](app/static/images/readme/image5.png)
+
+## Installation (using virtual environment)
+
+1. Create a venv (if you don't have one yet):
+   python -m venv venv
+
+2. Install dependencies:
+   pip install -r requirements.txt
+
+## Run the app
+With the virtual environment activated, start the app:
+
+python -m app.main
+
+Typical development output:
+ * Serving Flask app 'main'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+
+Open your browser at http://127.0.0.1:8080 (or the shown address).
+
+## License
+MIT License.
+
+## Authors
+
+Made by: 
 
 - Izan Álvarez Varela
 - Axel Cartaya Delgado
-
-__Instructions__
-- Crear el entorno
-- Instalar las dependencias
 
