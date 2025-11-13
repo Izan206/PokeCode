@@ -1,9 +1,10 @@
 from datetime import datetime
+import random
 from flask import Blueprint, render_template, request, session
 
 from app.models.battle import Battle
 from app.repositories.pokemon_repo import obtainPokemons
-from app.services.battle_services import getLife, getMove, obtainEnemyPokemon, obtainPokemonPlayer, simulateAttack
+from app.services.battle_services import calculateDamage, getLife, getMove, obtainEnemyPokemon, obtainPokemonPlayer
 
 
 battle_bp = Blueprint('battle', __name__, template_folder='templates')
@@ -30,8 +31,7 @@ def battles():
         if p.name == pokemon_enemy_name:
             pokemon_enemy = p
 
-    battle = Battle(pokemon_player, pokemon_enemy, getLife(pokemon_player), getLife(
-        pokemon_enemy), pokemon_player_moves, pokemon_enemy_moves)
+    battle = Battle(pokemon_player, pokemon_enemy, getLife(pokemon_player), getLife(pokemon_enemy), pokemon_player_moves, pokemon_enemy_moves)
     session["battle"] = battle.__dict__
 
     return render_template("battles.html", pokemon=pokemon_player, pokemon_enemy=pokemon_enemy, music="static/sounds/inicio.mp3", current_year=current_year)
@@ -42,17 +42,39 @@ def attack():
     move_name = request.form.get("move")
     battle_data = session.get("battle")
 
-    # Aquí podrías reconstruir la batalla desde el diccionario
-    battle = Battle(**battle_data)  # o manualmente
+    battle = Battle(**battle_data) 
 
-    # 1️⃣ Simular el ataque del jugador
+    player = battle.player_pokemon_data
+    enemy = battle.enemy_pokemon_data
+    
+    player_move = getMove(player, move_name)
+    
+    player_damage, player_log = calculateDamage(player, player_move)
+    
+    battle.enemy_health -= player_damage
+    battle.log.append(player_log)
+    
+    if battle.enemy_health <= 0:
+        battle.enemy_health = 0
+        battle.log.append(f"{enemy.name} died and {player.name} wins!")
+        session["battle"] = battle.__dict__ # Guardar estado final
+        # Redirigir a una página de victoria o de vuelta a la pokedex
+        return render_template("battles.html", pokemon=player, pokemon_enemy=enemy, battle=battle)
 
-    simulateAttack(obtainPokemonPlayer(), obtainEnemyPokemon(), getMove()
-                   )
-    # 2️⃣ Comprobar si el rival sigue vivo
-    # 3️⃣ Si sigue, simular su ataque
-    # 4️⃣ Registrar todo en batalla.log
-    # 5️⃣ Guardar el nuevo estado en la sesión
+    enemy_moves_list = session.get("pokemon_enemy_moves")
+    
+    enemy_move = random.choice(enemy_moves_list)
+    
+    enemy_damage, enemy_log = calculateDamage(enemy, enemy_move)
+    
+    battle.player_health -= enemy_damage
+    battle.log.append(enemy_log)
+    
+    if battle.player_health <= 0:
+        battle.player_health = 0
+        battle.log.append(f"{player.name} died and {enemy.name} wins!")
+        session["battle"] = battle.__dict__ 
+        return render_template("battles.html", pokemon=player, pokemon_enemy=enemy, battle=battle)
 
     session["battle"] = battle.__dict__
-    return render_template("battles.html", battle=battle)
+    return render_template("battles.html", pokemon=player, pokemon_enemy=enemy, battle=battle, music="static/sounds/inicio.mp3", current_year=current_year)

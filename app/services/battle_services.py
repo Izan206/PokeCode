@@ -45,15 +45,21 @@ def getEnemyAttacks(moves):
 # parametros (Objeto del pokemon atacante | Objeto del pokemon defensor | ataque del pokemon atacante)
 
 
-def simulateAttack(attacker, defender, move):
+def calculateDamage(attacker, move):
     m_name = move["name"]
     m_power = move["power"]
     m_accuracy = move["accuracy"]
 
+    if m_power==None or m_accuracy==None:
+        return 0,f"{attacker.name} used {m_name} but it had no effect"
     if random.randint(1, 100) <= m_accuracy:
-        daño = m_power // 3  # puedes ajustar la fórmula
-        defender["hp"] -= daño
-        defender["hp"] = max(defender["hp"], 0)
-        return f"{attacker['name']} uses {m_name}. {defender['name']} lost {daño} PS. PS restantes: {defender['hp']}."
+        damage = m_power // 3
+        log_message = f"{attacker.name} used {m_name}. It hit {damage} of damage"
+        return damage, log_message
     else:
-        return f"{attacker['name']} usó {m_name}. ¡Falló!"
+        log_message= f"{attacker.name} usó {m_name}. ¡Falló!"
+        return 0, log_message
+
+# defender["hp"] -= daño
+        # defender["hp"] = max(defender["hp"], 0)
+        # return f"{attacker['name']} uses {m_name}. {defender['name']} lost {daño} PS. PS restantes: {defender['hp']}."

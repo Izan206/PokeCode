@@ -3,24 +3,33 @@
   rel="stylesheet"
   href="{{url_for('static', filename='css/battles.css')}}"
 />
-{%endblock%} 
-
-{%block content%}
+{%endblock%} {%block content%}
 <div class="screen-container">
   <div class="grid-container">
     <div class="moves-container">
-    <form method="POST" action="{{ url_for('battle.attack') }}">
-      {% for m in session.pokemon_player_moves %}
-      <div class="move {{m.type}}">
-        <button type="submit" name="move" value="{{ m['name'] }}">
-          {{ m['name'] }}
-        </button>
-        <p class="m-name">{{m.name}}</p>
-        <p>Type: {{m.type}}</p>
-        <p>Power: {{m.power}}</p>
-    </form>
-      </div>
-      {% endfor %}
+      <form method="POST" action="{{ url_for('battle.attack') }}">
+        <div class="moves-grid">
+          {% for move in session.pokemon_player_moves %}
+
+          <button
+            type="submit"
+            name="move"
+            value="{{ move['name'] }}"
+            class="move-button {{ move.type }}"
+          >
+            <span class="move-name">{{ move.name | title }}</span>
+
+            <div class="move-details">
+              <span class="m-power">Power: {{ move.power }}</span>
+              <span class="m-type-tag {{ move.type }}"
+                >Type: {{ move.type }}</span
+              >
+            </div>
+          </button>
+
+          {% endfor %}
+        </div>
+      </form>
     </div>
     <div
       class="pokemon1-container {% if pokemon.name=='pikachu' %} pikachu{% endif %}"

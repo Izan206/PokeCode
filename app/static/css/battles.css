@@ -5,7 +5,6 @@ body {
     overflow: hidden;
 }
 
-/*fondo desenfocado */
 body::before {
     content: "";
     position: absolute;
@@ -17,9 +16,9 @@ body::before {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    filter: blur(8px); 
-    z-index: -1; 
-    transform: scale(1.1); 
+    filter: blur(8px);
+    z-index: -1;
+    transform: scale(1.1);
 }
 
 .screen-container {
@@ -40,14 +39,10 @@ body::before {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-
     width: 100%;
     height: 100%;
-
     position: relative;
 }
-
-
 
 .pokemon1-container {
     grid-column: 1/2;
@@ -58,7 +53,6 @@ body::before {
     height: 260px;
     text-align: right;
 }
-
 
 .pokemon1-container .img-container img {
     width: 330px;
@@ -83,13 +77,12 @@ body::before {
 }
 
 .pokemon1-container.pikachu img {
-    margin-top: 150px; 
+    margin-top: 150px;
 }
 
 .pokemon2-container.pikachu img {
-    margin-top: 370px; 
+    margin-top: 370px;
 }
-
 
 .name-hp-container {
     background-color: rgba(250, 255, 202, 0.9);
@@ -103,7 +96,6 @@ body::before {
 .pokemon2-container .name-hp-container {
     position: absolute;
     right: 0px;
-
 }
 
 .pokemon1-container .name-hp-container {
@@ -130,110 +122,134 @@ body::before {
     padding: 5px 0 5px;
 }
 
+/* --- ESTILOS ADAPTADOS PARA MOVIMIENTOS --- */
+
 .moves-container {
     grid-column: 2/3;
     grid-row: 3/4;
-
     height: 60%;
     width: 80%;
     align-self: flex-end;
     position: absolute;
     right: 0px;
-    gap: 5px;
     margin-bottom: 7px;
+}
 
+.moves-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    height: 100%;
+    width: 100%;
 }
 
-.move {
-    background-color: rgb(191, 213, 233);
+.move-button {
     border: 3px solid black;
-    border-radius: .5rem;
-    padding: .5rem 1rem;
+    border-radius: 8px;
+    padding: 1.5rem 1rem;
     z-index: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+    transition: transform 0.2s ease-in-out, filter 0.2s;
 }
 
-.m-name {
+.move-name {
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 2px;
 }
 
-.move.normal {
+.move-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+}
+
+.move-button:hover {
+    transform: scale(1.01);
+    border: 2px solid yellow;
+    filter: brightness(1.05); 
+}
+
+
+.move-button.normal {
     background: rgba(253, 253, 191, 0.9);
 }
 
-.move.fire {
+.move-button.fire {
     background: rgba(240, 128, 48, 0.9);
 }
 
-.move.water {
+.move-button.water {
     background: rgba(104, 144, 240, 0.9);
 }
 
-.move.electric {
+.move-button.electric {
     background: rgba(248, 208, 48, 0.9);
 }
 
-.move.grass {
+.move-button.grass {
     background: rgba(120, 200, 80, 0.9);
 }
 
-.move.ice {
+.move-button.ice {
     background: rgba(152, 216, 216, 0.9);
 }
 
-.move.fighting {
+.move-button.fighting {
     background: rgba(192, 48, 40, 0.9);
 }
 
-.move.poison {
+.move-button.poison {
     background: rgba(160, 64, 160, 0.9);
 }
 
-.move.ground {
+.move-button.ground {
     background: rgba(224, 192, 104, 0.9);
 }
 
-.move.flying {
+.move-button.flying {
     background: rgba(168, 144, 240, 0.9);
 }
 
-.move.psychic {
+.move-button.psychic {
     background: rgba(248, 88, 136, 0.9);
 }
 
-.move.bug {
+.move-button.bug {
     background: rgba(168, 184, 32, 0.9);
 }
 
-.move.rock {
+.move-button.rock {
     background: rgba(184, 160, 56, 0.9);
 }
 
-.move.ghost {
+.move-button.ghost {
     background: rgba(112, 88, 152, 0.9);
 }
 
-.move.dragon {
+.move-button.dragon {
     background: rgba(112, 56, 248, 0.9);
 }
 
-.move.dark {
+.move-button.dark {
     background: rgba(112, 88, 72, 0.9);
 }
 
-.move.steel {
+.move-button.steel {
     background: rgba(184, 184, 208, 0.9);
 }
 
-.move.fairy {
+.move-button.fairy {
     background: rgba(238, 153, 172, 0.9);
-}
-.move:hover {
-    transform: scale(1.01);
-    transition: 0.2s ease-in-out;
-    border: 2px solid yellow;
 }
