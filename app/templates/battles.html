@@ -39,7 +39,7 @@
         <div class="health">
           <p class="hp">HP:</p>
           <p class="health-bar">
-            {{pokemon.stats[0].value}}/{{pokemon.stats[0].value}}
+            {{battle.player_health}}/{{pokemon.stats[0].value}}
           </p>
         </div>
       </div>
@@ -55,13 +55,25 @@
         <div class="health">
           <p class="hp">HP:</p>
           <p class="health-bar">
-            {{pokemon_enemy.stats[0].value}}/{{pokemon_enemy.stats[0].value}}
+            {{battle.enemy_health}}/{{pokemon_enemy.stats[0].value}}
           </p>
         </div>
       </div>
       <div class="img-container">
         <img src="{{pokemon_enemy.sprites.front_default}}" alt="" />
       </div>
+    </div>
+    <div class="log-container">
+      {% if session.battle.log %}
+      <div class="battle-log">
+        <h3>Battle log:</h3>
+        <ul>
+          {% for entry in session.battle.log %}
+          <li>{{ entry }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -33,6 +33,7 @@ body::before {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 1rem;
+    
 }
 
 .grid-container {
@@ -252,4 +253,33 @@ body::before {
 
 .move-button.fairy {
     background: rgba(238, 153, 172, 0.9);
+}
+
+.log-container{
+    background-color: rgba(240, 248, 255, 0.877);
+    opacity: 0.8;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    position: absolute;
+    top: 10%;
+    max-height: 700px;
+    width: 250px;
+    overflow-y: auto;
+}
+.battle-log>h3{
+    text-align: center;
+}
+.battle-log>ul{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    list-style: none;
+}
+
+.battle-log>ul>li{
+    text-transform: uppercase;
+    padding-left: 1rem;
+    border-left: 3px solid black;
 }

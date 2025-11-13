@@ -2,8 +2,6 @@ import random
 from flask import session
 from app.services.pokemon_services import list_pokemons
 
-# Funciones de logica de la batalla entre pokemons
-
 
 def obtainPokemonPlayer():
     pokemon_selected = session.get('pokemon_selected')
@@ -42,24 +40,29 @@ def getEnemyAttacks(moves):
     return moves
 
 
-# parametros (Objeto del pokemon atacante | Objeto del pokemon defensor | ataque del pokemon atacante)
 
-
-def calculateDamage(attacker, move):
+def calculateDamage(attacker, defender, move):
     m_name = move["name"]
     m_power = move["power"]
     m_accuracy = move["accuracy"]
 
-    if m_power==None or m_accuracy==None:
-        return 0,f"{attacker.name} used {m_name} but it had no effect"
-    if random.randint(1, 100) <= m_accuracy:
-        damage = m_power // 3
-        log_message = f"{attacker.name} used {m_name}. It hit {damage} of damage"
-        return damage, log_message
-    else:
-        log_message= f"{attacker.name} usó {m_name}. ¡Falló!"
-        return 0, log_message
+    if m_power is None or m_accuracy is None:
+        return 0, f"{attacker.name} used {m_name} but it had no effect."
 
-# defender["hp"] -= daño
-        # defender["hp"] = max(defender["hp"], 0)
-        # return f"{attacker['name']} uses {m_name}. {defender['name']} lost {daño} PS. PS restantes: {defender['hp']}."
+    # fallo según accuracy
+    if random.randint(1, 100) > m_accuracy:
+        return 0, f"{attacker.name} used {m_name}, but it missed!"
+
+    # Obtener vida del enemigo
+    defender_hp = getLife(defender)
+
+    # Daño en proporción a la vida del adversario
+    base_damage = (m_power / 100) * defender_hp / 4
+
+    # Factor aleatorio para que el daño varíe un poco
+    random_factor = random.uniform(0.85, 1.15)
+
+    damage = int(max(5, base_damage * random_factor))
+
+    log_message = f"{attacker.name} used {m_name}. It hit {damage} of damage!"
+    return damage, log_message
