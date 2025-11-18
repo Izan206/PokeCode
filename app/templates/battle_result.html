@@ -2,7 +2,8 @@
 
 {%block styles%}
 <link rel="stylesheet" href="{{url_for('static', filename='css/battle_result.css')}}" />
-{%endblock%} {% block content %}
+{%endblock%} 
+{% block content %}
 <div class="result-container">
     <h1>Battle over!</h1>
     <h2>Winner: {{ winner }}</h2>

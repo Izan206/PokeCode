@@ -1,8 +1,18 @@
+/* Custom fonts */
+@font-face {
+    font-family: 'Pokemon X and Y';
+    src: url('../fonts/Pokemon X and Y.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
   background-color: rgb(0, 0, 0);
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+ 
 }
 
 body::before {
@@ -56,8 +66,8 @@ body::before {
 
 .pokemon1-container .img-container img {
   width: 330px;
-  margin-top: 90px;
-  margin-right: 20px;
+  margin-top: 73px;
+  margin-right: 15px;
 }
 
 .pokemon2-container {
@@ -72,16 +82,16 @@ body::before {
 
 .pokemon2-container .img-container img {
   width: 230px;
-  margin-top: 350px;
-  margin-left: 120px;
+  margin-top: 320px;
+  margin-left: 115px;
 }
 
 .pokemon1-container.pikachu img {
-  margin-top: 150px;
+  margin-top: 120px;
 }
 
 .pokemon2-container.pikachu img {
-  margin-top: 370px;
+  margin-top: 350px;
 }
 
 .name-hp-container {
@@ -89,7 +99,7 @@ body::before {
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   width: 27%;
-  min-width: 200px;
+  min-width: 250px;
   border: 2px solid black;
 }
 
@@ -128,7 +138,7 @@ body::before {
   justify-content: center;
   color: black;
   font-weight: bold;
-  transition: width 0.6s ease, background-color 0.3s ease;
+  transition: 0.6s ease, background-color 0.3s ease;
 }
 
 .health-bar.hp-high {
@@ -141,8 +151,11 @@ body::before {
   background-color: #f05050;
 }
 
+.hp{
+  font-size: 1rem;
+}
 .hp-text {
-  font-size: 0.85rem;
+  font-size: 1rem;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
 }
 
@@ -160,7 +173,7 @@ body::before {
   align-self: flex-end;
   position: absolute;
   right: 0px;
-  margin-bottom: 7px;
+  margin-bottom: 1.5rem;
 }
 
 .moves-grid {
@@ -172,7 +185,15 @@ body::before {
   width: 100%;
 }
 
+.m-power{
+  cursor: pointer;
+}
+
+.m-type-tag{
+  cursor: pointer;
+}
 .move-button {
+  font-family: Arial, Helvetica, sans-serif;
   border: 3px solid black;
   border-radius: 8px;
   padding: 1.5rem 1rem;
@@ -186,27 +207,31 @@ body::before {
 
   cursor: pointer;
   text-align: left;
-  color: inherit;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease-in-out, filter 0.2s;
+  font-family: 'Pokemon X and Y';
+  
 }
 
 .move-name {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
+  cursor: pointer;
 }
 
 .move-details {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9em;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .move-button:hover {
   transform: scale(1.01);
   border: 2px solid yellow;
   filter: brightness(1.05);
+  
 }
 
 .move-button.normal {
@@ -284,16 +309,15 @@ body::before {
 .log-container {
   background-color: rgba(240, 248, 255, 0.877);
   opacity: 0.8;
-  padding: 1rem;
   border-radius: 1rem;
-  border: 1px solid black;
   position: absolute;
-  top: 10%;
+  top: 11%;
   max-height: 700px;
   width: 250px;
   overflow-y: auto;
 }
 .battle-log > h3 {
+  margin-top: 1rem;
   text-align: center;
 }
 .battle-log > ul {
@@ -302,6 +326,7 @@ body::before {
   flex-direction: column;
   gap: 0.5rem;
   list-style: none;
+  margin: 0 1rem 1rem 1rem;
 }
 
 .battle-log > ul > li {

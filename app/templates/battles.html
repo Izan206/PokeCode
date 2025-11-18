@@ -1,12 +1,9 @@
-{%extends "base.html" %}
-{%block title%}Battle{%endblock%}
-{%block styles%}
+{%extends "base.html" %} {%block title%}Battle{%endblock%} {%block styles%}
 <link
   rel="stylesheet"
   href="{{url_for('static', filename='css/battles.css')}}"
 />
-{%endblock%}
-{%block content%}
+{%endblock%} {%block content%}
 <div class="screen-container">
   <div class="grid-container">
     <div class="log-container">
@@ -52,13 +49,10 @@
         <p class="name">{{pokemon.name}}</p>
         <div class="health">
           <p class="hp">HP:</p>
-          {% set max_hp = pokemon.stats[0]['value'] %}
-          {% set cur_hp = battle.player_health %}
-          {% if max_hp > 0 %}
-            {% set pct = (cur_hp / max_hp) * 100 %}
-          {% else %}
-            {% set pct = 0 %}
-          {% endif %}
+          {% set max_hp = pokemon.stats[0]['value'] %} {% set cur_hp =
+          battle.player_health %} {% if max_hp > 0 %} {% set pct = (cur_hp /
+          max_hp) * 100 %} {% else %} {% set pct = 0 %} {% endif %}
+          <span class="hp-text">{{ cur_hp }}/{{ max_hp }}</span>
           <div class="health-bar-wrapper">
             <div
               class="health-bar {% if pct >= 50 %}hp-high{% elif pct >= 20 %}hp-medium{% else %}hp-low{% endif %}"
@@ -66,9 +60,7 @@
               aria-valuenow="{{ cur_hp }}"
               aria-valuemax="{{ max_hp }}"
               style="width: {{ pct|round(0, 'floor') }}%;"
-            >
-              <span class="hp-text">{{ cur_hp }}/{{ max_hp }}</span>
-            </div>
+            ></div>
           </div>
         </div>
       </div>
@@ -84,13 +76,10 @@
         <p class="name">{{pokemon_enemy.name }}</p>
         <div class="health">
           <p class="hp">HP:</p>
-          {% set max_hp_e = pokemon_enemy.stats[0]['value'] %}
-          {% set cur_hp_e = battle.enemy_health %}
-          {% if max_hp_e > 0 %}
-            {% set pct_e = (cur_hp_e / max_hp_e) * 100 %}
-          {% else %}
-            {% set pct_e = 0 %}
-          {% endif %}
+          {% set max_hp_e = pokemon_enemy.stats[0]['value'] %} {% set cur_hp_e =
+          battle.enemy_health %} {% if max_hp_e > 0 %} {% set pct_e = (cur_hp_e
+          / max_hp_e) * 100 %} {% else %} {% set pct_e = 0 %} {% endif %}
+          <span class="hp-text">{{ cur_hp_e }}/{{ max_hp_e }}</span>
           <div class="health-bar-wrapper">
             <div
               class="health-bar {% if pct_e >= 50 %}hp-high{% elif pct_e >= 20 %}hp-medium{% else %}hp-low{% endif %}"
@@ -98,9 +87,7 @@
               aria-valuenow="{{ cur_hp_e }}"
               aria-valuemax="{{ max_hp_e }}"
               style="width: {{ pct_e|round(0, 'floor') }}%;"
-            >
-              <span class="hp-text">{{ cur_hp_e }}/{{ max_hp_e }}</span>
-            </div>
+            ></div>
           </div>
         </div>
       </div>
