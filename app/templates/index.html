@@ -13,7 +13,7 @@ styles%}<link
 </header>
 <main>
   <div class="form-container">
-    <form action="/trainer" method="POST">
+    <form action="{{url_for("home.index")}}" method="POST">
       <div class="trainer-container">
         <label for="trainer">TRAINER NAME</label>
         <input
@@ -23,7 +23,9 @@ styles%}<link
           placeholder="Introduce your nickname"
         />
       </div>
-      <p class="error">{{session.invalid_trainer}}</p>
+      {%if error%}
+      <p class="error">{{error}}</p>
+      {% endif %}
       <p class="start-text">Click to start</p>
       <input type="submit" id="click-action" value="Start" />
     </form>

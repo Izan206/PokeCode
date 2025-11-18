@@ -1,21 +1,4 @@
 import random
-from flask import session
-from app.services.pokemon_services import list_pokemons
-
-
-def obtainPokemonPlayer():
-    pokemon_selected = session.get('pokemon_selected')
-    for pokemon in list_pokemons():
-        if pokemon_selected == pokemon.name:
-            return pokemon
-
-
-def obtainEnemyPokemon():
-    pokemon_enemy = session.get('pokemon_enemy')
-    for pokemon in list_pokemons():
-        if pokemon_enemy == pokemon.name:
-            return pokemon
-
 
 def getMove(pokemon, move_name):
     for move in pokemon.moves:
@@ -28,17 +11,6 @@ def getLife(pokemon):
     for stat in pokemon.stats:
         if stat["name"] == "hp":
             return stat["value"]
-
-
-def getPlayerAttacks(moves):
-    moves = session.get('pokemon_player_moves')
-    return moves
-
-
-def getEnemyAttacks(moves):
-    moves = session.get('pokemon_enemy_moves')
-    return moves
-
 
 
 def calculateDamage(attacker, defender, move):

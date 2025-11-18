@@ -5,7 +5,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 from app.models.battle import Battle
 from app.repositories.pokemon_repo import obtainPokemons
 from app.services.auth_services import required_login
-from app.services.battle_services import calculateDamage, getLife, getMove, obtainEnemyPokemon, obtainPokemonPlayer
+from app.services.battle_services import calculateDamage, getLife, getMove
 
 
 battle_bp = Blueprint('battle', __name__, template_folder='templates')
