@@ -10,3 +10,12 @@ def obtain_pokemon_by_id(id):
         return None
     return pokemon_repo.search_by_id(id)
     
+def obtain_pokemon_by_name(name):
+    pokemons=list_pokemons()
+    pokemon=None
+    for p in pokemons:
+        if p.name==name:
+            pokemon=p
+            break
+        
+    return pokemon

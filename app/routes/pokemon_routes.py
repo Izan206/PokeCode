@@ -35,14 +35,12 @@ def pokemon_selected():
     session["pokemon_selected"] = request.form.get('search').lower()
     pokemon_list = obtainPokemons()
     pokemonEncontrado=None
-    for p in pokemon_list:
-        if p.name == session["pokemon_selected"]:
-            pokemonEncontrado = p
-            break
+    if pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"]) is not None:
+        pokemonEncontrado=pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"])
 
     if pokemonEncontrado:
         # Obtner 4 movimientos aleatorios del pokemon seleccionado
-        all_moves_player = p.moves
+        all_moves_player = pokemonEncontrado.moves
         session["pokemon_player_moves"] = random.sample(
             all_moves_player, 4)
         # Pokemon enemigo
