@@ -1,11 +1,10 @@
 from datetime import datetime
 import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
-
 from app.models.battle import Battle
-from app.repositories.pokemon_repo import obtainPokemons
 from app.services.auth_services import required_login
-from app.services.battle_services import calculateDamage, getLife, getMove
+from app.services.battle_services import calculateDamage, checkHP, getLife, getMove
+from app.services.pokemon_services import obtain_pokemon_by_name
 
 
 battle_bp = Blueprint('battle', __name__, template_folder='templates')
@@ -16,22 +15,20 @@ current_year = datetime.now().year
 @battle_bp.route('/')
 @required_login
 def battles():
-    pokemon_selected = session.get('pokemon_selected')
-    pokemon_list = obtainPokemons()
+    if not session.get("pokemon_selected") or not session.get("pokemon_enemy_name"):
+        session.pop("battle", None)
+        session.pop("pokemon_selected", None)
+        session.pop("pokemon_enemy_name", None)
+        session.pop("pokemon_player_moves", None)
+        session.pop("pokemon_enemy_moves", None)
+        return redirect(url_for("pokemon.pokedex"))
 
+    pokemon_selected = session.get('pokemon_selected')
     pokemon_player_moves = session.get("pokemon_player_moves")
     pokemon_enemy_moves = session.get("pokemon_enemy_moves")
-    pokemon_player = None
-    pokemon_enemy = None
-
-    for p in pokemon_list:
-        if p.name == pokemon_selected:
-            pokemon_player = p
-
     pokemon_enemy_name = session.get("pokemon_enemy_name")
-    for p in pokemon_list:
-        if p.name == pokemon_enemy_name:
-            pokemon_enemy = p
+    pokemon_player = obtain_pokemon_by_name(pokemon_selected)
+    pokemon_enemy = obtain_pokemon_by_name(pokemon_enemy_name)
 
     battle = Battle(pokemon_player, pokemon_enemy, getLife(pokemon_player), getLife(
         pokemon_enemy), pokemon_player_moves, pokemon_enemy_moves)
@@ -43,9 +40,11 @@ def battles():
 @battle_bp.route('/attack', methods=['POST'])
 @required_login
 def attack():
+    if not session.get("battle"):
+        return redirect(url_for("battle.battleResult"))
+
     move_name = request.form.get("move")
     battle_data = session.get("battle")
-
     battle = Battle(**battle_data)
     player = battle.player_pokemon_data
     enemy = battle.enemy_pokemon_data
@@ -53,11 +52,7 @@ def attack():
     # Turno jugador
     player_move = getMove(player, move_name)
     player_damage, player_log = calculateDamage(player, enemy, player_move)
-
-    battle.enemy_health -= player_damage
-    if battle.enemy_health < 0:
-        battle.enemy_health = 0
-
+    battle.enemy_health = checkHP(battle.enemy_health, player_damage)
     battle.log.append(player_log)
 
     if battle.enemy_health == 0:
@@ -68,12 +63,8 @@ def attack():
     # Turno enemigo
     enemy_moves_list = session.get("pokemon_enemy_moves")
     enemy_move = random.choice(enemy_moves_list)
-
     enemy_damage, enemy_log = calculateDamage(enemy, player, enemy_move)
-    battle.player_health -= enemy_damage
-    if battle.player_health < 0:
-        battle.player_health = 0
-
+    battle.player_health = checkHP(battle.player_health, enemy_damage)
     battle.log.append(enemy_log)
 
     if battle.player_health == 0:
@@ -88,6 +79,9 @@ def attack():
 @battle_bp.route('/result')
 @required_login
 def battleResult():
+    if not session.get("battle"):
+        return redirect(url_for("pokemon.pokedex"))
+
     battle_data = session.get("battle")
 
     battle = Battle(**battle_data)

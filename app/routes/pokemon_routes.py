@@ -11,9 +11,15 @@ pokemon_bp = Blueprint('pokemon', __name__, template_folder='templates')
 current_year = datetime.now().year
 
 
-@pokemon_bp.route('/')  # Pokemons list
+@pokemon_bp.route('/')
 @required_login
 def pokedex():
+    session.pop("battle", None)
+    session.pop("pokemon_selected", None)
+    session.pop("pokemon_enemy_name", None)
+    session.pop("pokemon_player_moves", None)
+    session.pop("pokemon_enemy_moves", None)
+
     pokemon_list = obtainPokemons()
     error_message = session.pop("error_message", None)
     return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, error_message=error_message)
@@ -34,12 +40,13 @@ def pokemon_details(pokemon_id):
 def pokemon_selected():
     session["pokemon_selected"] = request.form.get('search').lower()
     pokemon_list = obtainPokemons()
-    pokemonEncontrado=None
+    pokemonEncontrado = None
     if pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"]) is not None:
-        pokemonEncontrado=pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"])
+        pokemonEncontrado = pokemon_services.obtain_pokemon_by_name(
+            session["pokemon_selected"])
 
     if pokemonEncontrado:
-        # Obtner 4 movimientos aleatorios del pokemon seleccionado
+        # Obtener 4 movimientos aleatorios del pokemon seleccionado
         all_moves_player = pokemonEncontrado.moves
         session["pokemon_player_moves"] = random.sample(
             all_moves_player, 4)

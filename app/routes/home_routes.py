@@ -1,5 +1,4 @@
 from datetime import datetime
-from functools import wraps
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
 home_bp = Blueprint('home', __name__, template_folder='templates')
@@ -10,7 +9,7 @@ current_year = datetime.now().year
 @home_bp.route('/', methods=["GET", "POST"])
 def index():
     error = None
-
+    session.clear()
     if request.method == "POST":
         session["trainer"] = request.form.get('trainer', None)
 
@@ -27,4 +26,3 @@ def index():
 @home_bp.route('/404')
 def error404():
     return render_template('404.html'), 404
-
