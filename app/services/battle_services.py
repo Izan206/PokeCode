@@ -14,8 +14,6 @@ def getLife(pokemon):
             return stat["value"]
 
 
-
-
 def calculateDamage(attacker, defender, move):
     m_name = move["name"]
     m_power = move["power"]
