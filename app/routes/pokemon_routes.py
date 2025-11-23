@@ -42,8 +42,7 @@ def pokemon_selected():
     pokemon_list = obtainPokemons()
     pokemonEncontrado = None
     if pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"]) is not None:
-        pokemonEncontrado = pokemon_services.obtain_pokemon_by_name(
-            session["pokemon_selected"])
+        pokemonEncontrado = pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"])
 
     if pokemonEncontrado:
         # Obtener 4 movimientos aleatorios del pokemon seleccionado

@@ -3,7 +3,7 @@ import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from app.models.battle import Battle
 from app.services.auth_services import required_login
-from app.services.battle_services import calculateDamage, checkHP, getLife, getMove
+from app.services.battle_services import apply_damage, calculateDamage, getLife, getMove, get_battle_result
 from app.services.pokemon_services import obtain_pokemon_by_name
 
 
@@ -52,10 +52,10 @@ def attack():
     # Turno jugador
     player_move = getMove(player, move_name)
     player_damage, player_log = calculateDamage(player, enemy, player_move)
-    battle.enemy_health = checkHP(battle.enemy_health, player_damage)
+    battle.enemy_health, enemy_ko = apply_damage(battle.enemy_health, player_damage)
     battle.log.append(player_log)
 
-    if battle.enemy_health == 0:
+    if enemy_ko:
         battle.log.append(f"{enemy.name} died and {player.name} wins!")
         session["battle"] = battle.__dict__
         return redirect(url_for("battle.battleResult"))
@@ -64,10 +64,10 @@ def attack():
     enemy_moves_list = session.get("pokemon_enemy_moves")
     enemy_move = random.choice(enemy_moves_list)
     enemy_damage, enemy_log = calculateDamage(enemy, player, enemy_move)
-    battle.player_health = checkHP(battle.player_health, enemy_damage)
+    battle.player_health, player_ko = apply_damage(battle.player_health, enemy_damage)
     battle.log.append(enemy_log)
 
-    if battle.player_health == 0:
+    if player_ko:
         battle.log.append(f"{player.name} died and {enemy.name} wins!")
         session["battle"] = battle.__dict__
         return redirect(url_for("battle.battleResult"))
@@ -83,14 +83,7 @@ def battleResult():
         return redirect(url_for("pokemon.pokedex"))
 
     battle_data = session.get("battle")
-
     battle = Battle(**battle_data)
-
-    if battle.player_health <= 0:
-        winner = battle.enemy_pokemon_data.name
-        loser = battle.player_pokemon_data.name
-    else:
-        winner = battle.player_pokemon_data.name
-        loser = battle.enemy_pokemon_data.name
+    winner, loser=get_battle_result(battle)
 
     return render_template("battle_result.html", battle=battle, winner=winner, loser=loser,)

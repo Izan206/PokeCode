@@ -14,11 +14,6 @@ def getLife(pokemon):
             return stat["value"]
 
 
-def checkHP(hp, damage):
-    hp -= damage
-    if hp < 0:
-        hp = 0
-    return hp
 
 
 def calculateDamage(attacker, defender, move):
@@ -41,3 +36,25 @@ def calculateDamage(attacker, defender, move):
     damage = int(max(5, base_damage * random_factor))
     log_message = f"{attacker.name} used {m_name}. It hit {damage} of damage!"
     return damage, log_message
+
+def apply_damage(battle_health, damage):
+    battle_health-=damage
+    if battle_health<0:
+        battle_health=0
+    
+    is_ko=False
+    if battle_health==0:
+        is_ko=True
+    
+    return battle_health, is_ko 
+        
+    
+def get_battle_result(battle):
+    if battle.player_health <= 0:
+        winner = battle.enemy_pokemon_data.name
+        loser = battle.player_pokemon_data.name
+    else:
+        winner = battle.player_pokemon_data.name
+        loser = battle.enemy_pokemon_data.name
+        
+    return winner, loser
