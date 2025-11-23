@@ -1,5 +1,6 @@
 from flask import Flask, session
 from flask_session import Session
+from app.database import db
 from app.routes.home_routes import home_bp
 from app.routes.pokemon_routes import pokemon_bp
 from app.routes.battle_routes import battle_bp
@@ -17,6 +18,11 @@ Session(app)
 app.register_blueprint(home_bp, url_prefix="/")
 app.register_blueprint(pokemon_bp, url_prefix="/pokedex")
 app.register_blueprint(battle_bp, url_prefix="/battles")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///pokemons.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080)
