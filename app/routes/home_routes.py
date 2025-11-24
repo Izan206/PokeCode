@@ -23,6 +23,11 @@ def index():
     return render_template('index.html', error=error)
 
 
+@home_bp.route('/sign-up')
+def sign_up():
+    return render_template('sign-up.html')
+
+
 @home_bp.route('/404')
 def error404():
     return render_template('404.html'), 404

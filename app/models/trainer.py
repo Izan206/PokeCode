@@ -1,5 +1,5 @@
 
-from app.database import db
+from app.database.db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -11,23 +11,15 @@ class Trainer(db.Model):
 
     def __init__(self, name, password):
         self.name = name
-        self.password = password
+        self.password = generate_password_hash(password)
 
-    @property
-    def password(self):
-        raise AttributeError("La contraseña no puede leerse.")
 
-    @password.setter
-    def password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def verify_password(self, password):
+    def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    @classmethod
     def authenticate(name, password):
         trainer = name.query.filter_by(name=name).first()
 
-        if trainer and trainer.verify_password(password):
+        if trainer and trainer.check_password(password):
             return trainer 
         return None

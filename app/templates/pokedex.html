@@ -15,6 +15,12 @@
 {%endblock%} {%block content%}
 <div class="flex">
   <p class="trainer">Trainer: {{session.trainer}}</p>
+  <div class="welcome-container">
+    <p
+      id="text"
+      data-text="Pokedex loaded! Let’s explore some Pokémon info!"
+    ></p>
+  </div>
   <form action="{{url_for('pokemon.pokemon_selected')}}" method="post">
     <input
       type="text"

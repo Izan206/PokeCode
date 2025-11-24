@@ -1,0 +1,33 @@
+{%extends "base.html"%} {%block title%}Sign-up{%endblock%} {%block styles%}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/sign-up.css')}}"
+/>
+{%endblock%} {%block content%}
+<header>
+  <div class="header-container">
+    <div class="welcome-container">
+      <p
+        id="text"
+        data-text="Welcome, future Trainer! Create your Trainer profile and get ready to start your own Pokémon adventure"
+      ></p>
+    </div>
+    <a href="{{url_for('home.index')}}" id="log-btn">LOG IN</a>
+  </div>
+</header>
+<main>
+  <div class="form-container">
+    <h3>SIGN-UP</h3>
+    <form action="" id="sign-up">
+      <label for="">name:</label>
+      <input type="text" placeholder="pikachu34" />
+      <label for="">password:</label>
+      <input type="password" placeholder="**********" />
+      <label for="">confirm password:</label>
+      <input type="password" placeholder="**********" />
+      <button type="submit" id="sign-up-button">Sign Up</button>
+    </form>
+  </div>
+</main>
+
+{%endblock%}
