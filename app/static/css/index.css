@@ -34,7 +34,7 @@ body {
 
     /* Move start text without pushing other elements */
     position: absolute;
-    top: 85%;
+    top: 89%;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 0;
@@ -92,7 +92,7 @@ body {
     letter-spacing: 2px;
 }
 
-#trainer {
+.trainer {
     background-color: rgb(237, 221, 134);
     text-align: center;
     width: 100%;
@@ -101,11 +101,11 @@ body {
     letter-spacing: 1px;
 }
 
-#trainer:hover {
+.trainer:hover {
     cursor: text;
 }
 
-#trainer::placeholder {
+.trainer::placeholder {
     color: rgba(0, 0, 0, 0.574);
     font-family: 'Pokemon X and Y';
 }
@@ -115,9 +115,43 @@ body {
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    top: 81%;
+    top: 86%;
     z-index: 2;
     background: rgba(4, 4, 4, 0.205);
     backdrop-filter: blur(8px);
     padding: 2px;
+}
+
+@font-face {
+    font-family: 'Pokemon X and Y';
+    src: url('../fonts/Pokemon X and Y.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#register-btn{
+    position: absolute;
+    right: 3%;
+    top: 5%;
+    padding: .5rem 2rem;
+    backdrop-filter: blur(8px);
+    background: rgba(4, 4, 4, 0.205);
+    font-family: 'Pokemon X and Y';
+    font-size: 17px;
+    letter-spacing: 3px;
+    color: rgb(230, 230, 146);
+    border: 4px solid rgb(255, 238, 2);
+    box-shadow: 0px 0px 0px 5px rgb(4, 8, 39);
+    text-shadow: 0px 0px 4px rgb(3, 3, 3);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#register-btn:hover{
+    background-color: rgba(240, 252, 77, 0.24);
+    box-shadow: 0px 0px 0px 2px rgb(238, 255, 2);
+    color: yellow;
+    transform: scale(1.03);
+    transition: 0.08s ease-in-out;
+    cursor: pointer;
 }

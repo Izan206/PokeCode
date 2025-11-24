@@ -1,27 +1,27 @@
 {%extends "base.html"%} {%block title%}PokeCode{%endblock%} {%block
-styles%}<link
-  rel="stylesheet"
-  href="{{url_for('static', filename='css/index.css')}}"
-/>{%endblock%} {%block content%}
+styles%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />{%endblock%} {%block content%}
 
 <header>
   <div class="header-container">
     <div class="welcome-container">
       <p id="text"></p>
     </div>
+    <a href="" id="register-btn">REGISTER</a>
   </div>
 </header>
 <main>
   <div class="form-container">
-    <form action="{{url_for("home.index")}}" method="POST">
+    <form action="{{url_for('home.index')}}" method="POST">
       <div class="trainer-container">
-        <label for="trainer">TRAINER NAME</label>
-        <input
-          type="text"
-          name="trainer"
-          id="trainer"
-          placeholder="Introduce your nickname"
-        />
+        <div>
+          <label for="trainer">TRAINER NAME:</label>
+          <input type="text" name="trainer" id="trainer" class="trainer" placeholder="Introduce your nickname" />
+        </div>
+        <div>
+          <label for="trainer-password">PASSWORD:</label>
+          <input type="password" name="password" id="password" class="trainer" placeholder="********" />
+        </div>
       </div>
       {%if error%}
       <p class="error">{{error}}</p>
