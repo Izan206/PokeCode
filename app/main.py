@@ -1,5 +1,5 @@
 import os
-from flask import Flask, session
+from flask import Flask
 from flask_session import Session
 from app.database.db import db
 from app.routes.home_routes import home_bp
@@ -31,11 +31,21 @@ db.init_app(app)
 
 
 @app.cli.command("create-tables")
-def create_tables():
+def create_table():
     print("Creating tables")
     db.drop_all()
     db.create_all()
     print("Tables created")
+# @app.route("/test")
+# def test():
+#     nombre="Izan"
+#     password="1234"
+#     usuario=Usuario.query.get(id)
+#     esPasswordValida=usuario.check_password(password)
+#     db.session.add(usuario)
+#     db.session.commit()
+
+#     return esPasswordValida
 
 
 if __name__ == '__main__':

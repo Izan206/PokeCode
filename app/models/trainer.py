@@ -13,7 +13,6 @@ class Trainer(db.Model):
         self.name = name
         self.password = generate_password_hash(password)
 
-
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
@@ -21,5 +20,8 @@ class Trainer(db.Model):
         trainer = name.query.filter_by(name=name).first()
 
         if trainer and trainer.check_password(password):
-            return trainer 
+            return trainer
         return None
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
