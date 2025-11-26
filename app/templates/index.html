@@ -1,43 +1,28 @@
 {%extends "base.html"%} {%block title%}PokeCode{%endblock%} {%block styles%}
-<link
-  rel="stylesheet"
-  href="{{url_for('static', filename='css/index.css')}}"
-/>{%endblock%} {%block content%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />{%endblock%} {%block content%}
 
 <header>
   <div class="header-container">
     <div class="welcome-container">
-      <p
-        id="text"
-        data-text="Welcome to PokeCode! We hope you enjoy battling your favorite Pokémon one-on-one. Get ready to fight, now!"
-      ></p>
+      <p id="text"
+        data-text="Welcome to PokeCode! We hope you enjoy battling your favorite Pokémon one-on-one. Get ready to fight, now!">
+      </p>
     </div>
     <a href="{{url_for('home.sign_up')}}" id="register-btn">SIGN UP</a>
   </div>
 </header>
 <main>
+  <video class="video" src="{{url_for('static', filename='videos/lightning-bolt1.mp4')}}" autoplay loop muted></video>
   <div class="form-container">
     <form action="{{url_for('home.index')}}" method="POST">
       <div class="trainer-container">
         <div>
           <label for="trainer">TRAINER NAME:</label>
-          <input
-            type="text"
-            name="trainer"
-            id="trainer"
-            class="trainer"
-            placeholder="Introduce your nickname"
-          />
+          <input type="text" name="trainer" id="trainer" class="trainer" placeholder="Introduce your nickname" />
         </div>
         <div>
           <label for="trainer-password">PASSWORD:</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="trainer"
-            placeholder="********"
-          />
+          <input type="password" name="password" id="password" class="trainer" placeholder="********" />
         </div>
       </div>
       {%if error%}

@@ -16,15 +16,28 @@
   </div>
 </header>
 <main>
+  <video
+    class="video"
+    src="{{url_for('static', filename='videos/lightning-bolt2.mp4')}}"
+    autoplay
+    loop
+    muted
+  ></video>
+  <div class="blur-background"></div>
   <div class="form-container">
     <h3>SIGN-UP</h3>
-    <form action="" id="sign-up">
+    <form action="{{url_for('home.sign_up')}}" method="POST" id="sign-up">
       <label for="">name:</label>
-      <input type="text" placeholder="pikachu34" />
+      <input type="text" name="name" placeholder="pikachu34" />
       <label for="">password:</label>
-      <input type="password" placeholder="**********" />
+      <input type="password" name="password1" placeholder="**********" />
       <label for="">confirm password:</label>
-      <input type="password" placeholder="**********" />
+      <input type="password" name="password2" placeholder="**********" />
+      {%if error%}
+      <p id="error">*{{error}}</p>
+      {%endif%} {%if success%}
+      <p id="success">{{success}}</p>
+      {%endif%}
       <button type="submit" id="sign-up-button">Sign Up</button>
     </form>
   </div>
