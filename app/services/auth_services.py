@@ -15,5 +15,5 @@ def required_login(func):
 def authenticate(name, password):
     trainer = Trainer.query.filter_by(name=name).first()
     if trainer and trainer.check_password(password):
-        return trainer
+        return True, trainer
     return None
