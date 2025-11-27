@@ -11,3 +11,7 @@ def add_trainer(name, password):
 def get_trainer_by_name(name):
     trainer = Trainer.query.filter_by(name=name).first()
     return trainer
+
+def obtain_all_trainers():
+    trainers=Trainer.query.all()
+    return trainers

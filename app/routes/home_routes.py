@@ -49,8 +49,8 @@ def sign_up():
             error = "All fields are required "
         elif len(name) < 3 or len(name) > 15:
             error = "The username must have a minimum of 3 characters and a maximum of 15."
-        elif len(password1)<3 or len(password2)<3:
-            error="The password must have a minimum 3 characters"
+        elif len(password1)<=3 or len(password2)<=3:
+            error="The password must have a minimum 4 characters"
         elif password1 != password2:
             error = "The passwords are not the same"
         elif get_trainer_by_name(name):
