@@ -35,8 +35,6 @@ header{
     font-size: 24px;
     text-shadow: 0px 0px 1000px black;
     animation: blink 2.5s ease-in-out infinite;
-
-    /* Move start text without pushing other elements */
     position: absolute;
     top: 89%;
     left: 50%;

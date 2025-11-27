@@ -63,6 +63,11 @@ def sign_up():
             success = "Trainer created successfully"
 
     return render_template('sign-up.html', success=success)
+
+@home_bp.route('/log-out')
+def log_out():
+    session.clear()
+    return redirect(url_for('home.index'))
     
     
 @home_bp.route('/404')
