@@ -36,6 +36,7 @@ def create_table():
     db.drop_all()
     db.create_all()
     print("Tables created")
+    
 # @app.route("/test")
 # def test():
 #     nombre="Izan"

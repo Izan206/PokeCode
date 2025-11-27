@@ -13,21 +13,22 @@ current_year = datetime.now().year
 @home_bp.route('/', methods=["GET", "POST"])
 def index():
     error = None
-    session.clear()
-    if request.method == "POST":
-        nameIntroduced=request.form.get("name")
+    if request.method=="GET":
+        session.clear()
+    elif request.method == "POST":
+        nameIntroduced=request.form.get("trainer")
         passwordIntroduced=request.form.get("password")
         
         if nameIntroduced is None or passwordIntroduced is None:
             error="Name and password required"
-        else:
+        else: 
             trainer=authenticate(nameIntroduced, passwordIntroduced)
             if (trainer):
-                session["trainer"]=trainer
+                session["trainer_id"]=trainer.id
+                session["trainer_name"]=trainer.name
                 return redirect(url_for("pokemon.pokedex"))
             else:
-                error="Invalid data"
-                return render_template('index.html', error=error)
+                error="Incorrect username or password"
 
     return render_template('index.html', error=error)
 
@@ -58,8 +59,7 @@ def sign_up():
         if error:
             return render_template('sign-up.html', error=error)
         elif error is None:
-            trainer = Trainer(name=name, password=password2)
-            add_trainer(trainer.name, trainer.password)
+            add_trainer(name, password2)
             success = "Trainer created successfully"
 
     return render_template('sign-up.html', success=success)
