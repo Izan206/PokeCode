@@ -2,7 +2,9 @@ from datetime import datetime
 import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from app.models.battle import Battle
-from app.services.auth_services import required_login
+from app.decorators import required_login
+from app.models.trainer import Trainer
+from app.repositories.trainer_repo import add_lose, add_win, get_trainer_by_id
 from app.services.battle_services import apply_damage, calculateDamage, getLife, getMove, get_battle_result
 from app.services.pokemon_services import obtain_pokemon_by_name
 
@@ -96,5 +98,16 @@ def battleResult():
     battle_data = session.get("battle")
     battle = Battle(**battle_data)
     winner, loser=get_battle_result(battle)
+    
 
-    return render_template("battle_result.html", battle=battle, winner=winner, loser=loser,)
+    trainer_dict=session.get("trainer")
+    trainer_id = trainer_dict["id"]
+    trainer = get_trainer_by_id(trainer_id)
+    
+    # trainer=Trainer(**trainer_data)
+    if winner == session.get('pokemon_selected'):
+        add_win(trainer.id)
+    else:
+        add_lose(trainer.id)
+
+    return render_template("battle_result.html", battle=battle, winner=winner, loser=loser)

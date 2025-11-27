@@ -37,16 +37,6 @@ def create_table():
     db.create_all()
     print("Tables created")
     
-# @app.route("/test")
-# def test():
-#     nombre="Izan"
-#     password="1234"
-#     usuario=Usuario.query.get(id)
-#     esPasswordValida=usuario.check_password(password)
-#     db.session.add(usuario)
-#     db.session.commit()
-
-#     return esPasswordValida
 
 
 if __name__ == '__main__':

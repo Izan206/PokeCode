@@ -1,9 +1,10 @@
 from datetime import datetime
 import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from app.repositories.trainer_repo import get_trainer_by_id
 from app.services import pokemon_services
 from app.repositories.pokemon_repo import obtainPokemons
-from app.services.auth_services import required_login
+from app.decorators import required_login
 
 
 pokemon_bp = Blueprint('pokemon', __name__, template_folder='templates')

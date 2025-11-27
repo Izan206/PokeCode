@@ -24,8 +24,9 @@ def index():
         else: 
             trainer=authenticate(nameIntroduced, passwordIntroduced)
             if (trainer):
-                session["trainer_id"]=trainer.id
-                session["trainer_name"]=trainer.name
+                # Falta sobreescribir el método __dict__ en models/trainer.py
+                del trainer.password
+                session["trainer"]=trainer.__dict__
                 return redirect(url_for("pokemon.pokedex"))
             else:
                 error="Incorrect username or password"

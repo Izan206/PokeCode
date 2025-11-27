@@ -1,6 +1,5 @@
 import random
 
-
 def getMove(pokemon, move_name):
     for move in pokemon.moves:
         if move["name"] == move_name:
@@ -54,5 +53,4 @@ def get_battle_result(battle):
     else:
         winner = battle.player_pokemon_data.name
         loser = battle.enemy_pokemon_data.name
-        
     return winner, loser
