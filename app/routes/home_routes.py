@@ -1,6 +1,5 @@
 from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, session, url_for
-
 from app.models.trainer import Trainer
 from app.repositories.trainer_repo import add_trainer, get_trainer_by_name
 from app.services.auth_services import authenticate
@@ -13,23 +12,22 @@ current_year = datetime.now().year
 @home_bp.route('/', methods=["GET", "POST"])
 def index():
     error = None
-    if request.method=="GET":
+    if request.method == "GET":
         session.clear()
     elif request.method == "POST":
-        nameIntroduced=request.form.get("trainer")
-        passwordIntroduced=request.form.get("password")
-        
+        nameIntroduced = request.form.get("trainer")
+        passwordIntroduced = request.form.get("password")
+
         if nameIntroduced is None or passwordIntroduced is None:
-            error="Name and password required"
-        else: 
-            trainer=authenticate(nameIntroduced, passwordIntroduced)
+            error = "Name and password required"
+        else:
+            trainer = authenticate(nameIntroduced, passwordIntroduced)
             if (trainer):
-                # Falta sobreescribir el método __dict__ en models/trainer.py
                 del trainer.password
-                session["trainer"]=trainer.__dict__
+                session["trainer"] = trainer.to_dict()
                 return redirect(url_for("pokemon.pokedex"))
             else:
-                error="Incorrect username or password"
+                error = "Incorrect username or password"
 
     return render_template('index.html', error=error)
 
@@ -50,8 +48,8 @@ def sign_up():
             error = "All fields are required "
         elif len(name) < 3 or len(name) > 15:
             error = "The username must have a minimum of 3 characters and a maximum of 15."
-        elif len(password1)<=3 or len(password2)<=3:
-            error="The password must have a minimum 4 characters"
+        elif len(password1) <= 3 or len(password2) <= 3:
+            error = "The password must have a minimum 4 characters"
         elif password1 != password2:
             error = "The passwords are not the same"
         elif get_trainer_by_name(name):
@@ -65,12 +63,13 @@ def sign_up():
 
     return render_template('sign-up.html', success=success)
 
+
 @home_bp.route('/log-out')
 def log_out():
     session.clear()
     return redirect(url_for('home.index'))
-    
-    
+
+
 @home_bp.route('/404')
 def error404():
     return render_template('404.html'), 404
