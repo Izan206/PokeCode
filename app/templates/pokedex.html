@@ -7,18 +7,18 @@
 <div class="header-container">
   <a href="{{url_for('home.index')}}">
     <img
-      src="{{url_for('static', filename='images/index-page/logo1.png')}}"
+      src="{{url_for('static', filename='images/index-page/logo1.webp')}}"
       alt="PokeCode logo"
     />
   </a>
   <!-- <a href="{{url_for('home.log_out')}}" id="log-out">LOG OUT</a> -->
   <nav class="menu-navegacion">
-  <button class="boton-menu">{{session.trainer.name}}</button>
-  <div class="contenido-desplegable">
-    <a href="{{url_for('home.profile')}}">PROFILE</a>
-    <a href="{{url_for('home.log_out')}}" id="log-out">LOG OUT</a>
-  </div>
-</nav>
+    <button class="boton-menu">{{session.trainer.name}} ▼</button>
+    <div class="contenido-desplegable">
+      <a href="{{url_for('home.profile')}}">PROFILE</a>
+      <a href="{{url_for('home.log_out')}}" id="log-out">LOG OUT</a>
+    </div>
+  </nav>
 </div>
 {%endblock%} {%block content%}
 <div class="flex">
