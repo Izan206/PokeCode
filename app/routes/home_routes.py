@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from app.models.exceptions import TrainerNotFound
 from app.models.trainer import Trainer
 from app.repositories.trainer_repo import add_trainer, get_trainer_by_name
 from app.services.auth_services import authenticate
@@ -21,15 +22,14 @@ def index():
         if nameIntroduced is None or passwordIntroduced is None:
             error = "Name and password required"
         else:
-            trainer = authenticate(nameIntroduced, passwordIntroduced)
-            if (trainer):
-                del trainer.password
+            try:
+                trainer = authenticate(nameIntroduced, passwordIntroduced)
                 session["trainer"] = trainer.to_dict()
                 return redirect(url_for("pokemon.pokedex"))
-            else:
+            except TrainerNotFound:    
                 error = "Incorrect username or password"
 
-    return render_template('index.html', error=error)
+    return render_template('index.html', error=error, current_year=current_year)
 
 
 @home_bp.route('/sign-up', methods=["GET", "POST"])
@@ -45,7 +45,7 @@ def sign_up():
         password2 = request.form.get("password2")
 
         if not name or not password1 or not password2:
-            error = "All fields are required "
+            error = "All fields are required"
         elif len(name) < 3 or len(name) > 15:
             error = "The username must have a minimum of 3 characters and a maximum of 15."
         elif len(password1) <= 3 or len(password2) <= 3:
@@ -61,8 +61,12 @@ def sign_up():
             add_trainer(name, password2)
             success = "Trainer created successfully"
 
-    return render_template('sign-up.html', success=success)
+    return render_template('sign-up.html', success=success, current_year=current_year)
 
+
+@home_bp.route('/Profile')
+def profile():
+    return render_template('profile.html', current_year=current_year)
 
 @home_bp.route('/log-out')
 def log_out():

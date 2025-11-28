@@ -1,3 +1,4 @@
+
 body {
     /* background-color: #0d0d13; */
     background-image: url('../images/pokedex-page/background.png');
@@ -43,31 +44,49 @@ a {
     cursor: pointer;
 }
 
-#log-out {
+.boton-menu{
     position: absolute;
     right: 3%;
     top: 0%;
     margin-top: 53px;
-    padding: .5rem 2rem;
-    backdrop-filter: blur(8px);
-    background: rgba(4, 4, 4, 0.205);
+    padding: 0.5rem 2rem;
+    background-color: rgba(4, 4, 4);
     font-family: 'Pokemon X and Y';
     font-size: 17px;
     letter-spacing: 3px;
-    color: rgb(255, 0, 0);
-    border: 4px solid rgb(255, 2, 2);
+    color: yellow;
+    border: 4px solid yellow;
+    box-shadow: 0px 0px 10px 5px rgb(0, 0, 0);
+    text-shadow: 0px 0px 4px rgb(3, 3, 3);
+    border-radius: 6px;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+.contenido-desplegable {
+    position: absolute;
+    right: 3%;
+    top: 5%;
+    margin-top: 53px;
+    padding: 0.5rem 2rem;
+    background-color: rgb(255, 255, 255);
+    font-family: 'Pokemon X and Y';
+    font-size: 17px;
+    letter-spacing: 3px;
+    color: rgb(0, 0, 0);
+    border: 4px solid rgb(0, 0, 0);
     box-shadow: 0px 0px 10px 5px rgb(0, 0, 0);
     text-shadow: 0px 0px 4px rgb(3, 3, 3);
     border-radius: 4px;
     text-decoration: none;
-    transition: 0.2s ease-in-out;
+    text-transform: capitalize;
 }
 
-#log-out:hover {
-    transform: scale(1.02);
-    background-color: #C03028;
-    color: black;
+.contenido-desplegable a:hover {
+    transition: 0.15s ease-in-out;
+    background-color: yellow;
 }
+
 .card_container {
     display: grid;
     grid-template-columns: 1fr;
@@ -292,25 +311,6 @@ form button:hover {
     padding-top: 10px;
 }
 
-/* .welcome-container {
-    text-align: left;
-    padding-top: 50px;
-}
-
-.welcome-container p {
-    background: rgba(4, 4, 4, 0.205);
-    backdrop-filter: blur(8px);
-    color: rgb(230, 230, 146);
-    font-size: 35px;
-    max-width: 810px;
-    margin: 0 auto;
-    padding: 15px;
-    border: 4px solid rgb(255, 238, 2);
-    box-shadow: 0px 0px 0px 5px rgb(4, 8, 39);
-    text-shadow: 0px 0px 4px rgb(3, 3, 3);
-    border-radius: 4px;
-} */
-
 #text{
     position: absolute;
     top: 8%;
@@ -323,4 +323,26 @@ form button:hover {
     padding: 15px;
     text-shadow: 0px 0px 4px rgb(3, 3, 3);
     border-radius: 4px;
+}
+
+.contenido-desplegable {
+    /* Esto oculta los enlaces por defecto */
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.contenido-desplegable a {
+    /* Estilo para los enlaces internos */
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-navegacion:hover .contenido-desplegable {
+    display: block;
 }
