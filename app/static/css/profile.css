@@ -5,6 +5,8 @@
     justify-content: center;
     align-items: center;
     gap: 3rem;
+    box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.401);
+    border: 20px double #F8D030;
 }
 
 .container {
@@ -12,14 +14,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     background-color: rgb(250, 255, 101);
-    border-radius: 8px;
     width: 100%;
     height: 700px;
     max-width: 400px;  
     text-align: center;
     gap: 20px;
+
+    box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.401);
+    border: 20px double #F8D030;
+    border-radius: 1rem;
 }
 
 
@@ -57,4 +62,56 @@
     border-radius: 6px;
     text-decoration: none;
     text-transform: capitalize;
+}
+
+.stat-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    
+}
+
+.stat-container div{
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    
+
+}
+
+.stat-container span{
+    font-size: 20px;
+    text-transform: capitalize;
+    border: 5px solid #F8D030;
+    width: 150px;
+    text-align: center;
+    padding: .5rem;
+    
+}
+
+.win-rate > span{
+    font-size: 26px;
+    font-weight: bold;
+}
+
+footer{
+    margin-bottom: 1rem;
+}
+
+.lvl{
+    background-color: rgba(255, 0, 0, 0.363);
+    display: flex;
+    flex-direction: column;
+    border-radius: 30%;
+    padding: 2rem;
+    border: 20px solid #F8D030;
+    border-radius: 1.5rem;
+    margin-top: 3rem;
+    box-shadow: 0 0 0px 5px #ffe608;
+    
+}
+
+#level{
+    font-size: 30px;
 }

@@ -13,7 +13,7 @@
   </a>
   <!-- <a href="{{url_for('home.log_out')}}" id="log-out">LOG OUT</a> -->
   <nav class="menu-navegacion">
-    <button class="boton-menu">{{session.trainer.name}} ▼</button>
+    <button class="boton-menu trainer">{{session.trainer.name}} ▼</button>
     <div class="contenido-desplegable">
       <a href="{{url_for('home.profile')}}">PROFILE</a>
       <a href="{{url_for('home.log_out')}}" id="log-out">LOG OUT</a>
@@ -22,7 +22,6 @@
 </div>
 {%endblock%} {%block content%}
 <div class="flex">
-  <p class="trainer">Trainer: {{session.trainer.name}}</p>
   <div class="welcome-container">
     <p
       id="text"

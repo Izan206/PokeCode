@@ -16,7 +16,7 @@ def index():
     if request.method == "GET":
         session.clear()
     elif request.method == "POST":
-        nameIntroduced = request.form.get("trainer")
+        nameIntroduced = request.form.get("trainer").lower()
         passwordIntroduced = request.form.get("password")
 
         if nameIntroduced is None or passwordIntroduced is None:
@@ -26,7 +26,7 @@ def index():
                 trainer = authenticate(nameIntroduced, passwordIntroduced)
                 session["trainer"] = trainer.to_dict()
                 return redirect(url_for("pokemon.pokedex"))
-            except TrainerNotFound:    
+            except TrainerNotFound:
                 error = "Incorrect username or password"
 
     return render_template('index.html', error=error, current_year=current_year)
@@ -40,7 +40,7 @@ def sign_up():
     password2 = None
     success = None
     if request.method == "POST":
-        name = request.form.get("name")
+        name = request.form.get("name").lower()
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
 
@@ -67,6 +67,7 @@ def sign_up():
 @home_bp.route('/Profile')
 def profile():
     return render_template('profile.html', current_year=current_year)
+
 
 @home_bp.route('/log-out')
 def log_out():

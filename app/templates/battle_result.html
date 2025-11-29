@@ -1,23 +1,34 @@
-{%extends "base.html"%} {%block title%}Battle Results{%endblock%}
-
-{%block styles%}
-<link rel="stylesheet" href="{{url_for('static', filename='css/battle_result.css')}}" />
-{%endblock%} 
-{% block content %}
+{%extends "base.html"%} {%block title%}Battle Results{%endblock%} {%block
+styles%}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/battle_result.css')}}"
+/>
+{%endblock%} {% block content %}
 <div class="result-container">
-    <h1>Battle over!</h1>
+  <div>
+    <h1>Battle over!{{ " You won!" if i_win else " You lost!" }}</h1>
     <h2>Winner: {{ winner }}</h2>
     <h3>Looser: {{ loser }}</h3>
-
-    <div class="log">
-        <h3>Combat summary:</h3>
-        <ul>
-            {% for entry in battle.log %}
-            <li>{{ entry }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <a href="{{ url_for('pokemon.pokedex') }}" class="btn">Return to the Pokédex</a>
+  </div>
+  <div class="log">
+    <h3>Combat summary:</h3>
+    <ul>
+      {% for entry in battle.log %}
+      <li>{{ entry }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <p id="exp-gained">
+    You gained {{ 100 if i_win else 30 }} experience points!
+  </p>
+  <div class="button-container">
+    <a id="rematch-btn" href="{{ url_for('battle.rematch') }}" class="btn"
+      >Play again</a
+    >
+    <a id="return-btn" href="{{ url_for('pokemon.pokedex') }}" class="btn"
+      >Return to the Pokédex</a
+    >
+  </div>
 </div>
 {%endblock%}

@@ -1,30 +1,45 @@
 {% extends "base.html" %} {% block title%}Profile:
 {{session.trainer.name}}{%endblock%} {%block styles%}
-<link
-  rel="stylesheet"
-  href="{{url_for('static', filename='css/profile.css')}}"
-/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}" />
 {%endblock%} {%block content%}
 <a href="{{url_for('home.log_out')}}" id="log-out">LOG OUT</a>
 <div class="high-container">
   <div class="container">
     <div class="img-container">
-      <img
-        src="{{url_for('static', filename='images/profile-page/trainer.png')}}"
-        alt="trainer"
-      />
+      <img src="{{url_for('static', filename='images/profile-page/trainer.png')}}" alt="trainer" />
     </div>
     <p class="name">Trainer: {{session.trainer.name.capitalize() }}</p>
   </div>
 
   <div class="container">
-    <h1>Stats of {{session.trainer.name.capitalize()}}</h1>
-    <p class="victorys">Victorys: {{session.trainer.wins}}</p>
-    <p class="loses">Loses: {{session.trainer.loses}}</p>
-    <p class="games">
-      Total games: {{session.trainer.wins+session.trainer.loses}}
-    </p>
+    <h1>STATS</h1>
+    <div class="stat-container">
+      <div class="victorys">
+        <span>Victorys:</span>
+        <span>{{session.trainer.wins}}</span>
+      </div>
+      <div class="loses">
+        <span>Loses:</span>
+        <span>{{session.trainer.loses}}</span>
+      </div>
+      <div class="games">
+        <span>Games:</span>
+        <span>{{session.trainer.wins+session.trainer.loses}}</span>
+      </div>
+      <div class="win-rate">
+        <span>Win rate:</span>
+        <span>{% if session.trainer.wins+session.trainer.loses == 0 %} 0% {% else
+          %} {{ '%.2f' % (session.trainer.wins * 100 / (session.trainer.wins +
+          session.trainer.loses)) }}% {% endif %}
+        </span>
+      </div>
+    </div>
+    <div class="lvl">
+      <span id="exp">EXP: {{ session.trainer.exp % 400 }}/400</span>
+      <span id="level">LVL: {{(session.trainer.exp/400) | round(0, method='floor') |
+        int}}</span>
+    </div>
   </div>
-</div>
 
-{%endblock%}
+  {%endblock%}
+</div>
