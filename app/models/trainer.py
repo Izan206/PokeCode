@@ -11,10 +11,12 @@ class Trainer(db.Model):
     wins = db.Column(db.Integer, nullable=False, default=0)
     loses = db.Column(db.Integer, nullable=False, default=0)
     exp = db.Column(db.Integer, nullable=False, default=1)
+    skin = db.Column(db.String, nullable=False)
 
-    def __init__(self, name, password, wins=0, loses=0, exp=1):
+    def __init__(self, name, password, skin, wins=0, loses=0, exp=1):
         self.name = name
         self.password = generate_password_hash(password)
+        self.skin = skin
         self.wins = wins
         self.loses = loses
         self.exp = exp

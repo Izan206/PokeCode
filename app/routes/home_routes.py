@@ -61,7 +61,7 @@ def sign_up():
             add_trainer(name, password2)
             success = "Trainer created successfully"
 
-    return render_template('sign-up.html', success=success, current_year=current_year)
+    return render_template('trainer.html', success=success, current_year=current_year)
 
 
 @home_bp.route('/Profile')
