@@ -39,6 +39,10 @@ def sign_up():
     password1 = None
     password2 = None
     success = None
+    
+    if request.method=="GET":
+        return render_template('sign-up.html', current_year=current_year)
+
     if request.method == "POST":
         name = request.form.get("name").lower()
         password1 = request.form.get("password1")
@@ -60,9 +64,12 @@ def sign_up():
         elif error is None:
             add_trainer(name, password2)
             success = "Trainer created successfully"
+            return redirect(url_for("home.trainer_skin", success=success))
 
-    return render_template('trainer.html', success=success, current_year=current_year)
 
+@home_bp.route('/profile-skin')
+def trainer_skin():
+    return render_template("trainer.html", current_year=current_year)
 
 @home_bp.route('/Profile')
 def profile():
