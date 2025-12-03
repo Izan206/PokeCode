@@ -4,6 +4,7 @@ from app.models.exceptions import TrainerNotFound
 from app.models.trainer import Trainer
 from app.repositories.trainer_repo import add_trainer, get_trainer_by_name
 from app.services.auth_services import authenticate
+from app.services.trainer_services import get_skins
 
 home_bp = Blueprint('home', __name__, template_folder='templates')
 
@@ -39,8 +40,8 @@ def sign_up():
     password1 = None
     password2 = None
     success = None
-    
-    if request.method=="GET":
+
+    if request.method == "GET":
         return render_template('sign-up.html', current_year=current_year)
 
     if request.method == "POST":
@@ -63,13 +64,18 @@ def sign_up():
             return render_template('sign-up.html', error=error)
         elif error is None:
             add_trainer(name, password2)
-            success = "Trainer created successfully"
-            return redirect(url_for("home.trainer_skin", success=success))
+            return redirect(url_for("home.trainer_skin"))
 
 
-@home_bp.route('/profile-skin')
+@home_bp.route('/profile-skin', methods=["GET"])
 def trainer_skin():
-    return render_template("trainer.html", current_year=current_year)
+    selected_skin = None
+    skins = get_skins()
+    if request.method == "GET":
+        if session.get("trainer"):
+            selected_skin = request.args.get("skin")
+    return render_template("skin_selection.html", current_year=current_year, skins=skins, selected_skin=selected_skin)
+
 
 @home_bp.route('/Profile')
 def profile():

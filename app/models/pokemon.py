@@ -1,4 +1,3 @@
-#Capa de modelos para mostrar pokemons
 class Pokemon:
     
     def __init__(self, id, name, height, weight, stats, sprites, moves, types):

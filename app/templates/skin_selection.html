@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title%}Skin Selection{%endblock%} {%block
+styles%}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/skin_selection.css')}}"
+/>
+{%endblock%} {% block content %}
+<div class="container">
+  <div class="skin-preview">
+    <div class="img-container">
+      {% if selected_skin %}
+      <img
+        src="{{ url_for('static', filename='images/profile-page/trainers/' + selected_skin + '.png') }}"
+        alt="Skin Preview"
+      />
+      {% endif %}
+    </div>
+  </div>
+  <div class="skin-list">
+    <form action="{{ url_for('home.trainer_skin') }}" method="get">
+      {% for skin in skins %}
+      <button
+        class="select-skin-button"
+        type="submit"
+        name="skin"
+        value="{{ skin }}"
+      >
+        <img
+          src="{{ url_for('static', filename='images/profile-page/trainers/' + skin + '.png') }}"
+          alt="Skin {{ loop.index }}"
+        />
+      </button>
+      {% endfor %}
+    </form>
+  </div>
+  <form action="{{url_for('home.trainer_skin')}}" method="post">
+    <button class="sign-in-btn" type="submit">Sign-in</button>
+  </form>
+</div>
+{%endblock%}
