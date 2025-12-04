@@ -1,6 +1,7 @@
 from datetime import datetime
 import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
+from app.models.trainer import Trainer
 from app.repositories.trainer_repo import get_trainer_by_id
 from app.services import pokemon_services
 from app.repositories.pokemon_repo import obtainPokemons
@@ -56,6 +57,14 @@ def pokemon_selected():
         all_moves_enemy = pokemon_enemy_object.moves
         session["pokemon_enemy_moves"] = random.sample(
             all_moves_enemy, 4)
+        
+        # enemy_name = obtain_all_trainers()[random.randint(0, len(get_all_trainers()) - 1)]
+        
+        
+        # Crear dos entrenadores (para el segundo entrenador: llamar obtain_all_trainers y que el nombre sea diferente al del trainer1)
+        # Asignar pokemon al entrenador
+        
+        
         return redirect(url_for('battle.battles'))
     else:
         session["error_message"] = "Pokémon not found, please enter the name correctly"

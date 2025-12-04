@@ -6,6 +6,8 @@ from app.routes.home_routes import home_bp
 from app.routes.pokemon_routes import pokemon_bp
 from app.routes.battle_routes import battle_bp
 from app.models.trainer import Trainer
+from app.models.battle_db import Battle_db
+from app.models.participates import Participates
 
 app = Flask(__name__)
 app.debug = True   # Activate debug mode
@@ -36,8 +38,9 @@ def create_table():
     db.drop_all()
     db.create_all()
     print("Tables created")
+    # trainer=Trainer("izan34")
+    # db.session.add(trainer)
     
-
-
+    
 if __name__ == '__main__':
     app.run('0.0.0.0', 8080)

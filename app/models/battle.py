@@ -1,4 +1,5 @@
 class Battle:
+    
     def __init__(self, player_pokemon_data, enemy_pokemon_data, player_health, enemy_health, player_moves, enemy_moves, log=None, turn=1):
         self.turn = turn
         self.player_pokemon_data = player_pokemon_data
