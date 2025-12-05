@@ -2,8 +2,8 @@ from app.database.db import db
 from app.models.trainer import Trainer
 
 
-def add_trainer(name, password):
-    trainer = Trainer(name, password)
+def add_trainer(name, password, skin):
+    trainer = Trainer(name=name, password=password, skin=skin)
     db.session.add(trainer)
     db.session.commit()
     return trainer

@@ -124,6 +124,18 @@ header{
     padding: 2px;
 }
 
+.success{
+    color: rgb(5, 233, 43);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 86%;
+    z-index: 2;
+    background: rgba(4, 4, 4, 0.205);
+    backdrop-filter: blur(8px);
+    padding: 2px;
+}
+
 @font-face {
     font-family: 'Pokemon X and Y';
     src: url('../fonts/Pokemon X and Y.ttf') format('truetype');

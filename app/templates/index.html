@@ -49,6 +49,8 @@
       </div>
       {%if error%}
       <p class="error">{{error}}</p>
+      {% endif %} {%if success%}
+      <p class="success">{{success}}</p>
       {% endif %}
       <p class="start-text">Click to start</p>
       <input type="submit" id="click-action" value="Start" />

@@ -5,7 +5,14 @@ styles%}
   href="{{url_for('static', filename='css/skin_selection.css')}}"
 />
 {%endblock%} {% block content %}
+
 <div class="container">
+  <div class="welcome-container">
+    <p
+      id="text"
+      data-text="Choose the look of your Pokémon Trainer and pick the style that best fits your adventure."
+    ></p>
+  </div>
   <div class="skin-preview">
     <div class="img-container">
       {% if selected_skin %}
@@ -13,7 +20,13 @@ styles%}
         src="{{ url_for('static', filename='images/profile-page/trainers/' + selected_skin + '.png') }}"
         alt="Skin Preview"
       />
+      {% else %}
+      <img
+        src="{{ url_for('static', filename='images/profile-page/trainers/trainer5.png') }}"
+        alt="Default Skin Preview"
+      />
       {% endif %}
+      <p id="trainer-name">{{session.get("trainer_name")}}</p>
     </div>
   </div>
   <div class="skin-list">
@@ -33,8 +46,18 @@ styles%}
       {% endfor %}
     </form>
   </div>
-  <form action="{{url_for('home.trainer_skin')}}" method="post">
-    <button class="sign-in-btn" type="submit">Sign-in</button>
+  <form
+    class="buttons"
+    method="post"
+    action="{{ url_for('home.trainer_skin')}}"
+  >
+    <button class="btn" name="action" value="go_back" type="submit">
+      Go Back
+    </button>
+
+    <button class="btn" name="action" value="save_and_sign_up" type="submit">
+      Save and Sign Up
+    </button>
   </form>
 </div>
 {%endblock%}

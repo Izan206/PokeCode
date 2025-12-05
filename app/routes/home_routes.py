@@ -63,17 +63,31 @@ def sign_up():
         if error:
             return render_template('sign-up.html', error=error)
         elif error is None:
-            add_trainer(name, password2)
+            session["trainer_name"] = name
+            session["trainer_password"] = password2
+            # add_trainer(name, password2)
             return redirect(url_for("home.trainer_skin"))
 
 
-@home_bp.route('/profile-skin', methods=["GET"])
+@home_bp.route('/profile-skin', methods=["GET", "POST"])
 def trainer_skin():
-    selected_skin = None
+    name = session.get("trainer_name", None)
+    password = session.get("trainer_password", None)
+    selected_skin = "trainer3"
     skins = get_skins()
     if request.method == "GET":
-        if session.get("trainer"):
-            selected_skin = request.args.get("skin")
+        selected_skin = request.args.get("skin", None)
+        session["selected_skin"] = selected_skin
+
+    if request.method == "POST":
+        selected_skin = session.get("selected_skin", "trainer3")
+        action = request.form.get("action", None)
+        if action == "save_and_sign_up":
+            add_trainer(name, password, selected_skin)
+            return render_template("index.html", success="Trainer created successfully! You can log in now.", current_year=current_year)
+        if action == "go_back":
+            return redirect(url_for("home.sign_up"))
+
     return render_template("skin_selection.html", current_year=current_year, skins=skins, selected_skin=selected_skin)
 
 
