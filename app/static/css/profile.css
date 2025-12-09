@@ -73,6 +73,7 @@ body{
     border-radius: 6px;
     text-decoration: none;
     text-transform: capitalize;
+    cursor: pointer;
 }
 
 #log-out:hover{
@@ -144,6 +145,7 @@ footer{
 .back-button-container img {
     max-width: 50px;
     filter: drop-shadow(0 0px 2px yellow);
+    cursor: pointer;
 }
 
 

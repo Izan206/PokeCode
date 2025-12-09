@@ -3,8 +3,10 @@ import random
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from app.models.battle import Battle
 from app.decorators import required_login
+from app.models.battle_db import Battle_db
 from app.models.trainer import Trainer
-from app.repositories.trainer_repo import add_exp, add_lose, add_win, get_trainer_by_id
+from app.repositories.battle_repo import create_battle
+from app.repositories.trainer_repo import add_exp, add_lose, add_win, get_random_trainer, get_trainer_by_id
 from app.services.battle_services import apply_damage, calculateDamage, getLife, getMove, get_battle_result
 from app.services.pokemon_services import obtain_pokemon_by_name
 
@@ -30,11 +32,13 @@ def battles():
     pokemon_player_moves = session.get("pokemon_player_moves")
     pokemon_enemy_moves = session.get("pokemon_enemy_moves")
     pokemon_enemy_name = session.get("pokemon_enemy_name")
+    enemy_trainer = get_random_trainer(session.get("trainer")["name"]).name
+    
 
     if session.get("battle") is None:
         pokemon_player = obtain_pokemon_by_name(pokemon_selected)
         pokemon_enemy = obtain_pokemon_by_name(pokemon_enemy_name)
-        battle = Battle(pokemon_player, pokemon_enemy, getLife(pokemon_player), getLife(
+        battle = Battle(pokemon_player, enemy_trainer, pokemon_enemy, getLife(pokemon_player), getLife(
             pokemon_enemy), pokemon_player_moves, pokemon_enemy_moves)
         session["battle"] = battle.__dict__
     else:
@@ -110,17 +114,36 @@ def battleResult():
     i_win = False
     if winner == session.get('pokemon_selected'):
         i_win = True
-        # Update the session and BD wins count and experience points
+        # Actualizar la sesion y las batallas ganadas y los puntos de experiencia
         add_win(trainer)
         session["trainer"]["wins"] += 1
         add_exp(trainer, 100)
         session["trainer"]["exp"] += 100
     else:
-        # Update the session and BD loses count and experience points
+        # Actualizar la sesion y las batallas perdidas y los puntos de experiencia
         add_lose(trainer)
         session["trainer"]["loses"] += 1
         add_exp(trainer, 30)
         session["trainer"]["exp"] += 30
+
+    # Añadir la batlla a la base de datos
+    winnerTrainer = None
+    loserTrainer = None
+    if i_win:
+        winnerTrainer = session.get("trainer")["name"]
+        loserTrainer = battle.enemy_trainer
+    else:
+        winnerTrainer = battle.enemy_trainer
+        loserTrainer = session.get("trainer")["name"]
+
+    
+    trainer1 = session.get("trainer")["name"]
+    trainer2 = battle.enemy_trainer
+    pokemon1 = battle.player_pokemon_data
+    pokemon2 = battle.enemy_pokemon_data
+
+    battle_db = Battle_db(trainer_1=trainer1,trainer_2=trainer2,pokemon_1=pokemon1.name,pokemon_2=pokemon2.name, winner=winnerTrainer, loser=loserTrainer)
+    create_battle(battle_db)
 
     return render_template("battle_result.html", battle=battle, winner=winner, loser=loser, i_win=i_win)
 

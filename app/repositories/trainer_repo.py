@@ -1,3 +1,4 @@
+import random
 from app.database.db import db
 from app.models.trainer import Trainer
 
@@ -23,6 +24,9 @@ def get_trainer_by_id(id):
     trainer = Trainer.query.filter_by(id=id).first()
     return trainer
 
+def get_random_trainer(name):
+    trainers=Trainer.query.filter(Trainer.name!=name).all()
+    return random.choice(trainers)
 
 def add_win(trainer):
     trainer.wins += 1

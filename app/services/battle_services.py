@@ -54,3 +54,5 @@ def get_battle_result(battle):
         winner = battle.player_pokemon_data.name
         loser = battle.enemy_pokemon_data.name
     return winner, loser
+
+

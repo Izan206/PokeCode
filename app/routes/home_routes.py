@@ -4,7 +4,6 @@ from app.models.exceptions import TrainerNotFound
 from app.models.trainer import Trainer
 from app.repositories.trainer_repo import add_trainer, get_trainer_by_name
 from app.services.auth_services import authenticate
-from app.services.trainer_services import get_skins
 
 home_bp = Blueprint('home', __name__, template_folder='templates')
 
