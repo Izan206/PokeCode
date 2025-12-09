@@ -74,7 +74,6 @@ def trainer_skin():
     name = session.get("trainer_name", None)
     password = session.get("trainer_password", None)
     selected_skin = "trainer3"
-    skins = get_skins()
     if request.method == "GET":
         selected_skin = request.args.get("skin", None)
         session["selected_skin"] = selected_skin
@@ -88,7 +87,7 @@ def trainer_skin():
         if action == "go_back":
             return redirect(url_for("home.sign_up"))
 
-    return render_template("skin_selection.html", current_year=current_year, skins=skins, selected_skin=selected_skin)
+    return render_template("skin_selection.html", current_year=current_year, selected_skin=selected_skin)
 
 
 @home_bp.route('/Profile')
