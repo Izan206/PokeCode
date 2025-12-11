@@ -3,8 +3,10 @@ import json
 from pathlib import Path
 from app.models.pokemon import Pokemon
 
+DATA_PATH=Path(__file__).parent.parent.parent / "data" / "pokemons.json"
+
 #id, name, height, weight, stats, sprints, moves, types
-with open(Path("data\pokemon.json"), "r", encoding="utf-8") as f:
+with open(DATA_PATH, encoding="utf-8") as f:
     _POKEMONS = json.load(f)
     
 def obtainPokemons():
