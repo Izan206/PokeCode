@@ -62,5 +62,17 @@
     </div>
   </div>
 
-  {%endblock%}
+  <div class="container">
+    <h1>History of Battles</h1>
+      {%for battle in battles%}
+        <div class="battle">
+          <span class="atribute">ID: {{battle.id}} | </span>
+          <span class="atribute">Winner: {{battle.winner}} | </span>
+          <span class="atribute">Loser: {{battle.loser}} | </span>
+        </div>
+      {%endfor%}
+      
+  </div>
 </div>
+  {%endblock%}
+

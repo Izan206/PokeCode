@@ -9,7 +9,7 @@ def get_battle_by_id(id):
     battle=Battle_db.query.filter_by(id=id).first()
     return battle
 
-def get_battle_by_trainer(trainer):
+def get_battles_by_trainer(trainer):
     battles=Battle_db.query.filter_by(trainer_1=trainer).all()
     return battles
 

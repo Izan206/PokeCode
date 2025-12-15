@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from app.models.exceptions import TrainerNotFound
 from app.models.trainer import Trainer
+from app.repositories.battle_repo import get_battles_by_trainer
 from app.repositories.trainer_repo import add_trainer, get_trainer_by_name
 from app.services.auth_services import authenticate
 
@@ -38,7 +39,6 @@ def sign_up():
     name = None
     password1 = None
     password2 = None
-    success = None
 
     if request.method == "GET":
         return render_template('sign-up.html', current_year=current_year)
@@ -91,7 +91,9 @@ def trainer_skin():
 
 @home_bp.route('/Profile')
 def profile():
-    return render_template('profile.html', current_year=current_year)
+    trainer1 = session.get("trainer")["name"]
+    battles=get_battles_by_trainer(trainer1)
+    return render_template('profile.html', current_year=current_year, battles=battles)
 
 
 @home_bp.route('/log-out')
