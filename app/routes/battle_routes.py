@@ -10,7 +10,6 @@ from app.repositories.trainer_repo import add_exp, add_lose, add_win, get_random
 from app.services.battle_services import apply_damage, calculateDamage, getLife, getMove, get_battle_result
 from app.services.pokemon_services import obtain_pokemon_by_name
 
-
 battle_bp = Blueprint('battle', __name__, template_folder='templates')
 
 current_year = datetime.now().year
@@ -28,16 +27,21 @@ def battles():
         session.pop("pokemon_enemy_moves", None)
         return redirect(url_for("pokemon.pokedex"))
 
-    pokemon_selected = session.get('pokemon_selected')
+    pokemon_player_name = session.get('pokemon_selected')
+    pokemon_enemy_name_str = session.get("pokemon_enemy_name")
     pokemon_player_moves = session.get("pokemon_player_moves")
     pokemon_enemy_moves = session.get("pokemon_enemy_moves")
-    pokemon_enemy_name = session.get("pokemon_enemy_name")
     enemy_trainer = get_random_trainer(session.get("trainer")["name"]).name
-    
+
+    if session.get("battle"):
+        battle_temp = session.get("battle")
+        if battle_temp.get("player_pokemon_data", {}).get("name") != pokemon_player_name:
+            session.pop("battle", None)
 
     if session.get("battle") is None:
-        pokemon_player = obtain_pokemon_by_name(pokemon_selected)
-        pokemon_enemy = obtain_pokemon_by_name(pokemon_enemy_name)
+        pokemon_player = obtain_pokemon_by_name(pokemon_player_name)
+        pokemon_enemy = obtain_pokemon_by_name(pokemon_enemy_name_str)
+
         battle = Battle(pokemon_player, enemy_trainer, pokemon_enemy, getLife(pokemon_player), getLife(
             pokemon_enemy), pokemon_player_moves, pokemon_enemy_moves)
         session["battle"] = battle.__dict__
@@ -68,7 +72,6 @@ def attack():
         player = battle.player_pokemon_data
         enemy = battle.enemy_pokemon_data
 
-        # Turno jugador
         player_move = getMove(player, move_name)
         player_damage, player_log = calculateDamage(player, enemy, player_move)
         battle.enemy_health, enemy_ko = apply_damage(
@@ -76,11 +79,11 @@ def attack():
         battle.log.append(player_log)
 
         if enemy_ko:
-            battle.log.append(f"{enemy.name} died and {player.name} wins!")
+            battle.log.append(
+                f"{enemy['name']} died and {player['name']} wins!")
             session["battle"] = battle.__dict__
             return redirect(url_for("battle.battleResult"))
 
-        # Turno enemigo
         enemy_moves_list = session.get("pokemon_enemy_moves")
         enemy_move = random.choice(enemy_moves_list)
         enemy_damage, enemy_log = calculateDamage(enemy, player, enemy_move)
@@ -89,7 +92,8 @@ def attack():
         battle.log.append(enemy_log)
 
         if player_ko:
-            battle.log.append(f"{player.name} died and {enemy.name} wins!")
+            battle.log.append(
+                f"{player['name']} died and {enemy['name']} wins!")
             session["battle"] = battle.__dict__
             return redirect(url_for("battle.battleResult"))
 
@@ -114,19 +118,16 @@ def battleResult():
     i_win = False
     if winner == session.get('pokemon_selected'):
         i_win = True
-        # Actualizar la sesion y las batallas ganadas y los puntos de experiencia
         add_win(trainer)
         session["trainer"]["wins"] += 1
         add_exp(trainer, 100)
         session["trainer"]["exp"] += 100
     else:
-        # Actualizar la sesion y las batallas perdidas y los puntos de experiencia
         add_lose(trainer)
         session["trainer"]["loses"] += 1
         add_exp(trainer, 30)
         session["trainer"]["exp"] += 30
 
-    # Añadir la batlla a la base de datos
     winnerTrainer = None
     loserTrainer = None
     if i_win:
@@ -136,13 +137,13 @@ def battleResult():
         winnerTrainer = battle.enemy_trainer
         loserTrainer = session.get("trainer")["name"]
 
-    
     trainer1 = session.get("trainer")["name"]
     trainer2 = battle.enemy_trainer
     pokemon1 = battle.player_pokemon_data
     pokemon2 = battle.enemy_pokemon_data
 
-    battle_db = Battle_db(trainer_1=trainer1,trainer_2=trainer2,pokemon_1=pokemon1.name,pokemon_2=pokemon2.name, winner=winnerTrainer, loser=loserTrainer)
+    battle_db = Battle_db(trainer_1=trainer1, trainer_2=trainer2, pokemon_1=pokemon1["name"],
+                          pokemon_2=pokemon2["name"], winner=winnerTrainer, loser=loserTrainer)
     create_battle(battle_db)
 
     return render_template("battle_result.html", battle=battle, winner=winner, loser=loser, i_win=i_win)
@@ -157,7 +158,6 @@ def rematch():
     battle_data = session.get("battle")
     battle = Battle(**battle_data)
 
-    # Reset health
     battle.player_health = getLife(battle.player_pokemon_data)
     battle.enemy_health = getLife(battle.enemy_pokemon_data)
     battle.log = []

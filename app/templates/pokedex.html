@@ -46,14 +46,14 @@
   <a href="{{url_for('pokemon.pokemon_details', pokemon_id=pokemon.id)}}">
     <div class="pokemon_container">
       <div class="img_container">
-        <img src="{{pokemon.sprites.front_default}}" />
+        <img src="{{pokemon["sprites"]["front_default"]}}" />
       </div>
       <div class="id_name_container">
-        <p class="id">#{{pokemon.id}}</p>
-        <p class="name">{{pokemon.name}}</p>
+        <p class="id">#{{pokemon["id"]}}</p>
+        <p class="name">{{pokemon["name"]}}</p>
       </div>
       <div class="types">
-        {% for tipo in pokemon.types%}
+        {% for tipo in pokemon["types"]%}
         <p class="type {{ tipo }}">{{tipo}}</p>
         {%endfor%}
       </div>

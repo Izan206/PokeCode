@@ -16,3 +16,14 @@ def get_battles_by_trainer(trainer):
 def delete_battle(battle):
     db.session.delete(battle)
     db.session.commit()
+
+
+# SELECT e.nombre, d.nombre
+# FROM empleados e
+# INNER JOIN asignaciones a ON e.id=a.empleado_id
+# INNER JOIN departamentos d ON d.id=a.departamento_id
+# WHERE a.cargo="Jefe";
+
+# ==
+
+# resultado=db.session.query(Empleado).join(Asignacion).join(Departamento).filter(Asignacion.cargo=="Jefe")

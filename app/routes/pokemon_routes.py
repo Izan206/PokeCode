@@ -4,7 +4,6 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 from app.models.trainer import Trainer
 from app.repositories.trainer_repo import get_random_trainer, get_trainer_by_id
 from app.services import pokemon_services
-from app.repositories.pokemon_repo import obtainPokemons
 from app.decorators import required_login
 
 
@@ -22,7 +21,7 @@ def pokedex():
     session.pop("pokemon_player_moves", None)
     session.pop("pokemon_enemy_moves", None)
 
-    pokemon_list = obtainPokemons()
+    pokemon_list = pokemon_services.list_pokemons()
     error_message = session.pop("error_message", None)
     return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, error_message=error_message)
 
@@ -40,21 +39,28 @@ def pokemon_details(pokemon_id):
 @pokemon_bp.route('/pokemon_selected', methods=["POST"])
 @required_login
 def pokemon_selected():
-    session["pokemon_selected"] = request.form.get('search').lower()
-    pokemon_list = obtainPokemons()
-    pokemonEncontrado = None
-    if pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"]) is not None:
-        pokemonEncontrado = pokemon_services.obtain_pokemon_by_name(session["pokemon_selected"])
+    pokemon_name_input = request.form.get('search').lower()
+    pokemon_list = pokemon_services.list_pokemons()
+    allowed_names = [p["name"] for p in pokemon_list]
+
+    if pokemon_name_input not in allowed_names:
+        session["error_message"] = "you only can choose Pokemons from the list "
+        return redirect(url_for("pokemon.pokedex"))
+
+    session["pokemon_selected"] = pokemon_name_input
+
+    pokemonEncontrado = pokemon_services.obtain_pokemon_by_name(
+        session["pokemon_selected"])
 
     if pokemonEncontrado:
-        # Obtener 4 movimientos aleatorios del pokemon seleccionado
-        all_moves_player = pokemonEncontrado.moves
+
+        all_moves_player = pokemonEncontrado["moves"]
         session["pokemon_player_moves"] = random.sample(
             all_moves_player, 4)
-        # Pokemon enemigo
+
         pokemon_enemy_object = random.choice(pokemon_list)
-        session["pokemon_enemy_name"] = pokemon_enemy_object.name
-        all_moves_enemy = pokemon_enemy_object.moves
+        session["pokemon_enemy_name"] = pokemon_enemy_object["name"]
+        all_moves_enemy = pokemon_enemy_object["moves"]
         session["pokemon_enemy_moves"] = random.sample(
             all_moves_enemy, 4)
         return redirect(url_for('battle.battles'))
