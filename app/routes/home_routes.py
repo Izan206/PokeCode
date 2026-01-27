@@ -26,7 +26,8 @@ def index():
             try:
                 trainer = authenticate(nameIntroduced, passwordIntroduced)
                 session["trainer"] = trainer.to_dict()
-                return redirect(url_for("pokemon.pokedex"))
+                offset=0
+                return redirect(url_for("pokemon.pokedex", offset=offset))
             except TrainerNotFound:
                 error = "Incorrect username or password"
 

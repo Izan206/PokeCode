@@ -2,22 +2,38 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 import requests
 
-url = "https://pokeapi.co/api/v2/pokemon?limit=5"
+url = "https://pokeapi.co/api/v2/pokemon?limit=8"
 urlDetail = "https://pokeapi.co/api/v2/pokemon/"
+urlSiguiente = "https://pokeapi.co/api/v2/pokemon?limit=8&offset="
 
 _cachePokemon = {}
 _cacheMovements = {}
+_cachePokemonsPaginados = {}
 
 
-def get_data(url):
-    response = requests.get(url)
-    if not response:
-        return None
-    return response.json()
+def paginar_pokemons(offset):
+    if offset in _cachePokemonsPaginados:
+        return _cachePokemonsPaginados[offset]
+
+    urlPaginada = urlSiguiente+f"{offset}"
+
+    resp = requests.get(urlPaginada, timeout=5)
+
+    resp.raise_for_status()
+    data = resp.json()
+
+    _cachePokemonsPaginados[offset] = data
+    return data
+
+# def get_data(url):
+#     response = requests.get(url)
+#     if not response:
+#         return None
+#     return response.json()
 
 
-def get_pokemons():
-    data = get_data(url)
+def get_pokemons(offset):
+    data = paginar_pokemons(offset)
     if not data:
         return None
     pokemons = data["results"]
@@ -55,6 +71,7 @@ def get_pokemon_attack(url):
 
     _cacheMovements[url] = data
     return data
+
     # urlPokemonAttack=url
     # pokemonAttack=get_data(urlPokemonAttack)
     # return pokemonAttack

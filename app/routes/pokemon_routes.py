@@ -12,16 +12,17 @@ pokemon_bp = Blueprint('pokemon', __name__, template_folder='templates')
 current_year = datetime.now().year
 
 
-@pokemon_bp.route('/')
+@pokemon_bp.route('/<int:offset>')
 @required_login
-def pokedex():
+def pokedex(offset=0):
     session.pop("battle", None)
     session.pop("pokemon_selected", None)
     session.pop("pokemon_enemy_name", None)
     session.pop("pokemon_player_moves", None)
     session.pop("pokemon_enemy_moves", None)
 
-    pokemon_list = pokemon_services.list_pokemons()
+    session["offset"] = offset
+    pokemon_list = pokemon_services.list_pokemons(offset)
     error_message = session.pop("error_message", None)
     return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, error_message=error_message)
 
@@ -40,12 +41,13 @@ def pokemon_details(pokemon_id):
 @required_login
 def pokemon_selected():
     pokemon_name_input = request.form.get('search').lower()
-    pokemon_list = pokemon_services.list_pokemons()
+    offset = session.get("offset", 0)
+    pokemon_list = pokemon_services.list_pokemons(offset)
     allowed_names = [p["name"] for p in pokemon_list]
 
     if pokemon_name_input not in allowed_names:
         session["error_message"] = "you only can choose Pokemons from the list "
-        return redirect(url_for("pokemon.pokedex"))
+        return redirect(url_for("pokemon.pokedex", offset=offset))
 
     session["pokemon_selected"] = pokemon_name_input
 
@@ -66,4 +68,4 @@ def pokemon_selected():
         return redirect(url_for('battle.battles'))
     else:
         session["error_message"] = "Pokémon not found, please enter the name correctly"
-        return redirect(url_for("pokemon.pokedex"))
+        return redirect(url_for("pokemon.pokedex", offset=offset))

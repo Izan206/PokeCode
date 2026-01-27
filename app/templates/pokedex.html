@@ -40,7 +40,7 @@
 </div>
 {% if error_message%}
 <p id="error">{{error_message}}</p>
-{% endif %}
+{% endif %} 
 <div class="card_container">
   {% for pokemon in pokemon_list %}
   <a href="{{url_for('pokemon.pokemon_details', pokemon_id=pokemon.id)}}">
@@ -60,6 +60,9 @@
     </div>
   </a>
   {% endfor %}
+</div> 
+<div class="contenedor-btns">
+  <button class="btnPaginacion"> <-  Anterior </button>
+  <button class="btnPaginacion"> Siguiente  -> </button>
 </div>
-
 {%endblock%}

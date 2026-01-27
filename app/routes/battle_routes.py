@@ -25,7 +25,8 @@ def battles():
         session.pop("pokemon_enemy_name", None)
         session.pop("pokemon_player_moves", None)
         session.pop("pokemon_enemy_moves", None)
-        return redirect(url_for("pokemon.pokedex"))
+        offset = 0
+        return redirect(url_for("pokemon.pokedex", offset=offset))
 
     pokemon_player_name = session.get('pokemon_selected')
     pokemon_enemy_name_str = session.get("pokemon_enemy_name")
@@ -61,7 +62,7 @@ def attack():
         if session["battle"]:
             return redirect(url_for("battle.battles"))
         else:
-            return redirect(url_for("pokemon.pokedex"))
+            return redirect(url_for("pokemon.pokedex", offset=0))
     elif request.method == "POST":
         if not session.get("battle"):
             return redirect(url_for("battle.battleResult"))
@@ -105,7 +106,7 @@ def attack():
 @required_login
 def battleResult():
     if not session.get("battle"):
-        return redirect(url_for("pokemon.pokedex"))
+        return redirect(url_for("pokemon.pokedex", offset=0))
 
     battle_data = session.get("battle")
     battle = Battle(**battle_data)
@@ -153,7 +154,7 @@ def battleResult():
 @required_login
 def rematch():
     if not session.get("battle"):
-        return redirect(url_for("pokemon.pokedex"))
+        return redirect(url_for("pokemon.pokedex", offset=0))
 
     battle_data = session.get("battle")
     battle = Battle(**battle_data)

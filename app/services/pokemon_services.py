@@ -1,8 +1,8 @@
 from app.clients.pokemon_client import get_pokemon_attack, get_pokemons, get_pokemon_detail
 
 
-def list_pokemons():
-    listPokemons = get_pokemons()
+def list_pokemons(num):
+    listPokemons = get_pokemons(num)
     listPokemonsAdapted = []
     if listPokemons is None:
         return None
