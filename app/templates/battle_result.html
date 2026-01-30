@@ -26,7 +26,10 @@ styles%}
     <a id="rematch-btn" href="{{ url_for('battle.rematch') }}" class="btn"
       >Play again</a
     >
-    <a id="return-btn" href="{{ url_for('pokemon.pokedex') }}" class="btn"
+    <a
+      id="return-btn"
+      href="{{ url_for('pokemon.pokedex', offset=0) }}"
+      class="btn"
       >Return to the Pokédex</a
     >
   </div>
