@@ -62,7 +62,15 @@
   {% endfor %}
 </div> 
 <div class="contenedor-btns">
-  <button class="btnPaginacion"> <-  Anterior </button>
-  <button class="btnPaginacion"> Siguiente  -> </button>
+{% if page > 1 %}
+    <a href="{{ url_for('pokemon.pokedex', page=page-1) }}" class="btnPaginacion"> 
+       Anterior 
+    </a>
+  {% endif %}
+
+  
+  <a href="{{ url_for('pokemon.pokedex', page=page+1) }}" class="btnPaginacion"> 
+      Siguiente
+  </a>
 </div>
 {%endblock%}

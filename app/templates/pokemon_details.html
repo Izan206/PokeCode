@@ -9,7 +9,7 @@
 {%block header%}
 
     <div class="back-button-container">
-        <a href="{{url_for('pokemon.pokedex')}}">
+        <a href="{{url_for('pokemon.pokedex', page=page)}}">
             <img src="{{url_for('static', filename='images/pokemon_details-page/flecha.png')}}" alt="">
         </a>
     </div>

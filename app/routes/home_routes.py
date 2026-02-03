@@ -26,8 +26,8 @@ def index():
             try:
                 trainer = authenticate(nameIntroduced, passwordIntroduced)
                 session["trainer"] = trainer.to_dict()
-                offset=0
-                return redirect(url_for("pokemon.pokedex", offset=offset))
+                page = 1
+                return redirect(url_for("pokemon.pokedex", page=page))
             except TrainerNotFound:
                 error = "Incorrect username or password"
 
@@ -93,7 +93,7 @@ def trainer_skin():
 @home_bp.route('/Profile')
 def profile():
     trainer1 = session.get("trainer")["name"]
-    battles=get_battles_by_trainer(trainer1)
+    battles = get_battles_by_trainer(trainer1)
     return render_template('profile.html', current_year=current_year, battles=battles)
 
 

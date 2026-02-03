@@ -11,10 +11,12 @@ _cacheMovements = {}
 _cachePokemonsPaginados = {}
 
 
-def paginar_pokemons(offset):
-    if offset in _cachePokemonsPaginados:
-        return _cachePokemonsPaginados[offset]
+def paginar_pokemons(page):
+    if page in _cachePokemonsPaginados:
+        return _cachePokemonsPaginados[page]
 
+    offset = (page-1)*8
+    
     urlPaginada = urlSiguiente+f"{offset}"
 
     resp = requests.get(urlPaginada, timeout=5)
@@ -22,7 +24,7 @@ def paginar_pokemons(offset):
     resp.raise_for_status()
     data = resp.json()
 
-    _cachePokemonsPaginados[offset] = data
+    _cachePokemonsPaginados[page] = data
     return data
 
 # def get_data(url):
@@ -32,8 +34,8 @@ def paginar_pokemons(offset):
 #     return response.json()
 
 
-def get_pokemons(offset):
-    data = paginar_pokemons(offset)
+def get_pokemons(page):
+    data = paginar_pokemons(page)
     if not data:
         return None
     pokemons = data["results"]
@@ -76,16 +78,6 @@ def get_pokemon_attack(url):
     # pokemonAttack=get_data(urlPokemonAttack)
     # return pokemonAttack
 
-
-if __name__ == "__main__":
-    data = get_data(url)
-    print(data)
-
-    listaPokemons = get_pokemons()
-    print(listaPokemons)
-
-    pokemonDetalles = get_pokemon_detail(1)
-    print(pokemonDetalles)
 
 # urls=[
 #     "https://pokeapi.co/api/v2/pokemon/1/",
