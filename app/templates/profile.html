@@ -64,15 +64,25 @@
 
   <div class="container">
     <h1>History of Battles</h1>
-      {%for battle in battles%}
-        <div class="battle">
-          <span class="atribute">ID: {{battle.id}} | </span>
-          <span class="atribute">Winner: {{battle.winner}} | </span>
-          <span class="atribute">Loser: {{battle.loser}} | </span>
+
+    <div class="battles-list-container">
+      {% for battle in battles %}
+      <a
+        href="{{ url_for('home.battle_details', battle_id=battle.id) }}"
+        class="battle"
+      >
+        <div class="battle-info-row battle-vs">
+          {{ battle.trainer_1 }} VS {{ battle.trainer_2 }}
         </div>
-      {%endfor%}
-      
+
+        <div class="battle-info-row">
+          <span>Winner: {{ battle.winner }}</span>
+          <span>{{ battle.date }}</span>
+        </div>
+      </a>
+
+      {% endfor %}
+    </div>
   </div>
 </div>
-  {%endblock%}
-
+{%endblock%}

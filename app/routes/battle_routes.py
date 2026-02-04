@@ -145,7 +145,10 @@ def battleResult():
 
     battle_db = Battle_db(trainer_1=trainer1, trainer_2=trainer2, pokemon_1=pokemon1["name"],
                           pokemon_2=pokemon2["name"], winner=winnerTrainer, loser=loserTrainer)
-    create_battle(battle_db)
+    
+    create_battle(battle_db, trainer_id)
+    
+ 
 
     return render_template("battle_result.html", battle=battle, winner=winner, loser=loser, i_win=i_win)
 

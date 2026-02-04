@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Battle #{{ battle.id }}{% endblock %}
+{% block styles %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/battle-detail.css')}}"
+/>
+{% endblock %} {% block header %}
+<div class="back-button-container">
+  <a href="{{url_for('home.profile')}}">
+    <img
+      src="{{url_for('static', filename='images/pokemon_details-page/flecha.png')}}"
+      alt="Back"
+    />
+  </a>
+</div>
+{% endblock %} {% block content %}
+<div class="high-container">
+  <div class="container">
+    <div class="battle-header">
+      <h1>Battle Report #{{ battle.id }}</h1>
+      <p class="date-info">{{ battle.date.strftime('%d-%m-%Y %H:%M') }}</p>
+    </div>
+
+    <div class="matchup-container">
+      <div class="contender">
+        <span class="trainer-name">{{ battle.trainer_1 }}</span>
+        <span class="pokemon-used">{{ battle.pokemon_1 }}</span>
+      </div>
+
+      <div class="vs-sign">VS</div>
+
+      <div class="contender">
+        <span class="trainer-name">{{ battle.trainer_2 }}</span>
+        <span class="pokemon-used">{{ battle.pokemon_2 }}</span>
+      </div>
+    </div>
+
+    <div class="result-box">
+      <h2>WINNER</h2>
+      <div class="winner-text">{{ battle.winner.capitalize() }}</div>
+
+      <hr style="border: 1px dashed black; width: 50%; margin: 15px auto" />
+
+      <h3>Loser</h3>
+      <div class="loser-text">{{ battle.loser.capitalize() }}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

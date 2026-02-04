@@ -1,9 +1,18 @@
 from app.database.db import db
 from app.models.battle_db import Battle_db
+from app.models.participates import Participates
 
-def create_battle(battle):
+def create_battle(battle, trainer_id):
     db.session.add(battle)
     db.session.commit()
+    
+    participacion = Participates(
+        trainer_id=trainer_id,
+        battle_id=battle.id 
+    )
+    db.session.add(participacion)
+    db.session.commit()
+    return battle
 
 def get_battle_by_id(id):
     battle=Battle_db.query.filter_by(id=id).first()
