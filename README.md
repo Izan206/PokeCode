@@ -20,6 +20,15 @@ We also gave the project our own style, both visually with a retro Nintendo-like
 - Pokemon Details 
 
 ![Pokemon Details View](app/static/images/readme/image4.png)
+
+-Profile page
+
+![Profile Details View](app/static/images/readme/image8.png)
+
+- Battle Details Page
+
+![Battle Details page](app/static/images/readme/image9.png)
+
 - Main Battle screen
 
 ![Battle View](app/static/images/readme/image3.png)
@@ -32,6 +41,7 @@ We also gave the project our own style, both visually with a retro Nintendo-like
 
 ![Final Page](app/static/images/readme/image7.png)
 
+
 Others: 
 
 - Error page
@@ -39,17 +49,29 @@ Others:
 ![Error Page](app/static/images/readme/image5.png)
 
 ## Installation (using virtual environment)
+**1. Clone repository:**
+```
+git clone https://github.com/Izan206/PokeCode.git
+```
+**2. Create a virtual environment:**
+```
+python -m venv .venv
+```
 
-1. Create a venv (if you don't have one yet):
-   python -m venv venv
+**3. Install dependencies:**
+```
+./venv/Scripts/pip.exe install -r requirements.txt
+```
 
-2. Install dependencies:
-   pip install -r requirements.txt
-
-## Run the app
+**4. Create the database**
+```
+./venv/Scripts/flask.exe --app app.main create-tables
+```
+**5. Run the app**
 With the virtual environment activated, start the app:
-
-python -m app.main
+```
+./.venv/Scripts/python.exe -m app.main
+```
 
 Typical development output:
  * Serving Flask app 'main'
@@ -63,11 +85,22 @@ Press CTRL+C to quit
 
 Open your browser at http://127.0.0.1:8080 (or the shown address).
 
+
+
+## API: PokeAPI 
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/a3e456f3-1f4f-4207-ae22-17649155515a" />
+
+
+For this project, we used the PokeAPI public API. We worked with it to obtain different data and adapt it to the needs of our projects. We ensured that the information was received correctly and optimized the code by using caching for request processing and website speed.
+
+To accomplish this, we created a client-side section where we handle the aforementioned tasks.
+
+Link to the API: https://pokeapi.co/
+
 ## License
 MIT License.
 
 ## Authors
-
 Made by: 
 
 - Izan Álvarez Varela
