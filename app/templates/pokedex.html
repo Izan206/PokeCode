@@ -67,10 +67,10 @@
        Anterior 
     </a>
   {% endif %}
-
-  
+{% if page < 169 %}
   <a href="{{ url_for('pokemon.pokedex', page=page+1) }}" class="btnPaginacion"> 
       Siguiente
   </a>
+  {% endif %}
 </div>
 {%endblock%}

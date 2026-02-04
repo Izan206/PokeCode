@@ -1,115 +1,112 @@
-from concurrent.futures import ThreadPoolExecutor
-import time
 import requests
+import time
+from collections import OrderedDict
 
-url = "https://pokeapi.co/api/v2/pokemon?limit=8"
-urlDetail = "https://pokeapi.co/api/v2/pokemon/"
-urlSiguiente = "https://pokeapi.co/api/v2/pokemon?limit=8&offset="
+TIEMPO_LIMITE = 300 #esto son 5 mins
+MAX_CACHE = 50
 
-_cachePokemon = {}
-_cacheMovements = {}
-_cachePokemonsPaginados = {}
+_cachePokemon = OrderedDict()
+_cacheMovements = OrderedDict()
+_cachePokemonsPaginados = OrderedDict()
 
-
-def paginar_pokemons(page):
+def paginate_pokemons(page):
     if page in _cachePokemonsPaginados:
-        return _cachePokemonsPaginados[page]
+        data = _cachePokemonsPaginados[page]
+        if time.time() - data["expiracion"] < TIEMPO_LIMITE:
+            _cachePokemonsPaginados.move_to_end(page)
+            return data
 
     offset = (page-1)*8
-    
-    urlPaginada = urlSiguiente+f"{offset}"
+    url = f"https://pokeapi.co/api/v2/pokemon?limit=8&offset={offset}"
 
-    resp = requests.get(urlPaginada, timeout=5)
+    try:
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        data = resp.json()
 
-    resp.raise_for_status()
-    data = resp.json()
+        data["expiracion"] = time.time()
+        _cachePokemonsPaginados[page] = data
 
-    _cachePokemonsPaginados[page] = data
-    return data
+        if len(_cachePokemonsPaginados) > MAX_CACHE:
+            _cachePokemonsPaginados.popitem(last=False)
 
-# def get_data(url):
-#     response = requests.get(url)
-#     if not response:
-#         return None
-#     return response.json()
-
+        return data
+    except Exception:
+        return None
 
 def get_pokemons(page):
-    data = paginar_pokemons(page)
+    data = paginate_pokemons(page)
     if not data:
         return None
-    pokemons = data["results"]
-    return pokemons
-
+    return data["results"]
 
 def get_pokemon_detail(info):
     if info in _cachePokemon:
-        print(info)
-        return _cachePokemon[info]
+        data = _cachePokemon[info]
+        if time.time() - data["expiracion"] < TIEMPO_LIMITE:
+            _cachePokemon.move_to_end(info)
+            return data
 
     url = f"https://pokeapi.co/api/v2/pokemon/{info}"
 
-    resp = requests.get(url, timeout=5)
+    try:
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        data = resp.json()
 
-    resp.raise_for_status()
-    data = resp.json()
+        data["expiracion"] = time.time()
+        _cachePokemon[info] = data
 
-    _cachePokemon[info] = data
-    return data
+        if len(_cachePokemon) > MAX_CACHE:
+            _cachePokemon.popitem(last=False)
 
-    # urlPokemon=urlDetail+f'{info}/'
-    # pokemonDetails=get_data(urlPokemon)
-    # return pokemonDetails
-
+        return data
+    except Exception:
+        return None
 
 def get_pokemon_attack(url):
     if url in _cacheMovements:
-        return _cacheMovements[url]
+        data = _cacheMovements[url]
+        if time.time() - data["expiracion"] < TIEMPO_LIMITE:
+            _cacheMovements.move_to_end(url)
+            return data
 
-    resp = requests.get(url, timeout=5)
+    try:
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        data = resp.json()
 
-    resp.raise_for_status()
-    data = resp.json()
+        data["expiracion"] = time.time()
+        _cacheMovements[url] = data
 
-    _cacheMovements[url] = data
-    return data
+        if len(_cacheMovements) > MAX_CACHE:
+            _cacheMovements.popitem(last=False)
 
-    # urlPokemonAttack=url
-    # pokemonAttack=get_data(urlPokemonAttack)
-    # return pokemonAttack
+        return data
+    except Exception:
+        return None
 
+def get_all_pokemons_names():
+    key = "all_pokemons_list"
+    
+    if key in _cachePokemonsPaginados:
+        data = _cachePokemonsPaginados[key]
+        if time.time() - data["expiracion"] < TIEMPO_LIMITE:
+            return data
 
-# urls=[
-#     "https://pokeapi.co/api/v2/pokemon/1/",
-#     "https://pokeapi.co/api/v2/pokemon/2/",
-#     "https://pokeapi.co/api/v2/pokemon/3/",
-#     "https://pokeapi.co/api/v2/pokemon/4/",
-#     "https://pokeapi.co/api/v2/pokemon/5/"
-# ]
+    url = "https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0"
+    
+    try:
+        resp = requests.get(url, timeout=10)
+        resp.raise_for_status()
+        data = resp.json()
 
+        data["expiracion"] = time.time()
+        _cachePokemonsPaginados[key] = data
 
-# def fetch_pokemon_detail(url):
-#     response=requests.get(url)
-
-#     return response.json()
-
-# def fetch_pokemons_parallel(urls):
-#     with ThreadPoolExecutor(max_workers=5) as executor:
-#         return list(executor.map(fetch_pokemon_detail, urls))
-
-# pokemons=[]
-# for url in urls:
-#     pokemons.append(fetch_pokemon_detail(url))
-
-# start=time.perf_counter()
-# pokemons=fetch_pokemons_parallel(urls)
-# end=time.perf_counter()
-# print(f"Tiempo: {end-start:.4f} segundos")
-
-# for pokemon in pokemons:
-#     print(pokemon["name"])
-
-# response=fetch_pokemon_detail("https://pokeapi.co/api/v2/pokemon/1/")
-# print(response)
-
-# https://pokeapi.co/api/v2/pokemon/1/
+        if len(_cachePokemonsPaginados) > MAX_CACHE:
+            _cachePokemonsPaginados.popitem(last=False)
+            
+        return data
+    except Exception:
+        return None

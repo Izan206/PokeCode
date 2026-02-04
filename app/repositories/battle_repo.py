@@ -22,9 +22,14 @@ def get_battles_by_trainer(trainer):
     battles=Battle_db.query.filter_by(trainer_1=trainer).all()
     return battles
 
-def delete_battle(battle):
-    db.session.delete(battle)
-    db.session.commit()
+def delete_battle(battle_id):
+    battle_to_delete = get_battle_by_id(battle_id)
+    if battle_to_delete:
+        for p in battle_to_delete.participates:
+            db.session.delete(p)
+
+        db.session.delete(battle_to_delete)
+        db.session.commit()
 
 
 # SELECT e.nombre, d.nombre

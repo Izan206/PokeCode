@@ -7,7 +7,7 @@
 {%endblock%} {%block header%}
 
 <div class="back-button-container">
-  <a href="{{url_for('pokemon.pokedex')}}">
+  <a href="{{url_for('pokemon.pokedex', page=1)}}">
     <img
       src="{{url_for('static', filename='images/pokemon_details-page/flecha.png')}}"
       alt=""
@@ -72,12 +72,12 @@
         class="battle"
       >
         <div class="battle-info-row battle-vs">
+          <p>{{battle.id}}</p>
           {{ battle.trainer_1 }} VS {{ battle.trainer_2 }}
         </div>
 
         <div class="battle-info-row">
           <span>Winner: {{ battle.winner }}</span>
-          <span>{{ battle.date }}</span>
         </div>
       </a>
 

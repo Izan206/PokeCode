@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, session, url_for
 from app.models.exceptions import TrainerNotFound
 from app.models.trainer import Trainer
-from app.repositories.battle_repo import get_battle_by_id, get_battles_by_trainer
+from app.repositories.battle_repo import delete_battle, get_battle_by_id, get_battles_by_trainer
 from app.repositories.trainer_repo import add_trainer, get_trainer_by_name
 from app.services.auth_services import authenticate
 
@@ -104,6 +104,24 @@ def battle_details(battle_id):
     battle = get_battle_by_id(battle_id)
 
     return render_template('battle_details.html', battle=battle, current_year=current_year)
+
+@home_bp.route('/battle/delete/<int:battle_id>', methods=["POST"])
+def delete_battle_action(battle_id):
+    if "trainer" not in session:
+        return redirect(url_for('home.index'))
+    
+    battle = get_battle_by_id(battle_id)
+    if not battle:
+        return redirect(url_for('home.profile'))
+
+    current_user_name = session["trainer"]["name"] #esto comprueba que para eliminar la batalla la haya tenido que iniciar el primero
+    
+    if battle.trainer_1 != current_user_name:
+        return redirect(url_for('home.profile'))
+    
+    delete_battle(battle_id)
+    
+    return redirect(url_for('home.profile'))
 
 @home_bp.route('/log-out')
 def log_out():

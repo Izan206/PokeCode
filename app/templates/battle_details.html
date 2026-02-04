@@ -44,6 +44,16 @@
       <h3>Loser</h3>
       <div class="loser-text">{{ battle.loser.capitalize() }}</div>
     </div>
+
+    {% if session.trainer.name == battle.trainer_1 %}
+    <form
+      action="{{ url_for('home.delete_battle_action', battle_id=battle.id) }}"
+      method="post"
+      style="margin-top: 20px"
+    >
+      <button type="submit" class="delete-btn">DELETE BATTLE</button>
+    </form>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
