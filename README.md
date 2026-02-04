@@ -1,4 +1,4 @@
-<img width="21" height="21" alt="image" src="https://github.com/user-attachments/assets/83de77a3-1c5f-4f27-ac37-55d319a9b6fa" /> # PokeCode 
+# PokeCode <img width="45" height="45" alt="image" src="https://github.com/user-attachments/assets/83de77a3-1c5f-4f27-ac37-55d319a9b6fa" />  
 
 PokeCode is a project that we made for the Server Environment signature where we built a small platform to simulate battles and display results of the combats of the Pokemons.
 
