@@ -30,8 +30,8 @@ def pokedex():
         return redirect(url_for("home.error404"))
 
     pokemon_list = pokemon_services.list_pokemons(page)
-    error_message = session.pop("error_message", None)
-    return render_template('pokedex.html',  pokemon_list=pokemon_list, music="static/sounds/inicio.mp3", current_year=current_year, error_message=error_message, page=page)
+    error_message = session.get("error_message", None)
+    return render_template('pokedex.html',  pokemon_list=pokemon_list, music=url_for('static', filename='sounds/inicio.mp3'), current_year=current_year, error_message=error_message, page=page)
 
 
 @pokemon_bp.route("/<int:pokemon_id>")

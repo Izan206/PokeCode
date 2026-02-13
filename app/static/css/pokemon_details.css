@@ -1,778 +1,729 @@
 body {
-    height: 100vh;
-    background-image: url('../images/pokedex-page/background.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  height: 100vh;
+  background-image: url("../images/pokedex-page/background.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-
-
-/* ============================================
-   CONTENEDOR PRINCIPAL
-   ============================================ */
 
 .pokemon-container {
-    min-width: 1000px;
-    max-height: 900px;
-    background: linear-gradient(to bottom, #1e1e2e, #2a2a3e);
-    border-radius: 20px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8),
-        inset 0 1px 0 rgba(255, 193, 7, 0.2),
-        0 0 40px rgba(255, 193, 7, 0.2);
-    overflow: hidden;
-    border: 3px solid #ffc107;
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    grid-template-rows: auto auto;
-    position: relative;
-    z-index: 1;
+  min-width: 1000px;
+  max-height: 900px;
+  background: linear-gradient(to bottom, #1e1e2e, #2a2a3e);
+  border-radius: 20px;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 193, 7, 0.2),
+    0 0 40px rgba(255, 193, 7, 0.2);
+  overflow: hidden;
+  border: 3px solid #ffc107;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: auto auto;
+  position: relative;
+  z-index: 1;
 }
-
-/* ============================================
-   CONTENEDOR DE IMAGEN
-   ============================================ */
 
 .img-container {
-    /* background: radial-gradient(circle at center, #2a4a6a, #324b64); */
-    background-image: url('../images/pokemon_details-page/fondo_info.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    padding: 50px;
-    text-align: center;
-    border-bottom: 3px solid #ffc107;
-    border-right: 3px solid #ffc107;
-    position: relative;
-    min-height: 450px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    grid-row: 1 / 3;
+  background-image: url("../images/pokemon_details-page/fondo_info.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 50px;
+  text-align: center;
+  border-bottom: 3px solid #ffc107;
+  border-right: 3px solid #ffc107;
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-row: 1 / 3;
 }
-
 
 .img-container img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
 }
 
-/* ============================================
-   CONTENEDOR DE NOMBRE E ID
-   ============================================ */
-
 .name-container {
-    background: linear-gradient(to bottom, #2a2a3e, #1e1e2e);
-    padding: 25px 30px;
-    border-bottom: 2px solid #ffc107;
-    text-align: left;
-    grid-column: 2;
+  background: linear-gradient(to bottom, #2a2a3e, #1e1e2e);
+  padding: 25px 30px;
+  border-bottom: 2px solid #ffc107;
+  text-align: left;
+  grid-column: 2;
 }
 
 .name-id {
-    font-size: 36px;
-    font-weight: bold;
-    color: #ffc107;
-    text-transform: capitalize;
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
-
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffc107;
+  text-transform: capitalize;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
 }
 
-/* ============================================
-   DATOS DEL POKÉMON
-   ============================================ */
-
 .data {
-    padding: 30px;
-    border-bottom: 3px solid #ffffff;
-    grid-column: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-
+  padding: 30px;
+  border-bottom: 3px solid #ffffff;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
 }
 
 .data h1 {
-    font-size: 20px;
-    color: #ece8e8;
-    border-bottom: 3px solid #ffc107;
-    padding-bottom: 10px;
-    grid-column: 1 / 4;
-    margin-bottom: 10px;
-
+  font-size: 20px;
+  color: #ece8e8;
+  border-bottom: 3px solid #ffc107;
+  padding-bottom: 10px;
+  grid-column: 1 / 4;
+  margin-bottom: 10px;
 }
 
-.data>div {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    background: rgb(221, 217, 217);
-    border-radius: 10px;
-    border-left: 5px solid #ffc107;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.data > div {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background: rgb(221, 217, 217);
+  border-radius: 10px;
+  border-left: 5px solid #ffc107;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.data>div>div:first-child {
-    font-weight: bold;
-    color: #666;
-    font-size: 13px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.data > div > div:first-child {
+  font-weight: bold;
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .data h2 {
-    font-size: 22px;
-    color: #1a1a1a;
-    font-weight: 700;
+  font-size: 22px;
+  color: #1a1a1a;
+  font-weight: 700;
 }
 
 .data p {
-    font-size: 13px;
-    color: #999;
-    margin-top: 5px;
-    font-style: italic;
+  font-size: 13px;
+  color: #999;
+  margin-top: 5px;
+  font-style: italic;
 }
-
-/* ============================================
-   TIPOS DE POKÉMON
-   ============================================ */
 
 .types {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.types>div {
-    font-weight: bold;
-    color: #333;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.types > div {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .type {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-size: 13px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
 }
 
-
-/* Colores por tipo */
 .type.normal {
-    background: #A8A878;
+  background: #a8a878;
 }
 
 .type.fire {
-    background: #F08030;
+  background: #f08030;
 }
 
 .type.water {
-    background: #6890F0;
+  background: #6890f0;
 }
 
 .type.electric {
-    background: #F8D030;
-    color: #333;
+  background: #f8d030;
+  color: #333;
 }
 
 .type.grass {
-    background: #78C850;
+  background: #78c850;
 }
 
 .type.ice {
-    background: #98D8D8;
-    color: #333;
+  background: #98d8d8;
+  color: #333;
 }
 
 .type.fighting {
-    background: #C03028;
+  background: #c03028;
 }
 
 .type.poison {
-    background: #A040A0;
+  background: #a040a0;
 }
 
 .type.ground {
-    background: #E0C068;
-    color: #333;
+  background: #e0c068;
+  color: #333;
 }
 
 .type.flying {
-    background: #A890F0;
+  background: #a890f0;
 }
 
 .type.psychic {
-    background: #F85888;
+  background: #f85888;
 }
 
 .type.bug {
-    background: #A8B820;
+  background: #a8b820;
 }
 
 .type.rock {
-    background: #B8A038;
+  background: #b8a038;
 }
 
 .type.ghost {
-    background: #705898;
+  background: #705898;
 }
 
 .type.dragon {
-    background: #7038F8;
+  background: #7038f8;
 }
 
 .type.dark {
-    background: #705848;
+  background: #705848;
 }
 
 .type.steel {
-    background: #B8B8D0;
-    color: #333;
+  background: #b8b8d0;
+  color: #333;
 }
 
 .type.fairy {
-    background: #EE99AC;
+  background: #ee99ac;
 }
 
-/* ============================================
-   ESTADÍSTICAS (STATS)
-   ============================================ */
-
 .stats-container {
-    padding: 30px;
-    background: linear-gradient(to bottom, #ffffff, #f5f5f5);
-    grid-column: 2 / 3;
+  padding: 30px;
+  background: linear-gradient(to bottom, #ffffff, #f5f5f5);
+  grid-column: 2 / 3;
 }
 
 .stats-container h1 {
-    font-size: 20px;
-    margin-bottom: 25px;
-    color: #333;
-    border-bottom: 3px solid #ffc107;
-    padding-bottom: 15px;
+  font-size: 20px;
+  margin-bottom: 25px;
+  color: #333;
+  border-bottom: 3px solid #ffc107;
+  padding-bottom: 15px;
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
 }
 
 .stat-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stat-bars-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 2px;
-    height: 250px;
-    width: 100%;
-    margin-bottom: 15px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(240, 240, 240, 0.9));
-    padding: 8px;
-    border-radius: 10px;
-    border: 2px solid #ddd;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  height: 250px;
+  width: 100%;
+  margin-bottom: 15px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.5),
+    rgba(240, 240, 240, 0.9)
+  );
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .bar {
-    width: 100%;
-    height: 12px;
-    background-color: #f0f0f0;
-    border-radius: 3px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid #e0e0e0;
+  width: 100%;
+  height: 12px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
 }
 
 .bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
-    border-radius: 2px;
-    width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+  border-radius: 2px;
+  width: 100%;
 }
 
-/* Colores por tipo de estadística */
 .stat-column:nth-child(1) .bar-fill {
-    background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+  background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
 }
 
 .stat-column:nth-child(2) .bar-fill {
-    background: linear-gradient(90deg, #f39c12 0%, #d68910 100%);
+  background: linear-gradient(90deg, #f39c12 0%, #d68910 100%);
 }
 
 .stat-column:nth-child(3) .bar-fill {
-    background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+  background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
 }
 
 .stat-column:nth-child(4) .bar-fill {
-    background: linear-gradient(90deg, #9b59b6 0%, #8e44ad 100%);
+  background: linear-gradient(90deg, #9b59b6 0%, #8e44ad 100%);
 }
 
 .stat-column:nth-child(5) .bar-fill {
-    background: linear-gradient(90deg, #1abc9c 0%, #16a085 100%);
+  background: linear-gradient(90deg, #1abc9c 0%, #16a085 100%);
 }
 
 .stat-column:nth-child(6) .bar-fill {
-    background: linear-gradient(90deg, #f1c40f 0%, #d68910 100%);
+  background: linear-gradient(90deg, #f1c40f 0%, #d68910 100%);
 }
 
 .stat-name {
-    text-align: center;
-    font-size: 13px;
-    font-weight: bold;
-    color: #333;
-    text-transform: capitalize;
-    margin-bottom: 8px;
-    line-height: 1.3;
-    letter-spacing: 0.5px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  text-transform: capitalize;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
 }
 
 .stat-value {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background: #ffc107;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 2px solid #ffc107;
-    box-shadow: 0 3px 8px rgba(245, 235, 91, 0.3);
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: #ffc107;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 2px solid #ffc107;
+  box-shadow: 0 3px 8px rgba(245, 235, 91, 0.3);
 }
 
 .moves-container {
-    max-height: 500px;
-    width: 390px;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
-    position: absolute;
-    padding: 1rem;
+  max-height: 500px;
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  position: absolute;
+  padding: 1rem;
 
-    top: 450px;
-    left: 10px;
+  top: 450px;
+  left: 10px;
 }
 
-
 .moves-container::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 .moves-container::-webkit-scrollbar-track {
-    background: rgba(255, 193, 7, 0.1);
-    border-radius: 10px;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 10px;
 }
 
 .moves-container::-webkit-scrollbar-thumb {
-    background: #ffc107;
-    border-radius: 10px;
-    border: 2px solid #1e1e2e;
+  background: #ffc107;
+  border-radius: 10px;
+  border: 2px solid #1e1e2e;
 }
 
 .moves-container::-webkit-scrollbar-thumb:hover {
-    background: #ffb300;
+  background: #ffb300;
 }
 
-/* Título Moves */
 .moves-container h2 {
-    font-size: 20px;
-    color: #ece8e8;
-    margin: 0 0 20px 0;
-    padding-bottom: 12px;
-    border-bottom: 3px solid #ffc107;
-    font-weight: bold;
-    letter-spacing: 1px;
+  font-size: 20px;
+  color: #ece8e8;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #ffc107;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
-
-/* ============================================
-   CONTENEDOR DE MOVIMIENTO INDIVIDUAL
-   ============================================ */
 
 .move-container {
-    background: rgba(255, 193, 7, 0.08);
-    border-left: 4px solid #ffc107;
-    padding: 15px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 193, 7, 0.08);
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .move-container:hover {
-    background: rgba(255, 193, 7, 0.15);
-    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
-    transform: translateX(5px);
-    border-left-width: 6px;
+  background: rgba(255, 193, 7, 0.15);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  transform: translateX(5px);
+  border-left-width: 6px;
 }
 
 .move-container:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-/* Colores por tipo de movimiento */
 .move-container.normal {
-    border-left-color: #A8A878;
-    background: rgba(168, 168, 120, 0.1);
+  border-left-color: #a8a878;
+  background: rgba(168, 168, 120, 0.1);
 }
 
 .move-container.normal:hover {
-    background: rgba(168, 168, 120, 0.2);
-    box-shadow: 0 4px 15px rgba(168, 168, 120, 0.3);
+  background: rgba(168, 168, 120, 0.2);
+  box-shadow: 0 4px 15px rgba(168, 168, 120, 0.3);
 }
 
 .move-container.normal .name {
-    color: #A8A878;
-    text-shadow: 0 0 8px rgba(168, 168, 120, 0.4);
+  color: #a8a878;
+  text-shadow: 0 0 8px rgba(168, 168, 120, 0.4);
 }
 
 .move-container.fire {
-    border-left-color: #F08030;
-    background: rgba(240, 128, 48, 0.1);
+  border-left-color: #f08030;
+  background: rgba(240, 128, 48, 0.1);
 }
 
 .move-container.fire:hover {
-    background: rgba(240, 128, 48, 0.2);
-    box-shadow: 0 4px 15px rgba(240, 128, 48, 0.3);
+  background: rgba(240, 128, 48, 0.2);
+  box-shadow: 0 4px 15px rgba(240, 128, 48, 0.3);
 }
 
 .move-container.fire .name {
-    color: #F08030;
-    text-shadow: 0 0 8px rgba(240, 128, 48, 0.4);
+  color: #f08030;
+  text-shadow: 0 0 8px rgba(240, 128, 48, 0.4);
 }
 
 .move-container.water {
-    border-left-color: #6890F0;
-    background: rgba(104, 144, 240, 0.1);
+  border-left-color: #6890f0;
+  background: rgba(104, 144, 240, 0.1);
 }
 
 .move-container.water:hover {
-    background: rgba(104, 144, 240, 0.2);
-    box-shadow: 0 4px 15px rgba(104, 144, 240, 0.3);
+  background: rgba(104, 144, 240, 0.2);
+  box-shadow: 0 4px 15px rgba(104, 144, 240, 0.3);
 }
 
 .move-container.water .name {
-    color: #6890F0;
-    text-shadow: 0 0 8px rgba(104, 144, 240, 0.4);
+  color: #6890f0;
+  text-shadow: 0 0 8px rgba(104, 144, 240, 0.4);
 }
 
 .move-container.electric {
-    border-left-color: #F8D030;
-    background: rgba(248, 208, 48, 0.1);
+  border-left-color: #f8d030;
+  background: rgba(248, 208, 48, 0.1);
 }
 
 .move-container.electric:hover {
-    background: rgba(248, 208, 48, 0.2);
-    box-shadow: 0 4px 15px rgba(248, 208, 48, 0.3);
+  background: rgba(248, 208, 48, 0.2);
+  box-shadow: 0 4px 15px rgba(248, 208, 48, 0.3);
 }
 
 .move-container.electric .name {
-    color: #F8D030;
-    text-shadow: 0 0 8px rgba(248, 208, 48, 0.4);
+  color: #f8d030;
+  text-shadow: 0 0 8px rgba(248, 208, 48, 0.4);
 }
 
 .move-container.grass {
-    border-left-color: #78C850;
-    background: rgba(120, 200, 80, 0.1);
+  border-left-color: #78c850;
+  background: rgba(120, 200, 80, 0.1);
 }
 
 .move-container.grass:hover {
-    background: rgba(120, 200, 80, 0.2);
-    box-shadow: 0 4px 15px rgba(120, 200, 80, 0.3);
+  background: rgba(120, 200, 80, 0.2);
+  box-shadow: 0 4px 15px rgba(120, 200, 80, 0.3);
 }
 
 .move-container.grass .name {
-    color: #78C850;
-    text-shadow: 0 0 8px rgba(120, 200, 80, 0.4);
+  color: #78c850;
+  text-shadow: 0 0 8px rgba(120, 200, 80, 0.4);
 }
 
 .move-container.ice {
-    border-left-color: #98D8D8;
-    background: rgba(152, 216, 216, 0.1);
+  border-left-color: #98d8d8;
+  background: rgba(152, 216, 216, 0.1);
 }
 
 .move-container.ice:hover {
-    background: rgba(152, 216, 216, 0.2);
-    box-shadow: 0 4px 15px rgba(152, 216, 216, 0.3);
+  background: rgba(152, 216, 216, 0.2);
+  box-shadow: 0 4px 15px rgba(152, 216, 216, 0.3);
 }
 
 .move-container.ice .name {
-    color: #98D8D8;
-    text-shadow: 0 0 8px rgba(152, 216, 216, 0.4);
+  color: #98d8d8;
+  text-shadow: 0 0 8px rgba(152, 216, 216, 0.4);
 }
 
 .move-container.fighting {
-    border-left-color: #C03028;
-    background: rgba(192, 48, 40, 0.1);
+  border-left-color: #c03028;
+  background: rgba(192, 48, 40, 0.1);
 }
 
 .move-container.fighting:hover {
-    background: rgba(192, 48, 40, 0.2);
-    box-shadow: 0 4px 15px rgba(192, 48, 40, 0.3);
+  background: rgba(192, 48, 40, 0.2);
+  box-shadow: 0 4px 15px rgba(192, 48, 40, 0.3);
 }
 
 .move-container.fighting .name {
-    color: #C03028;
-    text-shadow: 0 0 8px rgba(192, 48, 40, 0.4);
+  color: #c03028;
+  text-shadow: 0 0 8px rgba(192, 48, 40, 0.4);
 }
 
 .move-container.poison {
-    border-left-color: #A040A0;
-    background: rgba(160, 64, 160, 0.1);
+  border-left-color: #a040a0;
+  background: rgba(160, 64, 160, 0.1);
 }
 
 .move-container.poison:hover {
-    background: rgba(160, 64, 160, 0.2);
-    box-shadow: 0 4px 15px rgba(160, 64, 160, 0.3);
+  background: rgba(160, 64, 160, 0.2);
+  box-shadow: 0 4px 15px rgba(160, 64, 160, 0.3);
 }
 
 .move-container.poison .name {
-    color: #A040A0;
-    text-shadow: 0 0 8px rgba(160, 64, 160, 0.4);
+  color: #a040a0;
+  text-shadow: 0 0 8px rgba(160, 64, 160, 0.4);
 }
 
 .move-container.ground {
-    border-left-color: #E0C068;
-    background: rgba(224, 192, 104, 0.1);
+  border-left-color: #e0c068;
+  background: rgba(224, 192, 104, 0.1);
 }
 
 .move-container.ground:hover {
-    background: rgba(224, 192, 104, 0.2);
-    box-shadow: 0 4px 15px rgba(224, 192, 104, 0.3);
+  background: rgba(224, 192, 104, 0.2);
+  box-shadow: 0 4px 15px rgba(224, 192, 104, 0.3);
 }
 
 .move-container.ground .name {
-    color: #E0C068;
-    text-shadow: 0 0 8px rgba(224, 192, 104, 0.4);
+  color: #e0c068;
+  text-shadow: 0 0 8px rgba(224, 192, 104, 0.4);
 }
 
 .move-container.flying {
-    border-left-color: #A890F0;
-    background: rgba(168, 144, 240, 0.1);
+  border-left-color: #a890f0;
+  background: rgba(168, 144, 240, 0.1);
 }
 
 .move-container.flying:hover {
-    background: rgba(168, 144, 240, 0.2);
-    box-shadow: 0 4px 15px rgba(168, 144, 240, 0.3);
+  background: rgba(168, 144, 240, 0.2);
+  box-shadow: 0 4px 15px rgba(168, 144, 240, 0.3);
 }
 
 .move-container.flying .name {
-    color: #A890F0;
-    text-shadow: 0 0 8px rgba(168, 144, 240, 0.4);
+  color: #a890f0;
+  text-shadow: 0 0 8px rgba(168, 144, 240, 0.4);
 }
 
 .move-container.psychic {
-    border-left-color: #F85888;
-    background: rgba(248, 88, 136, 0.1);
+  border-left-color: #f85888;
+  background: rgba(248, 88, 136, 0.1);
 }
 
 .move-container.psychic:hover {
-    background: rgba(248, 88, 136, 0.2);
-    box-shadow: 0 4px 15px rgba(248, 88, 136, 0.3);
+  background: rgba(248, 88, 136, 0.2);
+  box-shadow: 0 4px 15px rgba(248, 88, 136, 0.3);
 }
 
 .move-container.psychic .name {
-    color: #F85888;
-    text-shadow: 0 0 8px rgba(248, 88, 136, 0.4);
+  color: #f85888;
+  text-shadow: 0 0 8px rgba(248, 88, 136, 0.4);
 }
 
 .move-container.bug {
-    border-left-color: #A8B820;
-    background: rgba(168, 184, 32, 0.1);
+  border-left-color: #a8b820;
+  background: rgba(168, 184, 32, 0.1);
 }
 
 .move-container.bug:hover {
-    background: rgba(168, 184, 32, 0.2);
-    box-shadow: 0 4px 15px rgba(168, 184, 32, 0.3);
+  background: rgba(168, 184, 32, 0.2);
+  box-shadow: 0 4px 15px rgba(168, 184, 32, 0.3);
 }
 
 .move-container.bug .name {
-    color: #A8B820;
-    text-shadow: 0 0 8px rgba(168, 184, 32, 0.4);
+  color: #a8b820;
+  text-shadow: 0 0 8px rgba(168, 184, 32, 0.4);
 }
 
 .move-container.rock {
-    border-left-color: #B8A038;
-    background: rgba(184, 160, 56, 0.1);
+  border-left-color: #b8a038;
+  background: rgba(184, 160, 56, 0.1);
 }
 
 .move-container.rock:hover {
-    background: rgba(184, 160, 56, 0.2);
-    box-shadow: 0 4px 15px rgba(184, 160, 56, 0.3);
+  background: rgba(184, 160, 56, 0.2);
+  box-shadow: 0 4px 15px rgba(184, 160, 56, 0.3);
 }
 
 .move-container.rock .name {
-    color: #B8A038;
-    text-shadow: 0 0 8px rgba(184, 160, 56, 0.4);
+  color: #b8a038;
+  text-shadow: 0 0 8px rgba(184, 160, 56, 0.4);
 }
 
 .move-container.ghost {
-    border-left-color: #705898;
-    background: rgba(112, 88, 152, 0.1);
+  border-left-color: #705898;
+  background: rgba(112, 88, 152, 0.1);
 }
 
 .move-container.ghost:hover {
-    background: rgba(112, 88, 152, 0.2);
-    box-shadow: 0 4px 15px rgba(112, 88, 152, 0.3);
+  background: rgba(112, 88, 152, 0.2);
+  box-shadow: 0 4px 15px rgba(112, 88, 152, 0.3);
 }
 
 .move-container.ghost .name {
-    color: #705898;
-    text-shadow: 0 0 8px rgba(112, 88, 152, 0.4);
+  color: #705898;
+  text-shadow: 0 0 8px rgba(112, 88, 152, 0.4);
 }
 
 .move-container.dragon {
-    border-left-color: #7038F8;
-    background: rgba(112, 56, 248, 0.1);
+  border-left-color: #7038f8;
+  background: rgba(112, 56, 248, 0.1);
 }
 
 .move-container.dragon:hover {
-    background: rgba(112, 56, 248, 0.2);
-    box-shadow: 0 4px 15px rgba(112, 56, 248, 0.3);
+  background: rgba(112, 56, 248, 0.2);
+  box-shadow: 0 4px 15px rgba(112, 56, 248, 0.3);
 }
 
 .move-container.dragon .name {
-    color: #7038F8;
-    text-shadow: 0 0 8px rgba(112, 56, 248, 0.4);
+  color: #7038f8;
+  text-shadow: 0 0 8px rgba(112, 56, 248, 0.4);
 }
 
 .move-container.dark {
-    border-left-color: #705848;
-    background: rgba(112, 88, 72, 0.1);
+  border-left-color: #705848;
+  background: rgba(112, 88, 72, 0.1);
 }
 
 .move-container.dark:hover {
-    background: rgba(112, 88, 72, 0.2);
-    box-shadow: 0 4px 15px rgba(112, 88, 72, 0.3);
+  background: rgba(112, 88, 72, 0.2);
+  box-shadow: 0 4px 15px rgba(112, 88, 72, 0.3);
 }
 
 .move-container.dark .name {
-    color: #705848;
-    text-shadow: 0 0 8px rgba(112, 88, 72, 0.4);
+  color: #705848;
+  text-shadow: 0 0 8px rgba(112, 88, 72, 0.4);
 }
 
 .move-container.steel {
-    border-left-color: #B8B8D0;
-    background: rgba(184, 184, 208, 0.1);
+  border-left-color: #b8b8d0;
+  background: rgba(184, 184, 208, 0.1);
 }
 
 .move-container.steel:hover {
-    background: rgba(184, 184, 208, 0.2);
-    box-shadow: 0 4px 15px rgba(184, 184, 208, 0.3);
+  background: rgba(184, 184, 208, 0.2);
+  box-shadow: 0 4px 15px rgba(184, 184, 208, 0.3);
 }
 
 .move-container.steel .name {
-    color: #B8B8D0;
-    text-shadow: 0 0 8px rgba(184, 184, 208, 0.4);
+  color: #b8b8d0;
+  text-shadow: 0 0 8px rgba(184, 184, 208, 0.4);
 }
 
 .move-container.fairy {
-    border-left-color: #EE99AC;
-    background: rgba(238, 153, 172, 0.1);
+  border-left-color: #ee99ac;
+  background: rgba(238, 153, 172, 0.1);
 }
 
 .move-container.fairy:hover {
-    background: rgba(238, 153, 172, 0.2);
-    box-shadow: 0 4px 15px rgba(238, 153, 172, 0.3);
+  background: rgba(238, 153, 172, 0.2);
+  box-shadow: 0 4px 15px rgba(238, 153, 172, 0.3);
 }
 
 .move-container.fairy .name {
-    color: #EE99AC;
-    text-shadow: 0 0 8px rgba(238, 153, 172, 0.4);
+  color: #ee99ac;
+  text-shadow: 0 0 8px rgba(238, 153, 172, 0.4);
 }
-
-/* ============================================
-   NOMBRE DEL MOVIMIENTO
-   ============================================ */
 
 .move-container .name {
-    font-size: 17px;
-    font-weight: bold;
-    color: #ffc107;
-    text-transform: capitalize;
-    margin: 0 0 8px 0;
-    text-shadow: 0 0 8px rgba(255, 193, 7, 0.3);
-    letter-spacing: 0.5px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #ffc107;
+  text-transform: capitalize;
+  margin: 0 0 8px 0;
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.3);
+  letter-spacing: 0.5px;
 }
-
-/* ============================================
-   ACCURACY Y POWER
-   ============================================ */
 
 .move-container .accuracy,
 .move-container .power {
-    font-size: 14px;
-    color: #bbb;
-    margin: 5px 0;
-    font-weight: 500;
-    text-transform: capitalize;
+  font-size: 14px;
+  color: #bbb;
+  margin: 5px 0;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
 .move-container .accuracy::before {
-    content: '⊙ ';
-    color: #ffc107;
-    font-weight: bold;
+  content: "⊙ ";
+  color: #ffc107;
+  font-weight: bold;
 }
 
 .move-container .power::before {
-    content: '⚡ ';
-    color: #ffc107;
-    font-weight: bold;
+  content: "⚡ ";
+  color: #ffc107;
+  font-weight: bold;
 }
 
-/* ============================================
-   TIPO DEL MOVIMIENTO
-   ============================================ */
-
 .move-container .type {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    color: #333;
-    padding: 4px 10px;
-    border-radius: 15px;
-    margin-top: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.2s;
-    letter-spacing: 1px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 15px;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  letter-spacing: 1px;
 }
 
 .back-button-container {
-    max-width: 50px;
-    position: absolute;
-    top: 25px;
-    left: 300px;
+  max-width: 50px;
+  position: absolute;
+  top: 25px;
+  left: 300px;
 }
-
 
 .back-button-container img {
-    max-width: 50px;
-    filter: drop-shadow(0 0px 2px yellow);
+  max-width: 50px;
+  filter: drop-shadow(0 0px 2px yellow);
 }
 
-
 .back-button-container img:hover {
-    transform: scale(1.1);
-    transition: 0.2s ease-in;
+  transform: scale(1.1);
+  transition: 0.2s ease-in;
 }

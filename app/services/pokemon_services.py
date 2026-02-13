@@ -42,6 +42,9 @@ def get_data_pokemon_atack(move):
 
 def adapt_data_pokemon(id):
     pokemonData = get_pokemon_detail(id)
+    
+    if pokemonData is None:
+        return None
 
     contadorMovimientos = 0
     movementsList = []

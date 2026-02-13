@@ -31,7 +31,7 @@ def index():
             except TrainerNotFound:
                 error = "Incorrect username or password"
 
-    return render_template('index.html', error=error, current_year=current_year)
+    return render_template('index.html', error=error, current_year=current_year, music=url_for('static', filename='sounds/inicio.mp3'))
 
 
 @home_bp.route('/sign-up', methods=["GET", "POST"])
@@ -42,7 +42,7 @@ def sign_up():
     password2 = None
 
     if request.method == "GET":
-        return render_template('sign-up.html', current_year=current_year)
+        return render_template('sign-up.html', current_year=current_year, music=url_for('static', filename='sounds/inicio.mp3'))
 
     if request.method == "POST":
         name = request.form.get("name").lower()
@@ -61,7 +61,7 @@ def sign_up():
             error = "This trainer already exists"
 
         if error:
-            return render_template('sign-up.html', error=error)
+            return render_template('sign-up.html', error=error, music=url_for('static', filename='sounds/inicio.mp3'))
         elif error is None:
             session["trainer_name"] = name
             session["trainer_password"] = password2
@@ -87,14 +87,14 @@ def trainer_skin():
         if action == "go_back":
             return redirect(url_for("home.sign_up"))
 
-    return render_template("skin_selection.html", current_year=current_year, selected_skin=selected_skin)
+    return render_template("skin_selection.html", current_year=current_year, selected_skin=selected_skin, music=url_for('static', filename='sounds/inicio.mp3'))
 
 
 @home_bp.route('/Profile')
 def profile():
     trainer1 = session.get("trainer")["name"]
     battles = get_battles_by_trainer(trainer1)
-    return render_template('profile.html', current_year=current_year, battles=battles)
+    return render_template('profile.html', current_year=current_year, battles=battles, music=url_for('static', filename='sounds/inicio.mp3'))
 
 @home_bp.route('/battle-details/<int:battle_id>')
 def battle_details(battle_id):
@@ -103,7 +103,7 @@ def battle_details(battle_id):
         
     battle = get_battle_by_id(battle_id)
 
-    return render_template('battle_details.html', battle=battle, current_year=current_year)
+    return render_template('battle_details.html', battle=battle, current_year=current_year, music=url_for('static', filename='sounds/inicio.mp3'))
 
 @home_bp.route('/battle/delete/<int:battle_id>', methods=["POST"])
 def delete_battle_action(battle_id):
@@ -131,4 +131,4 @@ def log_out():
 
 @home_bp.route('/404')
 def error404():
-    return render_template('404.html'), 404
+    return render_template('404.html', current_year=current_year, music=url_for('static', filename='sounds/inicio.mp3')), 404

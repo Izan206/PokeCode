@@ -1,5 +1,4 @@
 body {
-  /* background-color: #0d0d13; */
   background-image: url("../images/pokedex-page/background.webp");
   background-size: cover;
   background-repeat: no-repeat;
@@ -77,13 +76,8 @@ a {
   color: rgb(0, 0, 0);
   border-radius: 4px;
   text-transform: capitalize;
-  /* border: 3px double #F8D030;
-    border-radius: 0.6rem; */
 }
 .contenido-desplegable {
-  /* Esto oculta los enlaces por defecto */
-  display: none;
-  position: absolute;
   min-width: 160px;
   z-index: 1;
   right: 1.4%;
@@ -91,7 +85,6 @@ a {
 }
 
 .contenido-desplegable a {
-  /* Estilo para los enlaces internos */
   border: 3px double #f8d030;
   border-radius: 0.6rem;
   font-size: 19px;

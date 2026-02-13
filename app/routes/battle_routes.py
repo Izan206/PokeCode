@@ -52,7 +52,7 @@ def battles():
         pokemon_player = battle.player_pokemon_data
         pokemon_enemy = battle.enemy_pokemon_data
 
-    return render_template("battles.html", battle=battle, pokemon=pokemon_player, pokemon_enemy=pokemon_enemy, music="static/sounds/inicio.mp3", current_year=current_year)
+    return render_template("battles.html", battle=battle, pokemon=pokemon_player, pokemon_enemy=pokemon_enemy, music=url_for('static', filename='sounds/inicio.mp3'), current_year=current_year)
 
 
 @battle_bp.route('/attack', methods=['GET', 'POST'])
